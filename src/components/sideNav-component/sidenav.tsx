@@ -19,6 +19,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import HelpIcon from '@material-ui/icons/Help';
 import { Omit } from '@material-ui/types';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 const drawerWidth = 240;
@@ -98,7 +100,7 @@ function ListItemLink(props: ListItemLinkProps) {
   const renderLink = React.useMemo(
     () =>
       React.forwardRef<any, Omit<RouterLinkProps, 'to'>>((itemProps, ref) => (
-        <RouterLink to={to} ref={ref} {...itemProps} />
+        <RouterLink to={to} ref={ref} {...itemProps}/>
       )),
     [to],
   );
@@ -172,8 +174,8 @@ export default function SideNav() {
         </div>
         <Divider />
         <List>
-          <ListItemLink to="/support" primary="Support" icon={<LibraryBooksIcon />}></ListItemLink>
-          <ListItemLink to="/syllabus" primary="Syllabus" icon={<HelpIcon />}></ListItemLink>
+          <ListItemLink to="/support" primary="Support" icon={<Tooltip title="Support" aria-label="support" placement="right"><LibraryBooksIcon /></Tooltip>}></ListItemLink>
+        <ListItemLink to="/syllabus" primary="Syllabus" icon={<Tooltip title="Syllabus" aria-label="syllabus" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
         </List>
         <Divider />
       </Drawer>

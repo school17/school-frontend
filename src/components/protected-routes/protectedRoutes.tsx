@@ -4,7 +4,6 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
-
 import ProtectedPages from '../protected-pages/protectedPages';
 
 interface Props {
@@ -13,7 +12,7 @@ interface Props {
 }
 
 function ProtectRoutes({children, ...rest}:Props): ReactElement {
-  const [userName] = useState(localStorage.getItem('userName'));
+  const [userName] = useState(localStorage.getItem('token'));
   let history = useHistory();
   let location = useLocation();
   if(!userName) {

@@ -1,0 +1,1 @@
+export const modes = ['Matriculation', 'CBSE', 'ICSE']

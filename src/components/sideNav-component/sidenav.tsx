@@ -20,6 +20,7 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import HelpIcon from '@material-ui/icons/Help';
 import { Omit } from '@material-ui/types';
 import Tooltip from '@material-ui/core/Tooltip';
+import {useSelector} from "react-redux";
 
 
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
@@ -116,6 +117,9 @@ function ListItemLink(props: ListItemLinkProps) {
 }
 
 export default function SideNav() {
+  const {role, institution} = useSelector((store:any) => {
+    return store.loginReducer
+  })
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -175,7 +179,8 @@ export default function SideNav() {
         <Divider />
         <List>
           <ListItemLink to="/support" primary="Support" icon={<Tooltip title="Support" aria-label="support" placement="right"><LibraryBooksIcon /></Tooltip>}></ListItemLink>
-        <ListItemLink to="/syllabus" primary="Syllabus" icon={<Tooltip title="Syllabus" aria-label="syllabus" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
+          <ListItemLink to="/syllabus" primary="Syllabus" icon={<Tooltip title="Syllabus" aria-label="syllabus" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
+          <ListItemLink to={`/institution/${institution}/school-onboarding`} primary="schoolOnbarding" icon={<Tooltip title="School-onbarding" aria-label="School-onbarding" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
         </List>
         <Divider />
       </Drawer>

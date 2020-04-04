@@ -11,14 +11,13 @@ interface Props {
 
 function OnbardingBaseComponent({}: Props): ReactElement {
   const dispatch = useDispatch();
-  let location = useLocation();
   let { institutionId } = useParams();
   const {role, institution} = useSelector((store:any) => {
     return store.loginReducer
   })
   const authorizationHandler = () => {
     if(institutionId === institution) {
-      dispatch(getSchoolDetails(institutionId))
+        dispatch(getSchoolDetails(institutionId))
       return (
       <OnboardingFrom></OnboardingFrom>
       )

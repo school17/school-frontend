@@ -17,6 +17,14 @@ export const textFieldTheme  = createMuiTheme({
           borderColor: "#F5F6F8"
         }
       }
+    },
+    MuiButton: {
+      containedPrimary: {
+        backgroundColor: "#00425E",
+        "&:hover": {
+          backgroundColor: "#003248"
+        }
+      }
     }
   }
 });

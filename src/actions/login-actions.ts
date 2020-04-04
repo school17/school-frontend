@@ -4,13 +4,13 @@ export enum loginActions {
   SET_LOGIN_DETAILS = 'SET_LOGIN_DETAILS'
 }
 
-export const setLoginDetails = (role: any, institution: any) => {
+export const setLoginDetails = (role: any, institution: any, email: any) => {
   return(dispatch: Dispatch) => {
     const payload = {
       role: role,
-      institution: institution
+      institution: institution,
+      email: email
     }
-    console.log("PAYLOAD ", payload)
     return dispatch({type: loginActions.SET_LOGIN_DETAILS, payload: payload})
   }
 }

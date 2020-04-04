@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router';
 import SyllabusBase from './syllabus-revamp/syllabusBase';
 import OnbardingBaseComponent from '../school-onboarding/onbardingBaseComponent';
 import LandingRedirect from '../base-component/landingRedirect';
+import ResetPasswordComponent from '../login-component/resetPasswordComponent';
 
 function Base(): ReactElement {
   return (

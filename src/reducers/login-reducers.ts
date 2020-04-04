@@ -1,6 +1,7 @@
 export const initialState = {
   role: localStorage.getItem('role'),
-  institution:  localStorage.getItem('institution')
+  institution:  localStorage.getItem('institution'),
+  email: ''
 }
 
 export default (state = initialState, action: any = {}) => {
@@ -9,7 +10,8 @@ export default (state = initialState, action: any = {}) => {
       return {
         ...state,
         role: action.payload.role,
-        institution: action.payload.institution
+        institution: action.payload.institution,
+        email: action.payload.email
       }
     }
     default: {

@@ -118,12 +118,14 @@ export const setImageUrl = (image: any) => {
 
 export const getSchoolDetails = (institutionId: any) => {
   return async (dispatch: Dispatch) => {
-    const url = `http://localhost:8080/api/institution/${institutionId}/get_institution`
+    const url = `http://localhost:8081/api/institution/${institutionId}/get_institution`
     try {
       const token: any  = localStorage.getItem("token");
       const institutionDetails = await axios.get(url, {
         'headers': {
-          'Authorization': token
+          'Authorization': token,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin' : '*'
         }
       });
       dispatch({type: ValidAddressFormActions.GET_SCHOOL_DETAILS, payload: institutionDetails.data})

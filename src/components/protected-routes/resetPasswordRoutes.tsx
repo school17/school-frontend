@@ -4,15 +4,15 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
-import ProtectedPages from '../protected-pages/protectedPages';
-
+import ResetPasswordComponent from '../login-component/resetPasswordComponent';
 
 interface Props {
   children: ReactNode;
   path: string;
 }
 
-function ProtectRoutes({children, ...rest}:Props): ReactElement {
+function ResetPasswordRoutes({children, ...rest}:Props): ReactElement {
+
   const [userName] = useState(localStorage.getItem('token'));
   let location = useLocation();
   if(!userName) {
@@ -28,11 +28,11 @@ function ProtectRoutes({children, ...rest}:Props): ReactElement {
   else {
     return (
       <div>
-        <ProtectedPages></ProtectedPages>
+        <ResetPasswordComponent></ResetPasswordComponent>
       </div>
     )
   }
   
 }
 
-export default ProtectRoutes
+export default ResetPasswordRoutes

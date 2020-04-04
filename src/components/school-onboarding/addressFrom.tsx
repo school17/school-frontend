@@ -82,10 +82,8 @@ export default function AddressFrom(): ReactElement {
     (store: AnyAction) => store.addressFormStore.submitAddressForm
   );
   const { name, branch, address } = useSelector((store: any) => {
-    debugger
     return store.addressFormStore;
   });
-  console.log("PRINTING ===>", name);
   const formik = useFormik({
     initialValues: {
       name: name,

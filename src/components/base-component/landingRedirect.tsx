@@ -1,16 +1,24 @@
 import React, { ReactElement } from 'react'
 import {useSelector} from "react-redux";
 import { Redirect, useLocation } from "react-router-dom";
+import {userDetails} from './../../utils/userDetails';
+
 interface Props {
   
 }
 
 function LandingRedirect({}: Props): ReactElement {
   let location = useLocation();
-  const {role, institution} = useSelector((store:any) => {
-    return store.loginReducer
+  const {user} = useSelector((store: any) => {
+    return store.userDetailsReducer;
   })
-  const url = role === 'ADMIN' ? `/institution/${institution}/school-onboarding` :'/syllabus';
+  const {role, institution, email} = userDetails();
+  let url = '/';
+  if(user.temporaryPassword){
+    url = '/reset-password'
+  }else {
+    url = role === 'ADMIN' ? `/institution/${institution}/school-onboarding` :'/syllabus';
+  }
   return (
     <Redirect
         to={{

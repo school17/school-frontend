@@ -11,6 +11,7 @@ export const InitialState = {
   mode: "",
   grades: "",
   phoneNumber: "",
+  adminUser: "",
   email: "",
   address: {
     address1: "",
@@ -42,7 +43,8 @@ export default (state = InitialState, action: any = {}) => {
         mode:  action.payload.mode,
         grades: action.payload.grades,
         phoneNumber: action.payload.phoneNumber,
-        email: action.payload.email
+        email: action.payload.email,
+        adminUser: action.payload.adminUser
       };
     case "RESET_STEPPER":
       return {

@@ -7,6 +7,7 @@ import syllabusModalReducer from './syllabus-modal-reducers';
 import addressFromReucer from './addressForm-reducers';
 import loginReducer from './login-reducers';
 import userDetailsReducer from './user-details-reducers';
+import teacherReducer from './teachers-reducers';
 
 const reducers = {
   postStore: postsReducer,
@@ -14,7 +15,8 @@ const reducers = {
   syllabusModalStore: syllabusModalReducer,
   addressFormStore: addressFromReucer,
   loginReducer: loginReducer,
-  userDetailsReducer: userDetailsReducer
+  userDetailsReducer: userDetailsReducer,
+  teacherReducer: teacherReducer
 }
 
 const rootReducer = combineReducers(reducers);

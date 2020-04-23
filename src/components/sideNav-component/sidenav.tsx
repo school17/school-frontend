@@ -20,6 +20,7 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import HelpIcon from '@material-ui/icons/Help';
 import { Omit } from '@material-ui/types';
 import Tooltip from '@material-ui/core/Tooltip';
+import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import {useSelector} from "react-redux";
 
 
@@ -29,7 +30,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
+      display: 'flex'
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
@@ -181,6 +182,7 @@ export default function SideNav() {
           <ListItemLink to="/support" primary="Support" icon={<Tooltip title="Support" aria-label="support" placement="right"><LibraryBooksIcon /></Tooltip>}></ListItemLink>
           <ListItemLink to="/syllabus" primary="Syllabus" icon={<Tooltip title="Syllabus" aria-label="syllabus" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
           <ListItemLink to={`/institution/${institution}/school-onboarding`} primary="schoolOnbarding" icon={<Tooltip title="School-onbarding" aria-label="School-onbarding" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
+          <ListItemLink to="/teachers" primary="Teachers" icon={<Tooltip title="Teachers" aria-label="teachers" placement="right"><LocalLibraryIcon /></Tooltip>}></ListItemLink>
         </List>
         <Divider />
       </Drawer>

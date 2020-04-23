@@ -1,11 +1,16 @@
 import React from 'react';
 import './App.css';
 import BaseComponent from './components/base-component/baseComponent';
-
+import { ThemeProvider } from '@material-ui/core/styles';
+import {Theme} from './utils/baseStyles'
 const App: React.FC = () => {
+  
   return (
     <div className="App">
-      <BaseComponent/>
+    
+      <ThemeProvider theme={Theme}>
+      <BaseComponent/> 
+      </ThemeProvider>
     </div>
   );
 }

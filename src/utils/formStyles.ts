@@ -38,6 +38,12 @@ createStyles({
     marginBottom: theme.spacing(3),
     width: "75%"
   },
+  drawerFormControl: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: '0 20px',
+    width: "100%"
+  },
   selectEmpty: {
     marginTop: theme.spacing(5),
   },
@@ -57,10 +63,18 @@ createStyles({
     fontWeight: 500,
     fontSize: '15px'
   },
+  drawerLabel: {
+    top: '-50px',
+    color: 'black',
+    left: '25px',
+    fontWeight: 500,
+    fontSize: '12px', 
+  },
   error: {
     textAlign: "start",
     margin: '10px 0 0 10px',
-    fontWeight: 400
+    fontWeight: 400,
+    color: '#cc0000'
   },
   formFields: {
     paddingTop: 20,

@@ -1,8 +1,14 @@
 
 const initialState = {
   teachers: [],
+  teachersPayload:{
+    teachers: [],
+    totalPages: 0,
+    totalElements: 0
+  },
   loading: false,
   error: null,
+  saved: null
 }
 
 export default (state = initialState,  action:any = {}) => {
@@ -10,7 +16,26 @@ export default (state = initialState,  action:any = {}) => {
     case 'GET_TEACHERS': {
       return {
         ...state,
-        teachers: action.payload
+        teachersPayload: {
+          teachers: action.payload.content,
+          totalPages: action.payload.totalPages,
+          totalElements: action.payload.totalElements
+        }
+      }
+    }
+
+    case 'SAVE_TEACHER': {
+      return {
+        ...state,
+        teachers: [...state.teachers, action.payload],
+        saved: true
+      }
+    }
+
+    case 'SAVING' : {
+      return {
+        ...state,
+        loading: true
       }
     }
     default: {

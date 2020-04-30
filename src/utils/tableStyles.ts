@@ -11,7 +11,7 @@ export const tableRowTheme = createMuiTheme({
     MuiTableRow: {
       root: {
         "&:hover": {
-          backgroundColor: "rgb(230, 230, 230)"
+          backgroundColor: "rgb(247, 247, 247)"
         }
       }
     },
@@ -30,8 +30,7 @@ export const tableRowTheme = createMuiTheme({
         position: 'sticky',
       },
       stickyHeader :{
-        
-        backgroundColor: 'rgb(86, 188, 191)'
+        backgroundColor: 'rgb(230, 230, 230)'
       }
     }
   }

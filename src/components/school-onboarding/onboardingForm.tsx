@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "100%",
-      boxShadow: "2px 0px 16px -1px rgba(0,0,0,0.64)"
+      boxShadow: "1px 0px 15px -1px rgba(0,0,0,0.08)"
     },
     buttonContainer: {
       paddingBottom: "25px"

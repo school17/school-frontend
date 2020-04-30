@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import {
   useTable,
   useGroupBy,
@@ -8,6 +8,9 @@ import {
   usePagination
 } from 'react-table';
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import EditIcon from '@material-ui/icons/Edit';
+import TeacherModalComponent from './teacherModalComponent';
+import {fetchTeacher} from '../../actions/teacher-action';
 
 import {
   MuiThemeProvider
@@ -22,8 +25,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import makeData from './makeData';
+import {useDispatch} from "react-redux";
 interface Props {
-  teachers: any
+  teachersPayload: any,
+  institution: any
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -37,9 +42,28 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
   )
-export default function TeacherListComponent({teachers}: Props): ReactElement {
+export default function TeacherListComponent({teachersPayload, institution}: Props): ReactElement {
+  const dispatch = useDispatch();
   //const data = React.useMemo(() => makeData(20), [])
-  const data = teachers;
+  const [openModel, toggleOpenModel] = useState(false);
+  const [teacher, setTeacher] = useState({});
+  const clicked = (selectedTeacher:any) => {
+    if(openModel){
+      toggleOpenModel(false);
+    } 
+    else {
+      toggleOpenModel(true);
+      setTeacher(selectedTeacher);
+    }
+  }
+
+  const [data, setData] = useState(teachersPayload.teachers);
+
+  useEffect(()=>{
+    setData(teachersPayload.teachers)
+  },[teachersPayload])
+
+  const totalPages = teachersPayload.totalPages;
   const columns = React.useMemo(
     () => [
       {
@@ -50,7 +74,6 @@ export default function TeacherListComponent({teachers}: Props): ReactElement {
           return <div style={{display: 'flex', alignItems:'center'}}>
             <img src={url} width='50px' height='50px' style={{borderRadius: "50%", margin: "0px 45px"}}/>
             <div style={{fontWeight: 500}}><span>{row.value}</span></div>
-            {/*style={{fontWeight: 500}}*/}
           </div> 
         }
       },
@@ -77,6 +100,14 @@ export default function TeacherListComponent({teachers}: Props): ReactElement {
       {
         Header: 'Class Teacher',
         accessor: 'grade',
+      },
+      {
+        Header: '',
+        accessor: 'actions',
+        Cell: (row:any) => {
+          let teacher = row.data[row.row.id];
+          return <span><EditIcon onClick = {()=>{clicked(teacher)}}></EditIcon></span>
+        }
       }
     ],
     []
@@ -99,10 +130,30 @@ export default function TeacherListComponent({teachers}: Props): ReactElement {
     {
       columns,
       data,
-      initialState: { pageIndex: 0 }
+      manualPagination: true,
+      pageCount: totalPages,
+      initialState: { pageIndex: 0}
     },
     usePagination
   )
+
+  const handleNextPage = () => {
+    const searchQuery = {
+      pageNumber: pageIndex + 1,
+      pageSize: pageSize
+    }
+    dispatch(fetchTeacher(institution, searchQuery));
+    nextPage();
+  }
+
+  const handlePreviousPage = () => {
+    const searchQuery = {
+      pageNumber: pageIndex - 1,
+      pageSize: pageSize
+    }
+    dispatch(fetchTeacher(institution, searchQuery));
+    previousPage();
+  }
 
   const classes = useStyles();
 
@@ -144,10 +195,10 @@ export default function TeacherListComponent({teachers}: Props): ReactElement {
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
           {'<<'}
         </button>{' '}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+        <button onClick={() => handlePreviousPage()} disabled={!canPreviousPage}>
           {'<'}
         </button>{' '}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
+        <button onClick={() => handleNextPage()} disabled={!canNextPage}>
           {'>'}
         </button>{' '}
         <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
@@ -177,14 +228,16 @@ export default function TeacherListComponent({teachers}: Props): ReactElement {
             setPageSize(Number(e.target.value))
           }}
         >
-          {[10, 20, 30, 40, 50].map(pageSize => (
+          {[5,10, 20, 30, 40, 50].map(pageSize => (
             <option key={pageSize} value={pageSize}>
               Show {pageSize}
             </option>
           ))}
         </select>
       </div>
+      {openModel? <TeacherModalComponent opeModel = {openModel} callBack={clicked} teacher={teacher} /> : ''}
     </MuiThemeProvider>
+   
     
   )
 }

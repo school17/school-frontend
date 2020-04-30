@@ -8,6 +8,7 @@ import {
 import {useSelector} from "react-redux";
 import {fetchTeacher} from '../../actions/teacher-action';
 import {useDispatch} from "react-redux";
+import TeachersActionComponent from './teachersActionComponent';
 interface Props {
   
 }
@@ -15,7 +16,7 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      boxShadow: "2px 0px 16px -1px rgba(0,0,0,0.64)"
+      boxShadow: "1px 0px 15px -1px rgba(0,0,0,0.08)"
     },
   })
 );
@@ -23,19 +24,23 @@ export default function TeacherComponent({}: Props): ReactElement {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const {teachers} = useSelector((store:any)=> {
+  const {teachersPayload} = useSelector((store:any)=> {
     return store.teacherReducer
   });
   const {institution} = useSelector((store:any) => {
     return store.loginReducer
   })
+  const searchQuery = {
+    pageSize: '10',
+    pageNumber: '0'
+  }
   useEffect(() => {
-    dispatch(fetchTeacher(institution));
+    dispatch(fetchTeacher(institution, searchQuery));
   },[])
-  console.log(teachers);
   return (
     <div className={classes.root}>
-      <TeacherListComponent teachers = {teachers}/>
+      <TeachersActionComponent searchQuery={searchQuery} institution={institution}></TeachersActionComponent>
+      <TeacherListComponent teachersPayload = {teachersPayload} institution={institution}/>
     </div>
   )
 }

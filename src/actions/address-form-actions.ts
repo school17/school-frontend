@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
+import {GET_INSTITUTION, HEADERS} from './url';
 export enum ValidAddressFormActions {
   VALID_ADDRESS_FORM = "VALID_ADDRESS_FORM",
   VALID_SCHOOL_INFO_FORM ='VALID_SCHOOL_INFO_FORM',
@@ -118,15 +119,10 @@ export const setImageUrl = (image: any) => {
 
 export const getSchoolDetails = (institutionId: any) => {
   return async (dispatch: Dispatch) => {
-    const url = `http://localhost:8081/api/institution/${institutionId}/get_institution`
+    const url = `${GET_INSTITUTION.replace('institutionId', institutionId)}`
     try {
-      const token: any  = localStorage.getItem("token");
       const institutionDetails = await axios.get(url, {
-        'headers': {
-          'Authorization': token,
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin' : '*'
-        }
+        'headers': HEADERS
       });
       dispatch({type: ValidAddressFormActions.GET_SCHOOL_DETAILS, payload: institutionDetails.data})
     }catch(e){

@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
+import {GET_USER_DETAILS, HEADERS, UPDATE_PASSWORD} from './url';
 
 export enum userDetailsActions {
   GET_USER_DETAILS = 'GET_USER_DETAILS',
@@ -9,14 +10,9 @@ export enum userDetailsActions {
 export const fetchUserDetails = (institutionId: any, userName: any) => {  
   return async (dispatch: Dispatch) => {
     try {
-      const token: any  = localStorage.getItem("token");
-      const url: any = `http://localhost:8081/api/institution/${institutionId}/users/${userName}`
+      const url: any = `${GET_USER_DETAILS.replace("institutionId",institutionId).replace("userName",userName)}`
       const response = await axios.get(url, {
-        'headers': {
-          'Authorization': token,
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin' : '*'
-        }
+        'headers': HEADERS
       });
       return dispatch({type: userDetailsActions.GET_USER_DETAILS, payload: response.data})
     }catch(e) {
@@ -28,14 +24,8 @@ export const fetchUserDetails = (institutionId: any, userName: any) => {
 export const resetPassword = (user:any) => {
   return async (dispatch: Dispatch) => {
     try {
-      const token: any  = localStorage.getItem("token");
-      const url: any = `http://localhost:8081/api/users/updatePassword`;
-      const response = await axios.put(url, user, {
-        'headers': {
-          'Authorization': token,
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin' : '*'
-        }
+      const response = await axios.put(UPDATE_PASSWORD, user, {
+        'headers': HEADERS
       })
       return dispatch({type: userDetailsActions.GET_USER_DETAILS, payload: response.data})
     }catch(e) {

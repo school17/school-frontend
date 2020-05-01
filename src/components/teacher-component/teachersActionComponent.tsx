@@ -46,7 +46,8 @@ function TeachersActionComponent({searchQuery, institution}: Props): ReactElemen
         if(value !== 'subjects' && value !== 'grades'){
         const label = value.charAt(0).toUpperCase() + value.substring(1)
         const chip = `${label}: ${filterValues[value]}`
-        return(<Chip label={chip}  key={index} onDelete={()=>{deleteChip(value)}} style = {{marginLeft: '10px', marginTop: '10px'}}/>)
+        return(<Chip label={chip}  key={index} onDelete={()=>{deleteChip(value)}} 
+        style = {{marginLeft: '10px', marginTop: '10px'}}/>)
         }
       }
     });
@@ -56,7 +57,8 @@ function TeachersActionComponent({searchQuery, institution}: Props): ReactElemen
     if(subjects && subjects.length > 0) {
       return subjects.map((value: any, index:any) => {
         const chip = `Subject: ${value}`
-        return(<Chip label={chip}  key={index} onDelete={()=>{deleteSubjectChip(value)}} style = {{marginLeft: '10px',  marginTop: '10px'}}/>)
+        return(<Chip label={chip}  key={index} onDelete={()=>{deleteSubjectChip(value)}} 
+        style = {{marginLeft: '10px',  marginTop: '10px'}}/>)
       })
     }
   }
@@ -65,7 +67,8 @@ function TeachersActionComponent({searchQuery, institution}: Props): ReactElemen
     if(grades && grades.length > 0) {
       return grades.map((value: any, index:any) => {
         const chip = `Class: ${value}`
-        return(<Chip label={chip}  key={index} onDelete={()=>{deleteGradeChip(value)}} style = {{marginLeft: '10px',  marginTop: '10px'}}/>)
+        return(<Chip label={chip}  key={index} onDelete={()=>{deleteGradeChip(value)}}
+        style = {{marginLeft: '10px',  marginTop: '10px'}}/>)
       })
     }
   }

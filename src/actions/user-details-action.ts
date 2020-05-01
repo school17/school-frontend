@@ -11,8 +11,13 @@ export const fetchUserDetails = (institutionId: any, userName: any) => {
   return async (dispatch: Dispatch) => {
     try {
       const url: any = `${GET_USER_DETAILS.replace("institutionId",institutionId).replace("userName",userName)}`
+      const TOKEN: any  = localStorage.getItem("token");
       const response = await axios.get(url, {
-        'headers': HEADERS
+        'headers': {
+          'Authorization': TOKEN,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin' : '*'
+        }
       });
       return dispatch({type: userDetailsActions.GET_USER_DETAILS, payload: response.data})
     }catch(e) {
@@ -24,8 +29,13 @@ export const fetchUserDetails = (institutionId: any, userName: any) => {
 export const resetPassword = (user:any) => {
   return async (dispatch: Dispatch) => {
     try {
+      const TOKEN: any  = localStorage.getItem("token");
       const response = await axios.put(UPDATE_PASSWORD, user, {
-        'headers': HEADERS
+        'headers': {
+          'Authorization': TOKEN,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin' : '*'
+        }
       })
       return dispatch({type: userDetailsActions.GET_USER_DETAILS, payload: response.data})
     }catch(e) {

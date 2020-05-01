@@ -1,5 +1,5 @@
 
-const DOMAIN = 'http://localhost:80/api/institution';
+const DOMAIN = 'http://localhost:8081/api/institution';
 
 export const SAVE_TEACHER_URL = `${DOMAIN}/institutionId/create_teacher`;
 
@@ -11,13 +11,13 @@ export const GET_INSTITUTION = `${DOMAIN}/institutionId/get_institution`;
 
 export const GET_USER_DETAILS = `${DOMAIN}/institutionId/users/userName`;
 
-export const UPDATE_PASSWORD = `${DOMAIN.replace('institution',"")}/users/updatePassword`;
+export const UPDATE_PASSWORD = `${DOMAIN.replace('/institution',"")}/users/updatePassword`;
 
 
 const TOKEN: any  = localStorage.getItem("token");
 
 export const HEADERS = {
-    'Authorization': TOKEN,
+    'Authorization': localStorage.getItem("token"),
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin' : '*'
 

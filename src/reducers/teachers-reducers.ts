@@ -1,6 +1,5 @@
 
 const initialState = {
-  teachers: [],
   teachersPayload:{
     teachers: [],
     totalPages: 0,
@@ -25,9 +24,16 @@ export default (state = initialState,  action:any = {}) => {
     }
 
     case 'SAVE_TEACHER': {
+      let teachers = [state.teachersPayload.teachers]
+      let teacher  = action.payload[0];
+      teachers.unshift(teacher)
+      console.log(teachers);
       return {
         ...state,
-        teachers: [...state.teachers, action.payload],
+        teachersPayload: {
+         teachers: [...state.teachersPayload.teachers, action.payload]
+         //teachers: teachers
+        },
         saved: true
       }
     }

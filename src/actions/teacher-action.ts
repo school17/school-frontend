@@ -24,8 +24,13 @@ export const fetchTeacher = (institutionId: any, searchQuery:any, filterValues?:
     try {
       const url = `${SEARCH_TEACHER_URL.replace("institutionId", institutionId)}?pageNumber=${searchQuery.pageNumber}&?pageSize=${searchQuery.pageSize}`;
       let teacher = filterValues ? filterValues : {};
+      const TOKEN: any  = localStorage.getItem("token");
       const response = await axios.post(url, teacher, {
-        'headers': HEADERS
+        'headers': {
+          'Authorization': TOKEN,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin' : '*'
+        }
       })
       return dispatch({type: teachersAction.GET_TEACHER, payload: response.data})
     }catch(e){
@@ -40,13 +45,23 @@ export const saveTeacherAction = (institutionId: any, teacher: any, id?: any) =>
     try {
       if(id) {
         const url: any = UPDATE_TEACHER_URL.replace('institutionId', institutionId).replace("teacherId",id);
+        const TOKEN: any  = localStorage.getItem("token");
         const response = await axios.put(url, postData, {
-          'headers': HEADERS
+          'headers': {
+            'Authorization': TOKEN,
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin' : '*'
+          }
         });
       }else {
         const url: any = SAVE_TEACHER_URL.replace('institutionId', institutionId);
+        const TOKEN: any  = localStorage.getItem("token");
         const response = await axios.post(url, postData, {
-        'headers': HEADERS
+          'headers': {
+            'Authorization': TOKEN,
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin' : '*'
+          }
       });
       return dispatch({type: teachersAction.SAVE_TEACHER, payload: response.data})
       }

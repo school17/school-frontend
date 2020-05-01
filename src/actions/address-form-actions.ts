@@ -121,8 +121,13 @@ export const getSchoolDetails = (institutionId: any) => {
   return async (dispatch: Dispatch) => {
     const url = `${GET_INSTITUTION.replace('institutionId', institutionId)}`
     try {
+      const TOKEN: any  = localStorage.getItem("token");
       const institutionDetails = await axios.get(url, {
-        'headers': HEADERS
+        'headers': {
+          'Authorization': TOKEN,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin' : '*'
+        }
       });
       dispatch({type: ValidAddressFormActions.GET_SCHOOL_DETAILS, payload: institutionDetails.data})
     }catch(e){

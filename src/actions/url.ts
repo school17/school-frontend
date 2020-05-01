@@ -11,7 +11,7 @@ export const GET_INSTITUTION = `${DOMAIN}/institutionId/get_institution`;
 
 export const GET_USER_DETAILS = `${DOMAIN}/institutionId/users/userName`;
 
-export const UPDATE_PASSWORD = `${DOMAIN}/users/updatePassword`;
+export const UPDATE_PASSWORD = `${DOMAIN.replace('institution',"")}/users/updatePassword`;
 
 
 const TOKEN: any  = localStorage.getItem("token");

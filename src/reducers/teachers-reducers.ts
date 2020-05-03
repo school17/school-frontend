@@ -24,10 +24,6 @@ export default (state = initialState,  action:any = {}) => {
     }
 
     case 'SAVE_TEACHER': {
-      let teachers = [state.teachersPayload.teachers]
-      let teacher  = action.payload[0];
-      teachers.unshift(teacher)
-      console.log(teachers);
       return {
         ...state,
         teachersPayload: {

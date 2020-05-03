@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { formUseStyles } from "../../utils/formStyles";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -130,7 +130,6 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
       handleClose();
     }
   });
-
   const selectedGrades = () => {
     let gradesArray: any = [];
     if(teacher) {

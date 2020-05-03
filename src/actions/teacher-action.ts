@@ -1,10 +1,11 @@
 import { subjects } from './../constants/subjects';
 import { Dispatch } from 'redux';
 import axios from 'axios';
-import {SAVE_TEACHER_URL, HEADERS, UPDATE_TEACHER_URL, SEARCH_TEACHER_URL} from './url';
+import { SAVE_TEACHER_URL, HEADERS, UPDATE_TEACHER_URL, SEARCH_TEACHER_URL } from './url';
 export enum teachersAction {
   GET_TEACHER  = 'GET_TEACHERS',
-  SAVE_TEACHER = 'SAVE_TEACHER'
+  SAVE_TEACHER = 'SAVE_TEACHER',
+  GET_AVAILABLE_TEACHERS = 'GET_AVAILABLE_TEACHERS'
 }
 
 
@@ -71,6 +72,7 @@ export const saveTeacherAction = (institutionId: any, teacher: any, id?: any) =>
   }
 }
 
+
 const transformTeacherData = (teacher:any, institutionId:any, id? :any) => {
   teacher.institutionId = institutionId;
     if(!id){
@@ -89,4 +91,4 @@ const transformTeacherData = (teacher:any, institutionId:any, id? :any) => {
     }
 
     return teacher;
-}
+} 

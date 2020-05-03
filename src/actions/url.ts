@@ -1,5 +1,5 @@
 
-const DOMAIN = 'http://localhost:8081/api/institution';
+const DOMAIN = 'http://localhost:80/api/institution';
 
 export const SAVE_TEACHER_URL = `${DOMAIN}/institutionId/create_teacher`;
 
@@ -12,6 +12,16 @@ export const GET_INSTITUTION = `${DOMAIN}/institutionId/get_institution`;
 export const GET_USER_DETAILS = `${DOMAIN}/institutionId/users/userName`;
 
 export const UPDATE_PASSWORD = `${DOMAIN.replace('/institution',"")}/users/updatePassword`;
+
+export const GET_AVAILABLE_TEACHERS = `${DOMAIN}/institutionId/teachers/available_teachers`;
+
+export const SAVE_GRADE_URL = `${DOMAIN}/institutionId/create_grade`;
+
+export const UPDATE_GRADE_URL = `${DOMAIN}/institutionId/grades/gradeId`;
+
+export const SEARCH_GRADES_URL = `${DOMAIN}/institutionId/grades/search`;
+
+export const GET_TEACHER_BY_GRADE = `${DOMAIN}/institutionId/teachers/name/grade/grades_teacher`;
 
 
 const TOKEN: any  = localStorage.getItem("token");

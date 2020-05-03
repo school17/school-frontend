@@ -8,6 +8,7 @@ import addressFromReucer from './addressForm-reducers';
 import loginReducer from './login-reducers';
 import userDetailsReducer from './user-details-reducers';
 import teacherReducer from './teachers-reducers';
+import classReducer from './class-reducers';
 
 const reducers = {
   postStore: postsReducer,
@@ -16,7 +17,8 @@ const reducers = {
   addressFormStore: addressFromReucer,
   loginReducer: loginReducer,
   userDetailsReducer: userDetailsReducer,
-  teacherReducer: teacherReducer
+  teacherReducer: teacherReducer,
+  classReducer: classReducer
 }
 
 const rootReducer = combineReducers(reducers);

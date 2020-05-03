@@ -85,7 +85,7 @@ function LoginComponent({  }: Props): ReactElement {
   const fetchToken = () => {
     axios({
       method: "post",
-      url: "http://localhost:8081/login",
+      url: "http://localhost:80/login",
       data: {
         email: email,
         password: password

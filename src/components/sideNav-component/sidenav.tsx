@@ -22,6 +22,7 @@ import { Omit } from '@material-ui/types';
 import Tooltip from '@material-ui/core/Tooltip';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import {useSelector} from "react-redux";
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 
 
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
@@ -181,8 +182,9 @@ export default function SideNav() {
         <List>
           <ListItemLink to="/support" primary="Support" icon={<Tooltip title="Support" aria-label="support" placement="right"><LibraryBooksIcon /></Tooltip>}></ListItemLink>
           <ListItemLink to="/syllabus" primary="Syllabus" icon={<Tooltip title="Syllabus" aria-label="syllabus" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
-          <ListItemLink to={`/institution/${institution}/school-onboarding`} primary="schoolOnbarding" icon={<Tooltip title="School-onbarding" aria-label="School-onbarding" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
+          <ListItemLink to={`/institution/${institution}/school-onboarding`} primary="School Details" icon={<Tooltip title="School-onbarding" aria-label="School-onbarding" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
           <ListItemLink to="/teachers" primary="Teachers" icon={<Tooltip title="Teachers" aria-label="teachers" placement="right"><LocalLibraryIcon /></Tooltip>}></ListItemLink>
+          <ListItemLink to="/class" primary="Class Room" icon={<Tooltip title="Manage Class Room" aria-label="Class Room" placement="right"><MeetingRoomIcon /></Tooltip>}></ListItemLink>
         </List>
         <Divider />
       </Drawer>

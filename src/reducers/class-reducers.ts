@@ -11,7 +11,6 @@ const initialState = {
 export default (state = initialState,  action:any = {}) => {
   switch(action.type) {
     case 'GET_NON_CLASS_TEACHERS': {
-      console.log("UPDATING GET_NON_CLASS_TEACHERS")
       return {
         ...state,
         noClassTeachers: action.payload

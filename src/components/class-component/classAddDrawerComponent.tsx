@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import {drawerTheme, useDrawerStyles} from '../../utils/drawerStyles';
 import { useDispatch, useSelector } from "react-redux";
 import { formUseStyles } from "../../utils/formStyles";
@@ -54,7 +54,8 @@ function ClassAddDrawerComponent({openDrawer, callBack, noClassTeachers, grade, 
   const formik = useFormik({
     initialValues: {
       grade: grade? grade.grade : '',
-      teacher:  grade? grade.teacher : '',
+      teacher:  '',
+      teacherName: grade ? grade.teacher : '',
       section: grade? grade.section : '',
       division: grade ? grade.division : ''
     },
@@ -63,7 +64,12 @@ function ClassAddDrawerComponent({openDrawer, callBack, noClassTeachers, grade, 
     enableReinitialize: true,
     onSubmit: (values: any) => {
       const isUpdate = grade ? grade.id : false;
-      dispatch(saveClassAction(institution, values, isUpdate, teacher.id));
+      const pervTeacher = teacher ? teacher : null;
+      if(pervTeacher){
+        dispatch(saveClassAction(institution, values, isUpdate, pervTeacher.id));
+      }else {
+        dispatch(saveClassAction(institution, values));
+      }
       handleClose();
     }
   })
@@ -85,23 +91,28 @@ function ClassAddDrawerComponent({openDrawer, callBack, noClassTeachers, grade, 
 
 
   useEffect(()=>{
-
     if(dropDownTeachers.length < 1){
       dispatch(getNonClassTeachersList(institution));
     }
     if(dropDownTeachers.length > 0) {
-      console.log("CALLING FROM USE EFFECT", dropDownTeachers)
       constructAvailableTeacherDropDown()
     }
-    if(grade) {
+    if(grade && teacher.name != formik.values.teacherName) {
+      debugger
       dispatch(getTeacherDetails(grade.institutionId, grade.grade, grade.teacher));
     }
-  }, [dropDownTeachers, grade]);
+
+    if(grade && teacher.name == formik.values.teacherName) {
+      setTimeout(()=>{
+        formik.setFieldValue('teacher', teacher, true);
+      },1)
+    }
+  }, [dropDownTeachers, grade, teacher]);
 
 
   const constructAvailableTeacherDropDown = (onClose?:any) => {
     if(grade && teacher.name) {
-      if(formik.values.teacher === teacher.name) {
+      if(formik.values.teacherName === teacher.name) {
         if(!(dropDownTeachers.some((teach:any) => teach.name === teacher.name))){
           dropDownTeachers.push(teacher);
       }
@@ -110,12 +121,14 @@ function ClassAddDrawerComponent({openDrawer, callBack, noClassTeachers, grade, 
 
     if(onClose) {
       let index = 0;
-      dropDownTeachers.forEach((teach:any, i: any)=> {
-        if(teach.name === teacher.name) {
-          index = i;
-        }
-      })
-      dropDownTeachers.splice(index, 1);
+      if(teacher){
+        dropDownTeachers.forEach((teach:any, i: any)=> {
+          if(teach.name === teacher.name) {
+            index = i;
+          }
+        })
+        dropDownTeachers.splice(index, 1);
+      }
     }
     return (dropDownTeachers.map((item: any, index: any) => {
       return (
@@ -153,10 +166,9 @@ function ClassAddDrawerComponent({openDrawer, callBack, noClassTeachers, grade, 
     );
   });
   const changeTeacher = (teach:any) => {
-    console.log(teach);
-    formik.handleChange(teach);
-
+    formik.handleChange(teach); 
   }
+
   return (
     <ThemeProvider theme={drawerTheme}>
       <Drawer
@@ -200,7 +212,7 @@ function ClassAddDrawerComponent({openDrawer, callBack, noClassTeachers, grade, 
                   id="teacher"
                   variant="outlined"
                   error={!!formik.errors.teacher && !!formik.touched.teacher}
-                  value={grade ? teacher : formik.values.teacher}
+                  value={formik.values.teacher}
                   onChange={(value:any)=> {changeTeacher(value)}}
                   onBlur={formik.handleBlur}
                 >

@@ -25,6 +25,11 @@ export const textFieldTheme  = createMuiTheme({
           backgroundColor: "#003248"
         }
       }
+    },
+    MuiList:{
+      root: {
+        maxHeight: 150
+      }
     }
   }
 });

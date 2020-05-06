@@ -10,10 +10,15 @@ import {
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import EditIcon from '@material-ui/icons/Edit';
 import TeacherModalComponent from './teacherModalComponent';
-import {fetchTeacher} from '../../actions/teacher-action';
+import {fetchTeacher, deleteTeacher} from '../../actions/teacher-action';
+import DeleteIcon from '@material-ui/icons/Delete';
+import {Button, TextField, InputLabel} from "@material-ui/core";
+import {drawerTheme, useDrawerStyles} from '../../utils/drawerStyles';
+import {paginationTheme} from '../../utils/paginationStyles';
 
 import {
-  MuiThemeProvider
+  MuiThemeProvider,
+  ThemeProvider
 } from "@material-ui/core/styles";
 
 import {tableRowTheme} from '../../utils/tableStyles';
@@ -39,6 +44,12 @@ const useStyles = makeStyles((theme: Theme) =>
       "&:webkit-scrollbar": {
         display: 'none'
       }
+    },
+    pagination: {
+      display: 'flex',
+      padding: '30px',
+      justifyContent: 'center',
+      alignItems: 'center'
     }
   })
   )
@@ -55,6 +66,10 @@ export default function TeacherListComponent({teachersPayload, institution}: Pro
       toggleOpenModel(true);
       setTeacher(selectedTeacher);
     }
+  }
+
+  const deleteSelectedTeacher = (teacher:any) => {
+    dispatch(deleteTeacher(teacher.institutionId, teacher.id));
   }
 
   const [data, setData] = useState(teachersPayload.teachers);
@@ -106,7 +121,7 @@ export default function TeacherListComponent({teachersPayload, institution}: Pro
         accessor: 'actions',
         Cell: (row:any) => {
           let teacher = row.data[row.row.id];
-          return <span><EditIcon onClick = {()=>{clicked(teacher)}}></EditIcon></span>
+          return <span><EditIcon onClick = {()=>{clicked(teacher)}}></EditIcon> <DeleteIcon onClick = {()=>{deleteSelectedTeacher(teacher)}} ></DeleteIcon></span>
         }
       }
     ],
@@ -191,38 +206,54 @@ export default function TeacherListComponent({teachersPayload, institution}: Pro
       </TableBody>
       </MaUTable>
     </div>
-    <div className="pagination">
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {'<<'}
-        </button>{' '}
-        <button onClick={() => handlePreviousPage()} disabled={!canPreviousPage}>
-          {'<'}
-        </button>{' '}
-        <button onClick={() => handleNextPage()} disabled={!canNextPage}>
-          {'>'}
-        </button>{' '}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
-        <span>
+    <ThemeProvider theme={paginationTheme}>
+    <div className ={classes.pagination}>
+        <Button 
+        variant="contained"
+        color="primary"
+        onClick={() => gotoPage(0)} disabled={!canPreviousPage} >
+          {'FIRST'}
+        </Button>{' '}
+        <Button 
+        variant="contained"
+        color="primary"
+        onClick={() => handlePreviousPage()} disabled={!canPreviousPage}>
+          {'PREV'}
+        </Button>{' '}
+        <span style={{margin: '0px 20px'}}>
           Page{' '}
           <strong>
             {pageIndex + 1} of {pageOptions.length}
           </strong>{' '}
         </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-              gotoPage(page)
-            }}
-            style={{ width: '100px' }}
-          />
-        </span>{' '}
-        <select
+          <span style={{width: 60}}>
+          <TextField
+              variant="outlined"
+              type="number"
+              size="small"
+              fullWidth={false}
+              defaultValue={pageIndex + 1}
+              value = {pageIndex + 1}
+              onChange={(e:any) => {
+                const page:any  = e.target.value ? Number(e.target.value) - 1 : 0
+                gotoPage(page)
+              }}
+          ></TextField>
+          </span>
+          
+        <Button 
+        variant="contained"
+        color="primary"
+        onClick={() => handleNextPage()} disabled={!canNextPage}>
+          {'NEXT'}
+        </Button>{' '}
+        <Button
+        variant="contained"
+        color="primary"
+         onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'LAST'}
+        </Button>{' '}
+        {/*<select
           value={pageSize}
           onChange={e => {
             setPageSize(Number(e.target.value))
@@ -233,8 +264,9 @@ export default function TeacherListComponent({teachersPayload, institution}: Pro
               Show {pageSize}
             </option>
           ))}
-        </select>
+          </select>*/}
       </div>
+    </ThemeProvider>
       {openModel? <TeacherModalComponent opeModel = {openModel} callBack={clicked} teacher={teacher} /> : ''}
     </MuiThemeProvider>
    

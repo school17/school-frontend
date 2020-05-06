@@ -1,11 +1,14 @@
-import { subjects } from './../constants/subjects';
 import { Dispatch } from 'redux';
 import axios from 'axios';
-import { SAVE_TEACHER_URL, HEADERS, UPDATE_TEACHER_URL, SEARCH_TEACHER_URL } from './url';
+import { SAVE_TEACHER_URL, HEADERS, 
+  UPDATE_TEACHER_URL, SEARCH_TEACHER_URL, DELETE_TEACHER_URL } from './url';
+import { async } from 'q';
 export enum teachersAction {
   GET_TEACHER  = 'GET_TEACHERS',
   SAVE_TEACHER = 'SAVE_TEACHER',
-  GET_AVAILABLE_TEACHERS = 'GET_AVAILABLE_TEACHERS'
+  GET_AVAILABLE_TEACHERS = 'GET_AVAILABLE_TEACHERS',
+  DELETE_TEACHER = "DELETE_TEACHER",
+  UPDATE_TEACHER = "UPDATE_TEACHER"
 }
 
 
@@ -54,6 +57,7 @@ export const saveTeacherAction = (institutionId: any, teacher: any, id?: any) =>
             'Access-Control-Allow-Origin' : '*'
           }
         });
+        return dispatch({type: teachersAction.UPDATE_TEACHER, payload: response.data})
       }else {
         const url: any = SAVE_TEACHER_URL.replace('institutionId', institutionId);
         const TOKEN: any  = localStorage.getItem("token");
@@ -72,13 +76,33 @@ export const saveTeacherAction = (institutionId: any, teacher: any, id?: any) =>
   }
 }
 
+export const deleteTeacher = (institutionId: any, id:any) => {
+  return async(dispatch: Dispatch) => {
+    try{
+      const url: any = DELETE_TEACHER_URL.replace('institutionId', institutionId).replace("teacherId",id);
+    const TOKEN: any  = localStorage.getItem("token");
+    const response = await axios.delete(url, {
+      'headers': {
+        'Authorization': TOKEN,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : '*'
+      }
+    });
+    return dispatch({type: teachersAction.DELETE_TEACHER, payload: id})
+    }catch(e){
+
+    }
+  }
+}
+
 
 const transformTeacherData = (teacher:any, institutionId:any, id? :any) => {
   teacher.institutionId = institutionId;
-    if(!id){
-      teacher.division = [teacher.division];
-    }else {
+    if(id){
       teacher.id  = id;
+    }
+    if(typeof(teacher.division) !== "object"){
+      teacher.division = [teacher.division];
     }
     teacher.address = {
       'address1': teacher.address1,

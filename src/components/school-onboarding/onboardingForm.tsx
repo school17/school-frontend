@@ -22,6 +22,7 @@ import {
   submitSchoolInfoFrom
 } from "../../actions/address-form-actions";
 import SchoolInfoForm from "./schoolInfoForm";
+import {updateInstitution} from '../../actions/address-form-actions'
 
 interface Props {}
 
@@ -51,14 +52,14 @@ function getSteps() {
   return ["Address of your School", "School Informations", "Add Admins", "Summary"];
 }
 
-function getStepContent(step: number): any {
+function getStepContent(step: number, goToSummary: any): any {
   switch (step) {
     case 0:
       return <AddressFrom></AddressFrom>;
     case 1:
       return <SchoolInfoForm></SchoolInfoForm>;
     case 2:
-      return <AddAdmins/>;
+      return <AddAdmins goToSummary={goToSummary}/>;
     case 3:
       return "Summary"
     default:
@@ -75,6 +76,10 @@ function OnboardingForm({  }: Props): ReactElement {
       return state.addressFormStore;
     }
   );
+  const onboardingDetails  =  useSelector((state:any) =>  state.addressFormStore);
+  const {institution} = useSelector((store:any) => {
+    return store.loginReducer
+  })
   const steps = getSteps();
   const handleNext = () => {
     if (activeStep == 0) {
@@ -85,6 +90,11 @@ function OnboardingForm({  }: Props): ReactElement {
     }
     if(activeStep == 2){
       setGotoSummary(true);
+    }
+
+    if(activeStep == 3) {
+      console.log("PRINGTIN THE DEATAILS", onboardingDetails)
+      dispatch(updateInstitution(onboardingDetails, institution));
     }
   };
 
@@ -132,7 +142,7 @@ function OnboardingForm({  }: Props): ReactElement {
         ) : (
           <div>
             {/*<Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>*/}
-            {getStepContent(activeStep)}
+            {getStepContent(activeStep,goToSummary)}
             <div className={classes.buttonContainer}>
               <Button
                 disabled={activeStep === 0}

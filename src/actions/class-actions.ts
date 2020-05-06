@@ -68,8 +68,10 @@ export const saveClassAction = (institutionId: any, grade: any, id?: any, prevTe
         grade['teacherId'] = grade.teacher.id;
         grade['teacher'] = grade.teacher.name;
         grade['institutionId'] = institutionId;
-        grade['updateTeacher'] = true;
-        grade['previousTeacherId'] = prevTeacherId;
+        if(grade.teacherName) {
+          grade['updateTeacher'] = true;
+          grade['previousTeacherId'] = prevTeacherId;
+        }
         const response = await axios.put(url, grade, {
           'headers': {
             'Authorization': TOKEN,

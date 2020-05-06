@@ -23,6 +23,10 @@ export const SEARCH_GRADES_URL = `${DOMAIN}/institutionId/grades/search`;
 
 export const GET_TEACHER_BY_GRADE = `${DOMAIN}/institutionId/teachers/name/grade/grades_teacher`;
 
+export const DELETE_TEACHER_URL = `${DOMAIN}/institutionId/teachers/teacherId`
+
+export const UPDATE_INSTITUTION = `${DOMAIN}/institutionId/update_institution`
+
 
 const TOKEN: any  = localStorage.getItem("token");
 

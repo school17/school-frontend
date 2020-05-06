@@ -13,6 +13,7 @@ export const InitialState = {
   phoneNumber: "",
   adminUser: "",
   email: "",
+  onboardingComplete: false,
   address: {
     address1: "",
     address2: "",
@@ -21,7 +22,9 @@ export const InitialState = {
     city: "",
     state: "",
     pincode: ""
-  }
+  },
+  divisionProvided: [],
+  availableGradesAndSections:[]
 };
 
 export default (state = InitialState, action: any = {}) => {
@@ -127,7 +130,17 @@ export default (state = InitialState, action: any = {}) => {
         grades:action.payload.grades,
         phoneNumber: action.payload.phoneNumber,
         email: action.payload.email,
-        state: action.payload.state
+        state: action.payload.state,
+        divisionProvided: action.payload.divisionProvided,
+        availableGradesAndSections: action.payload.availableGradesAndSections
+
+      }
+    }
+    case 'ADD_GRADES_AND_DIVISION':{
+      return {
+        ...state,
+        divisionProvided: action.payload.divisionsProvided,
+        availableGradesAndSections: action.payload.availableGradesAndSections
       }
     }
     default:

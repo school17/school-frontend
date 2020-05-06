@@ -1,24 +1,39 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import { MuiThemeProvider } from "@material-ui/core/styles";
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { formUseStyles, textFieldTheme } from "../../utils/formStyles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import {roles} from '../../constants/roles';
+import {divisions, gradesForDivision} from '../../constants/divisions';
 import MenuItem from "@material-ui/core/MenuItem";
 import { useFormik } from "formik";
-interface Props {}
+import { useDispatch } from "react-redux";
+import {setDivsionAndGrades} from '../../actions/address-form-actions'
+interface Props {
 
-function AddAdmins({  }: Props): ReactElement {
+  goToSummary: any
+}
+
+function AddAdmins({goToSummary  }: Props): ReactElement {
   const initialValues = {
-    adminRole: 'Account Admin',
-    AdminEmail: ''
+    division: '',
+    sections: '',
+    grades: []
   }
   const classes = formUseStyles();
-  const [usersList, setUser] = useState([{}]);
+  const dispatch = useDispatch();
+  const [divisionList, setDivisionList] = useState([{}]);
+
+  const [divisionProvidedArray, setDivisionProvidedArray] = useState([]);
+
+  const [constructAvailableGradesAndSections, setAvailableGradesAndSections] = useState([]);
+
+  const [grades, setGrades] = useState([]);
   const formik = useFormik({
     initialValues,
     onSubmit: (values: any) => {
@@ -26,16 +41,32 @@ function AddAdmins({  }: Props): ReactElement {
     }
   });
   const addAdmin = (values:any) => {
-    setUser([
-      ...usersList,
+    setDivisionList([
+      ...divisionList,
       {
-        role: values.adminRole,
-        email: values.AdminEmail
+        division: values.division,
+        sections: values.sections,
+        grades: values.grades
       }
-    ])
+    ]);
+    const dividsionGradeArray = selectedGradesList.map((grade: any) =>  {
+      const sectionObj = {
+        grade: grade, numberOfSections: values.sections
+      }
+      return sectionObj;
+    })
+    const gradesAndSectionObject: any = {
+      division : values.division,
+      divisionGrade: dividsionGradeArray
+    }
+    setAvailableGradesAndSections(constructAvailableGradesAndSections.concat(gradesAndSectionObject));
+    setDivisionProvidedArray(divisionProvidedArray.concat(values.division));
     formik.handleReset(initialValues);
+    setselectedGradesList(
+      []
+    );
   }
-  const rolesDropDown = roles.map((item: any, index: any) => {
+  const divisionsDropDown = divisions.map((item: any, index: any) => {
     return (
       <MenuItem value={item} key={index}>
         {item}
@@ -43,43 +74,100 @@ function AddAdmins({  }: Props): ReactElement {
     );
   });
 
-  const listAllUser = usersList.map((item:any, index: any) => {
+  const listAllDivisions = divisionList.map((item:any, index: any) => {
     return(
       <div key={index}>
-        <span>{item.role}</span>: <span>{item.email}</span>
+        <span>{item.division}</span>: <span>{item.sections}</span>
       </div>
     )
-  })
+  });
+
+  const [selectedGradesList, setselectedGradesList] = useState([]);
+
+  const setDivision = (event:any , division:any) => {
+    const key:any = event.target.value.replace(" ", "_")
+    const val = gradesForDivision[key];
+    setGrades(val);
+    setTimeout(() => {
+      formik.setFieldValue('division', event.target.value, true);
+    }, 1);
+    setselectedGradesList(
+      []
+    )
+
+  }
+  
+  const selectedGrades = () => {
+    return selectedGradesList;
+  }
+
+  const setGradesOnChange = (grade:any) => {
+    setselectedGradesList(
+      grade
+    )
+
+  }
+
+  useEffect(()=>{
+    if(goToSummary){
+      dispatch(setDivsionAndGrades({
+        divisionsProvided :divisionProvidedArray,
+        availableGradesAndSections :constructAvailableGradesAndSections
+      }))
+    }
+  },[goToSummary]);
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
       <Grid container direction="row" justify="center" alignItems="center">
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} md={3}>
         <FormControl className={classes.formControl}>
                   <InputLabel className={classes.label} shrink={false}>
-                    Select a role
+                    Select A Division
                   </InputLabel>
                   <Select
-                    name="adminRole"
-                    id="adminRole"
+                    name="division"
+                    id="division"
                     variant="outlined"
-                    defaultValue= "Account Admin"
-                    value={formik.values.adminRole}
-                    onChange={formik.handleChange}
+                    defaultValue= "PRIMARY"
+                    value={formik.values.division}
+                    onChange={(event:any, value:any) => {setDivision(event, value)}}
                     onBlur={formik.handleBlur}
                   >
-                    {rolesDropDown}
+                    {divisionsDropDown}
                   </Select>
                 </FormControl>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={5}>
+              <FormControl className={classes.drawerFormControl}>
+                <InputLabel className={classes.drawerLabel}>Subjects</InputLabel>
+                <Autocomplete
+                  multiple
+                  id="grades-autocomplete"
+                  options={grades}
+                  //getOptionLabel={(option) => option}
+                  ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
+                  defaultValue={selectedGrades()}
+                  value={selectedGrades()}
+                  onChange = {(event:any, value:any) => {setGradesOnChange(value)}}
+                  filterSelectedOptions
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                    />
+                  )}
+                />
+              </FormControl>
+                  </Grid>
+        <Grid item xs={12} md={2}>
           <FormControl className={classes.formControl}>
-            <InputLabel className={classes.label}>Email</InputLabel>
+            <InputLabel className={classes.label}>Number of sections</InputLabel>
             <TextField
               variant="outlined"
-              name="AdminEmail"
-              id="AdminEmail"
-              value={formik.values.AdminEmail}
+              name="sections"
+              id="sections"
+              value={formik.values.sections}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               required={true}
@@ -88,12 +176,14 @@ function AddAdmins({  }: Props): ReactElement {
         </Grid>
         <Grid item xs={12} md={2}>
           <Button variant="contained" color="primary" type="submit">
-            Add Admin
+            Add Divisions
           </Button>
         </Grid>
       </Grid>
       </form>
-      {listAllUser}
+      {listAllDivisions}
+
+      {divisionProvidedArray.length}
     </div>
   );
 }

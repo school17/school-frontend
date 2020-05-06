@@ -15,6 +15,7 @@ import Button from "@material-ui/core/Button";
 import { saveTeacherAction } from '../../actions/teacher-action'; 
 import { useDispatch, useSelector } from "react-redux";
 import {drawerTheme, useDrawerStyles} from '../../utils/drawerStyles';
+import {getSchoolDetails} from "../../actions/address-form-actions";
 import {
   createStyles,
   makeStyles,
@@ -84,15 +85,6 @@ const validate = (values: any) => {
   return errors;
 };
 
-const division = ['Primary', 'Higher Secondary', 'Senior Secondary'];
-
-const divisionDropDown = division.map((item: any, index: any) => {
-  return (
-    <MenuItem value={item} key={index}>
-      {item}
-    </MenuItem>
-  );
-});
 
 function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactElement {
   const drawerClass = useDrawerStyles();
@@ -103,6 +95,22 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
 
   const {institution} = useSelector((store:any) => {
     return store.loginReducer
+  });
+
+  const {divisionProvided} = useSelector((store:any) => {
+    return store.addressFormStore;
+  });
+
+  useEffect(()=> {
+    dispatch(getSchoolDetails(institution));
+  },[])
+
+  const divisionDropDown = divisionProvided.map((item: any, index: any) => {
+    return (
+      <MenuItem value={item} key={index}>
+        {item}
+      </MenuItem>
+    );
   });
 
   const dispatch = useDispatch();
@@ -157,7 +165,9 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
 
   const grades = ['1','2','3','4','5','6','7','8','9','10','11','12'];
   const setGrades = (value:any) => {
-    formik.values.grades  = value;
+    setTimeout(() => {
+      formik.setFieldValue('grades', value, true);
+    }, 1);
   }
 
   const {saved} = useSelector((store:any)=> {
@@ -165,7 +175,9 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
   })
 
   const setSubjects = (value:any) => {
-    formik.values.subjects  = value;
+    setTimeout(() => {
+      formik.setFieldValue('subjects', value, true);
+    }, 1);
   }
   return (
 

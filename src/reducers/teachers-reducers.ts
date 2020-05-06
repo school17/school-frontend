@@ -28,9 +28,37 @@ export default (state = initialState,  action:any = {}) => {
         ...state,
         teachersPayload: {
          teachers: [...state.teachersPayload.teachers, action.payload]
-         //teachers: teachers
         },
         saved: true
+      }
+    }
+
+    case 'DELETE_TEACHER' : {
+      const teachersList = state.teachersPayload.teachers.filter((teacher:any) => teacher.id !== action.payload);
+      return {
+        ...state,
+        teachersPayload: {
+          teachers: teachersList,
+          totalPages: state.teachersPayload.totalPages,
+          totalElements: state.teachersPayload.totalElements
+        }
+      }
+    }
+
+    case 'UPDATE_TEACHER' : {
+      const teachersList = state.teachersPayload.teachers.map((teacher:any) => {
+        if(teacher.id === action.payload['id']) {
+          teacher = action.payload
+        }
+        return teacher;
+      })
+      return {
+        ...state,
+        teachersPayload: {
+          teachers: teachersList,
+          totalPages: state.teachersPayload.totalPages,
+          totalElements: state.teachersPayload.totalElements
+        }
       }
     }
 

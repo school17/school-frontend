@@ -30,13 +30,17 @@ export default function TeacherComponent({}: Props): ReactElement {
   const {institution} = useSelector((store:any) => {
     return store.loginReducer
   })
+
   const searchQuery = {
     pageSize: '10',
     pageNumber: '0'
   }
+
   useEffect(() => {
-    dispatch(fetchTeacher(institution, searchQuery));
-  },[])
+    if(!teachersPayload) {
+      dispatch(fetchTeacher(institution, searchQuery));
+    }
+  },[teachersPayload])
   return (
     <div className={classes.root}>
       <TeachersActionComponent searchQuery={searchQuery} institution={institution}></TeachersActionComponent>

@@ -7,14 +7,14 @@ import {
   useExpanded,
   usePagination
 } from 'react-table';
-import { makeStyles, Theme, createStyles, MuiThemeProvider } from "@material-ui/core/styles";
+import { makeStyles, Theme, createStyles, MuiThemeProvider, ThemeProvider } from "@material-ui/core/styles";
 import EditIcon from '@material-ui/icons/Edit';
-
 import {tableRowTheme} from '../../utils/tableStyles';
-
 import {fetchTeacher} from '../../actions/teacher-action';
+import ClassAddDrawerComponent from './classAddDrawerComponent';
 
-import ClassAddDrawerComponent from './classAddDrawerComponent'
+import {Button, TextField} from "@material-ui/core";
+import {paginationTheme} from '../../utils/paginationStyles';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MaUTable from '@material-ui/core/Table';
@@ -36,6 +36,12 @@ const useStyles = makeStyles((theme: Theme) =>
       "&:webkit-scrollbar": {
         display: 'none'
       }
+    },
+    pagination: {
+      display: 'flex',
+      padding: '30px',
+      justifyContent: 'center',
+      alignItems: 'center'
     }
   })
   )
@@ -44,7 +50,7 @@ function ClassListComponent({classPayload, institution}: Props): ReactElement {
   const dispatch = useDispatch();
   const [openGradeDrawer, toggleopenGradeDrawer] = useState(false);
   const [grade, setGrade] = useState({});
-  const {teacher} = useSelector((store: any) => {
+  const {teacher} = useSelector((store: any) => {    
     return store.classReducer;
   });
   const clicked = (selectedTeacher:any) => {
@@ -181,38 +187,54 @@ function ClassListComponent({classPayload, institution}: Props): ReactElement {
       </TableBody>
       </MaUTable>
     </div>
-    <div className="pagination">
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {'<<'}
-        </button>{' '}
-        <button onClick={() => handlePreviousPage()} disabled={!canPreviousPage}>
-          {'<'}
-        </button>{' '}
-        <button onClick={() => handleNextPage()} disabled={!canNextPage}>
-          {'>'}
-        </button>{' '}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
-        <span>
+    <ThemeProvider theme={paginationTheme}>
+    <div className ={classes.pagination}>
+        <Button 
+        variant="contained"
+        color="primary"
+        onClick={() => gotoPage(0)} disabled={!canPreviousPage} >
+          {'FIRST'}
+        </Button>{' '}
+        <Button 
+        variant="contained"
+        color="primary"
+        onClick={() => handlePreviousPage()} disabled={!canPreviousPage}>
+          {'PREV'}
+        </Button>{' '}
+        <span style={{margin: '0px 20px'}}>
           Page{' '}
           <strong>
             {pageIndex + 1} of {pageOptions.length}
           </strong>{' '}
         </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-              gotoPage(page)
-            }}
-            style={{ width: '100px' }}
-          />
-        </span>{' '}
-        <select
+          <span style={{width: 60}}>
+          <TextField
+              variant="outlined"
+              type="number"
+              size="small"
+              fullWidth={false}
+              defaultValue={pageIndex + 1}
+              value = {pageIndex + 1}
+              onChange={(e:any) => {
+                const page:any  = e.target.value ? Number(e.target.value) - 1 : 0
+                gotoPage(page)
+              }}
+          ></TextField>
+          </span>
+          
+        <Button 
+        variant="contained"
+        color="primary"
+        onClick={() => handleNextPage()} disabled={!canNextPage}>
+          {'NEXT'}
+        </Button>{' '}
+        <Button
+        variant="contained"
+        color="primary"
+         onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'LAST'}
+        </Button>{' '}
+        {/*<select
           value={pageSize}
           onChange={e => {
             setPageSize(Number(e.target.value))
@@ -223,8 +245,9 @@ function ClassListComponent({classPayload, institution}: Props): ReactElement {
               Show {pageSize}
             </option>
           ))}
-        </select>
+          </select>*/}
       </div>
+    </ThemeProvider>
       {openGradeDrawer? <ClassAddDrawerComponent openDrawer = {openGradeDrawer} callBack={clicked} 
       grade={grade} noClassTeachers={noClassTeachers} teacher={teacher} /> : ''}
       </MuiThemeProvider>

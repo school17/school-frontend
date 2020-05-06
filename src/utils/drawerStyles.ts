@@ -47,6 +47,11 @@ export const drawerTheme = createMuiTheme({
           backgroundColor: "#003248"
         }
       }
+    },
+    MuiList:{
+      root: {
+        maxHeight: 150
+      }
     }
   }
 })

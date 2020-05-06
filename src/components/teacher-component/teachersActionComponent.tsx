@@ -8,9 +8,10 @@ import {
 } from "@material-ui/core/styles";
 import TeacherModalComponent from './teacherModalComponent';
 import TeacherFilterModal from './teacherFilterModal';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchTeacher} from '../../actions/teacher-action';
 import {Chip, Typography} from '@material-ui/core';
+import {getSchoolDetails} from "../../actions/address-form-actions";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 interface Props {
   searchQuery:any,
@@ -143,9 +144,16 @@ function TeachersActionComponent({searchQuery, institution}: Props): ReactElemen
     else toggleFilterModal(true);
   }
 
+  const {divisionProvided} = useSelector((store:any) => {
+    return store.addressFormStore
+  })
+
   useEffect(()=>{
     dispatch(fetchTeacher(institution, searchQuery, filteredValues));
-  },[filteredValues])
+    if(!divisionProvided) {
+      dispatch(getSchoolDetails(institution));
+    }
+  },[filteredValues, divisionProvided])
 
   const Theme = createMuiTheme({
     overrides: {

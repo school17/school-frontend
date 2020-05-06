@@ -71,7 +71,7 @@ export default function SchoolInfoForm({  }: Props): ReactElement {
     );
   });
 
-  const [labelWidth, setLabelWidth] = React.useState(0);
+  
   const submitForm = async () => {
     try {
       await formik.handleSubmit();

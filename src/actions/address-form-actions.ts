@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
-import {GET_INSTITUTION, HEADERS} from './url';
+import {GET_INSTITUTION, UPDATE_INSTITUTION as UPDATE_INSTITUTION_URL} from './url';
 export enum ValidAddressFormActions {
   VALID_ADDRESS_FORM = "VALID_ADDRESS_FORM",
   VALID_SCHOOL_INFO_FORM ='VALID_SCHOOL_INFO_FORM',
@@ -16,7 +16,9 @@ export enum ValidAddressFormActions {
   SET_PREVIEW_IMAGE = 'SET_PREVIEW_IMAGE',
   RESET_IMAGE = "RESET_IMAGE",
   SET_IMAGE_URL = 'SET_IMAGE_URL',
-  GET_SCHOOL_DETAILS = 'GET_SCHOOL_DETAILS'
+  GET_SCHOOL_DETAILS = 'GET_SCHOOL_DETAILS',
+  ADD_GRADES_AND_DIVISION = "ADD_GRADES_AND_DIVISION",
+  UPDATE_INSTITUTION = "UPDATE_INSTITUTION"
 }
 
 interface ValidAddressForm {
@@ -114,6 +116,32 @@ export const resetImage = () => {
 export const setImageUrl = (image: any) => {
   return(dispatch: Dispatch) => {
     return dispatch({type: ValidAddressFormActions.SET_IMAGE_URL, image: image })
+  }
+}
+
+export const setDivsionAndGrades = (divsisionAndGrade:any) => {
+  return (dispatch: Dispatch) => {
+    return dispatch({type: ValidAddressFormActions.ADD_GRADES_AND_DIVISION, payload: divsisionAndGrade })
+  }
+}
+
+export const updateInstitution = (institution:any, institutionId:any) => {
+  //UPDATE_INSTITUTION
+  return async (dispatch: Dispatch) => {
+    const url = `${UPDATE_INSTITUTION_URL.replace('institutionId', institutionId)}`
+    try {
+      const TOKEN: any  = localStorage.getItem("token");
+      const institutionDetails = await axios.put(url, institution, {
+        'headers': {
+          'Authorization': TOKEN,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin' : '*'
+        }
+      });
+      dispatch({type: ValidAddressFormActions.UPDATE_INSTITUTION, payload: institutionDetails.data})
+    }catch(e){
+      console.log(e);
+    }
   }
 }
 

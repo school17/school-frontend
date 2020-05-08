@@ -66,7 +66,9 @@ function ClassListComponent({classPayload, institution}: Props): ReactElement {
   const [data, setData] = useState(classPayload.grades);
 
   useEffect(()=>{
-    setData(classPayload.grades)
+    if(classPayload.grades.length > 0) {
+      setData(classPayload.grades)
+    }
   },[classPayload])
 
   const totalPages = classPayload.totalPages;

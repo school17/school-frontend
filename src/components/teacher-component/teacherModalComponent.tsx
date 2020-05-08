@@ -16,6 +16,7 @@ import { saveTeacherAction } from '../../actions/teacher-action';
 import { useDispatch, useSelector } from "react-redux";
 import {drawerTheme, useDrawerStyles} from '../../utils/drawerStyles';
 import {getSchoolDetails} from "../../actions/address-form-actions";
+import ImageUpload from '../../common/imageUpload';
 import {
   createStyles,
   makeStyles,
@@ -426,7 +427,7 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
                   name="pincode"
                   variant="outlined"
                   id="pincode"
-                  className = {drawerClass.pincode}
+                  //className = {drawerClass.pincode}
                   required={true}
                   error={!!formik.errors.pincode && !!formik.touched.pincode}
                   onChange={formik.handleChange}
@@ -438,6 +439,14 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
                     Pincode is Required
                 </strong>
                 )}
+              </FormControl>
+
+               <FormControl className={classes.drawerFormControl}>
+                <InputLabel className={classes.drawerLabel}>Upload your Image</InputLabel>
+                <div className = {drawerClass.pincode}>
+                <ImageUpload ></ImageUpload>
+                </div>
+                 
               </FormControl>
               </Grid> 
               <Grid item xs={12} md={12}>

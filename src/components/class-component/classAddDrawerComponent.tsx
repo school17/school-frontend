@@ -120,14 +120,14 @@ function ClassAddDrawerComponent({ openDrawer, callBack, noClassTeachers, grade,
     if (dropDownTeachers.length > 0) {
       constructAvailableTeacherDropDown()
     }
-    if (grade && teacher.name != formik.values.teacherName) {
+    if (grade && teacher && (teacher.name != formik.values.teacherName)) {
       if (formik.values.teacherName != "") {
         const classSection = grade.grade + (grade.section ? " " + grade.section : '');
         dispatch(getTeacherDetails(grade.institutionId, classSection, grade.teacher));
       }
     }
 
-    if (grade && teacher.name == formik.values.teacherName) {
+    if (grade && teacher && (teacher.name == formik.values.teacherName)) {
       setTimeout(() => {
         formik.setFieldValue('teacher', teacher, true);
       }, 1)
@@ -136,7 +136,7 @@ function ClassAddDrawerComponent({ openDrawer, callBack, noClassTeachers, grade,
 
 
   const constructAvailableTeacherDropDown = (onClose?: any) => {
-    if (grade && teacher.name) {
+    if (grade && teacher && teacher.name) {
       if (formik.values.teacherName === teacher.name) {
         if (!(dropDownTeachers.some((teach: any) => teach.name === teacher.name))) {
           dropDownTeachers.push(teacher);
@@ -164,7 +164,6 @@ function ClassAddDrawerComponent({ openDrawer, callBack, noClassTeachers, grade,
     }))
   }
 
-  const section = ["A", "B", "C", "D"];
   const sectionDropDown = availableSections.map((item: any, index: any) => {
     return (
       <MenuItem value={item} key={index} style={{ maxHeight: 30 }}>
@@ -213,7 +212,8 @@ function ClassAddDrawerComponent({ openDrawer, callBack, noClassTeachers, grade,
         division.divisionGrade.forEach((grade:any) => {
           if(grade.grade === selectedGradeChange.target.value) {
             grade.section.forEach((section:any)=>{
-              if(!section.isCreated){
+              console.log( grade.section, " ", section.created);
+              if(!section.created){
                 sections.push(section.section)
               }
             })

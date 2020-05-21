@@ -9,6 +9,7 @@ import loginReducer from './login-reducers';
 import userDetailsReducer from './user-details-reducers';
 import teacherReducer from './teachers-reducers';
 import classReducer from './class-reducers';
+import studentReducer from './students-reducers';
 
 const reducers = {
   postStore: postsReducer,
@@ -18,7 +19,8 @@ const reducers = {
   loginReducer: loginReducer,
   userDetailsReducer: userDetailsReducer,
   teacherReducer: teacherReducer,
-  classReducer: classReducer
+  classReducer: classReducer,
+  studentReducer: studentReducer
 }
 
 const rootReducer = combineReducers(reducers);

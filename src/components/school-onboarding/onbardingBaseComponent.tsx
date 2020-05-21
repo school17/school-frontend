@@ -17,7 +17,7 @@ function OnbardingBaseComponent({}: Props): ReactElement {
   })
   const authorizationHandler = () => {
     if(institutionId === institution) {
-        dispatch(getSchoolDetails(institutionId))
+        //dispatch(getSchoolDetails(institutionId))
       return (
       <OnboardingFrom></OnboardingFrom>
       )

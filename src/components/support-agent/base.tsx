@@ -5,13 +5,15 @@ import OnbardingBaseComponent from '../school-onboarding/onbardingBaseComponent'
 import LandingRedirect from '../base-component/landingRedirect';
 import ResetPasswordComponent from '../login-component/resetPasswordComponent';
 import TeacherComponent from '../teacher-component/teacherComponent';
-import ClassComponent from '../class-component/classComponent'
+import ClassComponent from '../class-component/classComponent';
+import StudentBaseComponent from '../students-component/studentBaseComponent';
 function Base(): ReactElement {
   return (
     <div>
       <Switch>
         <Route path="/syllabus" component={SyllabusBase}></Route>
         <Route path="/teachers" component={TeacherComponent}></Route>
+        <Route path="/students-management" component={StudentBaseComponent}></Route>
         <Route path="/class" component={ClassComponent}></Route>
         <Route path="/institution/:institutionId/school-onboarding" component={OnbardingBaseComponent}></Route>
         <Route path="/" component = {LandingRedirect}></Route>

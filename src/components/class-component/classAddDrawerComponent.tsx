@@ -267,7 +267,7 @@ function ClassAddDrawerComponent({ openDrawer, callBack, noClassTeachers, grade,
                   <InputLabel className={classes.drawerLabel} shrink={false}>Class</InputLabel>
                   <Select
                     name="grade"
-                    id="section"
+                    id="grade"
                     variant="outlined"
                     error={!!formik.errors.grade && !!formik.touched.grade}
                     value={formik.values.grade}

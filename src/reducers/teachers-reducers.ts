@@ -10,7 +10,7 @@ const initialState = {
   saved: null
 }
 
-export default (state = initialState,  action:any = {}) => {
+export default (state = initialState,  action:any = {}) => {  
   switch(action.type) {
     case 'GET_TEACHERS': {
       return {
@@ -68,7 +68,11 @@ export default (state = initialState,  action:any = {}) => {
         loading: true
       }
     }
+
     default: {
+      if(state){
+        return state
+      }
       return initialState;
     }
   }

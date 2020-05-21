@@ -10,7 +10,7 @@ import TeacherModalComponent from './teacherModalComponent';
 import TeacherFilterModal from './teacherFilterModal';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchTeacher} from '../../actions/teacher-action';
-import {Chip, Typography} from '@material-ui/core';
+import {Chip} from '@material-ui/core';
 import {getSchoolDetails} from "../../actions/address-form-actions";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 interface Props {
@@ -176,7 +176,8 @@ function TeachersActionComponent({searchQuery, institution}: Props): ReactElemen
     <ThemeProvider theme = {Theme}>
       <div className={classes.icon}>
         <PersonAddIcon onClick = {clicked} ></PersonAddIcon>
-        {openModel? <TeacherModalComponent opeModel = {openModel} callBack={clicked} /> : ''}
+        {/*openModel? <TeacherModalComponent opeModel = {openModel} callBack={clicked} /> : ''*/}
+        <TeacherModalComponent opeModel = {openModel} callBack={clicked} /> 
         <FilterListIcon onClick = {openFilter}></FilterListIcon>
         {openFilterModal ? <TeacherFilterModal openFilterModal = {openFilterModal} 
         callBack={openFilter} filterValues={filteredValues}/>: ''}

@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { makeStyles, Theme, createStyles, Button } from "@material-ui/core";
 import ImageCropper from './imageCropper';
 interface Props {
-  
+  saveImage:any
 }
 
 const uploadUseStyes = makeStyles((theme: Theme) =>
@@ -66,7 +66,9 @@ const uploadUseStyes = makeStyles((theme: Theme) =>
       height: "350px",
       display: "flex",
       flexDirection: "column-reverse",
-      alignItems: "flex-end",
+      alignItems: "center",
+      color: "black",
+      fontSize: 12,
       padding: 20,
       border: "dashed 1px grey",
       borderRadius: "7px",
@@ -78,7 +80,7 @@ const uploadUseStyes = makeStyles((theme: Theme) =>
   })
 );
 
-function ImageUpload({}: Props): ReactElement {
+function ImageUpload({saveImage}: Props): ReactElement {
   const classes = uploadUseStyes();
   const [imageUrl, setImageUrl] = useState("");
   const [files, setFiles] = useState([]);
@@ -88,6 +90,9 @@ function ImageUpload({}: Props): ReactElement {
   const [imagePreview, setImagePreview] = useState("");
 
   const setCroppedImages = (image:any) => {
+    setImagePreview(image);
+    saveImage(image)
+    //saveImage(files[0]);
     if(!isCropperEnabled){
       setImageUrl(image)
     }
@@ -161,7 +166,7 @@ function ImageUpload({}: Props): ReactElement {
           className={classes.dropZone}
         >
           <input type="file" placeholder="click" {...getInputProps()} />
-          <div>Drag 'n' drop some files here, or click to select files</div>
+          <div>Drag and Drop picture or click to select</div>
           {imageUrl !== '' ?  <img src={imageUrl} className={classes.img}></img>: 
            isImageSet === true ? (
             <aside>{isCropperEnabled == true ? cropPreview : thumbs}</aside>
@@ -170,6 +175,7 @@ function ImageUpload({}: Props): ReactElement {
           )
         }
         </div>
+        
         {isImageSet && toggleCropperButton}
   </section>
   )

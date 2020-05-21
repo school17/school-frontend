@@ -1,37 +1,31 @@
-import React, { ReactElement, useState, useEffect } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react';
 import {
   useTable,
-  useGroupBy,
-  useFilters,
-  useSortBy,
-  useExpanded,
   usePagination
 } from 'react-table';
+
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import EditIcon from '@material-ui/icons/Edit';
-import TeacherModalComponent from './teacherModalComponent';
-import {fetchTeacher, deleteTeacher} from '../../actions/teacher-action';
-import DeleteIcon from '@material-ui/icons/Delete';
-import {Button, TextField, InputLabel} from "@material-ui/core";
+import {searchStudents} from '../../actions/students-actions';
+import {Button, TextField} from "@material-ui/core";
 import {paginationTheme} from '../../utils/paginationStyles';
-
+import DeleteIcon from '@material-ui/icons/Delete';
 import {
   MuiThemeProvider,
   ThemeProvider
 } from "@material-ui/core/styles";
 
 import {tableRowTheme} from '../../utils/tableStyles';
-
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MaUTable from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import makeData from './makeData';
 import {useDispatch} from "react-redux";
+import StudentDrawerComponent from './studentAddComponent';
 interface Props {
-  teachersPayload: any,
+  studentsPayload: any,
   institution: any
 }
 
@@ -52,32 +46,32 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
   )
-export default function TeacherListComponent({teachersPayload, institution}: Props): ReactElement {
+
+function StudentListComponent({studentsPayload, institution}: Props): ReactElement {
   const dispatch = useDispatch();
-  //const data = React.useMemo(() => makeData(20), [])
   const [openModel, toggleOpenModel] = useState(false);
-  const [teacher, setTeacher] = useState({});
+  const [openStudentDrawer, toggleopenStudentGradeDrawer] = useState(false);
+  const [student, setStudent] = useState({});
   const clicked = (selectedTeacher:any) => {
-    if(openModel){
-      toggleOpenModel(false);
+    if(openStudentDrawer){
+      toggleopenStudentGradeDrawer(false);
     } 
     else {
-      toggleOpenModel(true);
-      setTeacher(selectedTeacher);
+      toggleopenStudentGradeDrawer(true);
+      setStudent(selectedTeacher);
     }
   }
+ 
 
-  const deleteSelectedTeacher = (teacher:any) => {
-    dispatch(deleteTeacher(teacher.institutionId, teacher.id));
+  const deleteSelectedStudent = (student:any) => {
+    //dispatch(deleteStudent(student.institutionId, student.id));
   }
 
-  const [data, setData] = useState(teachersPayload.teachers);
-
+ const [data, setTableData] = useState(studentsPayload.students);
   useEffect(()=>{
-    setData(teachersPayload.teachers)
-  },[teachersPayload])
-
-  const totalPages = teachersPayload.totalPages;
+      setTableData(studentsPayload.students)
+  },[studentsPayload.students]);
+  const totalPages = studentsPayload.totalPages;
   const columns = React.useMemo(
     () => [
       {
@@ -92,42 +86,25 @@ export default function TeacherListComponent({teachersPayload, institution}: Pro
         }
       },
       {
-        Header: 'Division',
-        accessor: 'division',
-      },
-      {
-        Header: 'Classes',
-        accessor: 'grades',
-        Cell: (row: any) => {
-          let grades = row.value.join(', ')
-          return <span> {grades} </span>
-        }
-      },
-      {
-        Header: 'Subjects',
-        accessor: 'subjects',
-        Cell: (row: any) => {
-          let subjects = row.value.join(', ')
-          return <span> {subjects} </span>
-        }
-      },
-      {
-        Header: 'Class Teacher',
+        Header: 'Grade',
         accessor: 'grade',
       },
+      {
+        Header: 'Section',
+        accessor: 'section',
+      },
+     
       {
         Header: '',
         accessor: 'actions',
         Cell: (row:any) => {
-          let teacher = row.data[row.row.id];
-          return <span><EditIcon onClick = {()=>{clicked(teacher)}}></EditIcon> <DeleteIcon onClick = {()=>{deleteSelectedTeacher(teacher)}} ></DeleteIcon></span>
+          let student = row.data[row.row.id];
+          return <span><EditIcon onClick = {()=>{clicked(student)}}></EditIcon> <DeleteIcon onClick = {()=>{deleteSelectedStudent(student)}} ></DeleteIcon></span>
         }
       }
     ],
     []
   )
-
-
   const {
     getTableProps, headerGroups, rows, prepareRow, getTableBodyProps,
     canPreviousPage,
@@ -156,7 +133,7 @@ export default function TeacherListComponent({teachersPayload, institution}: Pro
       pageNumber: pageIndex + 1,
       pageSize: pageSize
     }
-    dispatch(fetchTeacher(institution, searchQuery));
+    dispatch(searchStudents(institution, searchQuery));
     nextPage();
   }
 
@@ -165,12 +142,11 @@ export default function TeacherListComponent({teachersPayload, institution}: Pro
       pageNumber: pageIndex - 1,
       pageSize: pageSize
     }
-    dispatch(fetchTeacher(institution, searchQuery));
+    dispatch(searchStudents(institution, searchQuery));
     previousPage();
   }
 
   const classes = useStyles();
-
   return (
     <MuiThemeProvider theme= {tableRowTheme}>
     <CssBaseline></CssBaseline>
@@ -266,9 +242,9 @@ export default function TeacherListComponent({teachersPayload, institution}: Pro
           </select>*/}
       </div>
     </ThemeProvider>
-      {openModel? <TeacherModalComponent opeModel = {openModel} callBack={clicked} teacher={teacher} /> : ''}
+      {openStudentDrawer? <StudentDrawerComponent openDrawer = {openStudentDrawer} callBack={clicked} student ={student}/>  : ''}
     </MuiThemeProvider>
-   
-    
   )
 }
+
+export default StudentListComponent

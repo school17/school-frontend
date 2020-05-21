@@ -3,6 +3,10 @@ import axios from 'axios';
 import { SAVE_TEACHER_URL, HEADERS, 
   UPDATE_TEACHER_URL, SEARCH_TEACHER_URL, DELETE_TEACHER_URL } from './url';
 import { async } from 'q';
+
+import cogoToast from 'cogo-toast';
+
+
 export enum teachersAction {
   GET_TEACHER  = 'GET_TEACHERS',
   SAVE_TEACHER = 'SAVE_TEACHER',
@@ -36,6 +40,7 @@ export const fetchTeacher = (institutionId: any, searchQuery:any, filterValues?:
           'Access-Control-Allow-Origin' : '*'
         }
       })
+      cogoToast.success("Teachers fetched successfully", {position: 'top-right'})
       return dispatch({type: teachersAction.GET_TEACHER, payload: response.data})
     }catch(e){
 
@@ -43,8 +48,11 @@ export const fetchTeacher = (institutionId: any, searchQuery:any, filterValues?:
   }
 }
 
-export const saveTeacherAction = (institutionId: any, teacher: any, id?: any) => {
+export const saveTeacherAction = (institutionId: any, teacher: any, id?: any, imageFile?: any) => {
   return async (dispatch: Dispatch) => {
+    /*if(imageFile) {
+      teacher.imageFile = imageFile;
+    }*/
     const postData = transformTeacherData(teacher,institutionId, id);
     try {
       if(id) {

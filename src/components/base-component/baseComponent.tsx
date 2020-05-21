@@ -5,6 +5,7 @@ import ProtectRoutes from '../protected-routes/protectedRoutes';
 import ResetPasswordRoutes from '../protected-routes/resetPasswordRoutes';
 import {getSchoolDetails} from "../../actions/address-form-actions";
 import { useDispatch, useSelector } from "react-redux";
+import {connectWs} from "../socket/message";
 interface Props {
   
 }
@@ -16,6 +17,8 @@ function BaseComponent({}: Props): ReactElement {
   }
 
   const dispatch = useDispatch();
+  connectWs();
+
 
   const {institution} = useSelector((store:any) => {
     return store.loginReducer

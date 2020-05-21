@@ -85,6 +85,14 @@ createStyles({
     paddingTop: 20,
     maxHeight: '500px',
     overflowY: 'scroll'
+  },
+  datePicker: {
+    border: 'none',
+    backgroundColor: '#F5F6F8',
+    borderRadius: '4px',
+    minHeight: 60,
+    paddingLeft: 12,
+    color:"black"
   }
 }),
 );  

@@ -90,6 +90,7 @@ const validate = (values: any) => {
 function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactElement {
   const drawerClass = useDrawerStyles();
   const classes = formUseStyles();
+  const [imageFile, setIimageFile] = useState();
   const handleClose = (event?: any) => {
     callBack()
   };
@@ -129,13 +130,14 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
       city: teacher ? teacher.address.city : '',
       state: teacher ? teacher.address.state : '',
       pincode: teacher ? teacher.address.pincode : '',
+      picture: '',
     },
     validate,
     isInitialValid: false,
     enableReinitialize: true,
     onSubmit: (values: any) => {
       const isUpdate = teacher ? teacher.id : false;
-      dispatch(saveTeacherAction(institution, values, isUpdate));
+      dispatch(saveTeacherAction(institution, values, isUpdate, imageFile));
       handleClose();
     }
   });
@@ -169,6 +171,13 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
     setTimeout(() => {
       formik.setFieldValue('grades', value, true);
     }, 1);
+  }
+
+  const saveImage = (image:any ) => {
+    setIimageFile(image);
+    setTimeout(() =>{
+      formik.setFieldValue('picture', image);
+    });
   }
 
   const {saved} = useSelector((store:any)=> {
@@ -444,7 +453,7 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
                <FormControl className={classes.drawerFormControl}>
                 <InputLabel className={classes.drawerLabel}>Upload your Image</InputLabel>
                 <div className = {drawerClass.pincode}>
-                <ImageUpload ></ImageUpload>
+                <ImageUpload saveImage={saveImage}></ImageUpload>
                 </div>
                  
               </FormControl>

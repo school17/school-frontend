@@ -78,14 +78,14 @@ function LoginComponent({  }: Props): ReactElement {
       const token: any = jwt_decode(userName.replace("Bearer ", ""));
       dispatch(setLoginDetails(token.role, token.institution, token.sub));
       dispatch(fetchUserDetails(token.institution, token.sub));
-      //dispatch(getSchoolDetails(token.institution))
+      dispatch(getSchoolDetails(token.institution))
     }
   }, [userName]);
 
   const fetchToken = () => {
     axios({
       method: "post",
-      url: "http://localhost:80/login",
+      url: "http://localhost:81/login",
       data: {
         email: email,
         password: password

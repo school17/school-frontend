@@ -132,7 +132,8 @@ export default (state = InitialState, action: any = {}) => {
         email: action.payload.email,
         state: action.payload.state,
         divisionProvided: action.payload.divisionProvided,
-        availableGradesAndSections: action.payload.availableGradesAndSections
+        availableGradesAndSections: action.payload.availableGradesAndSections,
+        onboardingComplete: action.payload.onboardingComplete
 
       }
     }

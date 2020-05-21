@@ -21,3 +21,7 @@ code {
 .MuiDrawer-root .MuiIconButton-label {
   color: #EAE2B7;
 }
+
+.react-date-picker__wrapper  {
+  border: none !important;
+}

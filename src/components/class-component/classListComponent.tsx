@@ -10,7 +10,7 @@ import {
 import { makeStyles, Theme, createStyles, MuiThemeProvider, ThemeProvider } from "@material-ui/core/styles";
 import EditIcon from '@material-ui/icons/Edit';
 import {tableRowTheme} from '../../utils/tableStyles';
-import {fetchTeacher} from '../../actions/teacher-action';
+import {fetchGrades} from '../../actions/class-actions';
 import ClassAddDrawerComponent from './classAddDrawerComponent';
 
 import {Button, TextField} from "@material-ui/core";
@@ -136,7 +136,7 @@ function ClassListComponent({classPayload, institution}: Props): ReactElement {
       pageNumber: pageIndex + 1,
       pageSize: pageSize
     }
-    dispatch(fetchTeacher(institution, searchQuery));
+    dispatch(fetchGrades(institution, searchQuery));
     nextPage();
   }
 
@@ -145,7 +145,7 @@ function ClassListComponent({classPayload, institution}: Props): ReactElement {
       pageNumber: pageIndex - 1,
       pageSize: pageSize
     }
-    dispatch(fetchTeacher(institution, searchQuery));
+    dispatch(fetchGrades(institution, searchQuery));
     previousPage();
   }
 

@@ -23,6 +23,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import {useSelector} from "react-redux";
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import FaceIcon from '@material-ui/icons/Face';
 
 
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
@@ -122,6 +123,9 @@ export default function SideNav() {
   const {role, institution} = useSelector((store:any) => {
     return store.loginReducer
   })
+  const {onboardingComplete, name} = useSelector((store:any) => {
+    return store.addressFormStore
+  })
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -133,6 +137,19 @@ export default function SideNav() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const listMenusAfterOnbaordingCompleted = () => {
+    if(onboardingComplete) {
+      return(
+        <div>
+      <ListItemLink to="/teachers" primary="Teachers" icon={<Tooltip title="Teachers" aria-label="teachers" placement="right"><LocalLibraryIcon /></Tooltip>}></ListItemLink>
+      <ListItemLink to="/class" primary="Class Room" icon={<Tooltip title="Manage Class Room" aria-label="Class Room" placement="right"><MeetingRoomIcon /></Tooltip>}></ListItemLink>
+      <ListItemLink to="/students-management" primary="Manage Students" icon={<Tooltip title="Manage Students" aria-label="Manage Students" placement="right"><FaceIcon /></Tooltip>}></ListItemLink>
+        </div>
+      )
+      
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -156,7 +173,7 @@ export default function SideNav() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            School
+            {name}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -183,8 +200,10 @@ export default function SideNav() {
           <ListItemLink to="/support" primary="Support" icon={<Tooltip title="Support" aria-label="support" placement="right"><LibraryBooksIcon /></Tooltip>}></ListItemLink>
           <ListItemLink to="/syllabus" primary="Syllabus" icon={<Tooltip title="Syllabus" aria-label="syllabus" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
           <ListItemLink to={`/institution/${institution}/school-onboarding`} primary="School Details" icon={<Tooltip title="School-onbarding" aria-label="School-onbarding" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
-          <ListItemLink to="/teachers" primary="Teachers" icon={<Tooltip title="Teachers" aria-label="teachers" placement="right"><LocalLibraryIcon /></Tooltip>}></ListItemLink>
-          <ListItemLink to="/class" primary="Class Room" icon={<Tooltip title="Manage Class Room" aria-label="Class Room" placement="right"><MeetingRoomIcon /></Tooltip>}></ListItemLink>
+          {
+            listMenusAfterOnbaordingCompleted()
+          }
+          
         </List>
         <Divider />
       </Drawer>

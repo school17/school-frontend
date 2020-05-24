@@ -34,11 +34,6 @@ interface Props {
 function BaseComponent({}: Props): ReactElement {
   const classes = useStyles();
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
-  }
-
   const dispatch = useDispatch();
   connectWs();
 
@@ -63,11 +58,6 @@ function BaseComponent({}: Props): ReactElement {
           </ProtectRoutes>
         </Switch>
       </BrowserRouter>
-      {/* <Button variant="contained" color="primary"
-          className = {classes.customButton}
-          onClick={logout}>
-        LOGOUT
-      </Button> */}
     </div>
   )
 }

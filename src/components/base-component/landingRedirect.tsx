@@ -14,11 +14,11 @@ function LandingRedirect({}: Props): ReactElement {
   })
   const {role, institution, email} = userDetails();
   let url = '/';
-  if(user.temporaryPassword){
-    url = '/reset-password'
-  }else {
-    url = role === 'ADMIN' ? `/institution/${institution}/school-onboarding` :'/syllabus';
-  }
+    if(user.temporaryPassword){
+      url = '/reset-password'
+    }else {
+      url = role === 'ADMIN' ? `/institution/${institution}/school-onboarding` :'/syllabus';
+    }
   return (
     <Redirect
         to={{

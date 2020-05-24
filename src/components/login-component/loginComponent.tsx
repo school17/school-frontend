@@ -163,8 +163,9 @@ function LoginComponent({  }: Props): ReactElement {
                   color="primary"
                   className = {classes.customButton}
                   type="submit"
+                  disabled={password.length < 1}
                 >
-                  Login
+                  Login 
                 </Button>
               </Grid>
             </Grid>

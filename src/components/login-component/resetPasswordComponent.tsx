@@ -93,7 +93,9 @@ function ResetPasswordComponent({  }: Props): ReactElement {
         email: user ?user.email : "",
         password: values.password
       }
-      dispatch(resetPassword(userDetails));
+      if(values.conform === values.password) {
+        dispatch(resetPassword(userDetails));
+      }
     }
   });
   return (
@@ -151,7 +153,7 @@ function ResetPasswordComponent({  }: Props): ReactElement {
                     ></TextField>
                     {formik.errors.conform && formik.touched.conform && (
                       <strong className={formClasses.error}>
-                        conform Password is Required
+                        {formik.errors.conform}
                       </strong>
                     )}
                   </FormControl>
@@ -162,6 +164,7 @@ function ResetPasswordComponent({  }: Props): ReactElement {
                     color="primary"
                     className={classes.customButton}
                     type="submit"
+                    disabled = {!formik.isValid}
                   >
                     RESET
                   </Button>

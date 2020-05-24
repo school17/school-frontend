@@ -6,15 +6,33 @@ import ResetPasswordRoutes from '../protected-routes/resetPasswordRoutes';
 import {getSchoolDetails} from "../../actions/address-form-actions";
 import { useDispatch, useSelector } from "react-redux";
 import {connectWs} from "../socket/message";
+
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  MuiThemeProvider
+} from "@material-ui/core/styles";
+import { InputLabel, FormControl, TextField } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Icon from '@material-ui/core/Icon';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    customButton: {
+      marginTop: "25px",
+      marginLeft: "63%",
+      padding: "12px"
+    }
+  })
+);
+
 interface Props {
   
 }
 
 function BaseComponent({}: Props): ReactElement {
-  const logout = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
-  }
+  const classes = useStyles();
 
   const dispatch = useDispatch();
   connectWs();
@@ -40,7 +58,6 @@ function BaseComponent({}: Props): ReactElement {
           </ProtectRoutes>
         </Switch>
       </BrowserRouter>
-      <button onClick={logout}>LOGOUT</button>
     </div>
   )
 }

@@ -181,9 +181,6 @@ function AddAdmins({goToSummary  }: Props): ReactElement {
         </Grid>
       </Grid>
       </form>
-      {/* {listAllDivisions}
-
-      {divisionProvidedArray.length} */}
     </div>
   );
 }

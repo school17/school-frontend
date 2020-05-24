@@ -212,12 +212,6 @@ export default function SideNav() {
           <Typography variant="h6" noWrap>
             {name}
           </Typography>
-          {/* <Button variant="outlined" color="secondary" size="medium" 
-            endIcon={<ExitToAppIcon/>} 
-            className = {classes.customButton} 
-            onClick={logout}>
-            LOGOUT
-          </Button> */}
           <div className = {classes.customButton}>
             {auth && (
               <div>

@@ -5,10 +5,17 @@ import {
   createStyles,
   withStyles
 } from "@material-ui/core/styles";
+import PropTypes from 'prop-types';
 import clsx from "clsx";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
+import StepConnector from '@material-ui/core/StepConnector';
+import EditLocationIcon from '@material-ui/icons/EditLocation';
+import ApartmentIcon from '@material-ui/icons/Apartment';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import { StepIconProps } from '@material-ui/core/StepIcon';
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import AddressFrom from "./addressFrom";
@@ -39,7 +46,14 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: "25px"
     },
     button: {
-      marginRight: theme.spacing(1)
+      marginRight: theme.spacing(1),
+    },
+    nextFinishButton: {
+      marginRight: theme.spacing(1),
+      background: "#00425E",
+      "&:hover": {
+        backgroundColor: "#003248"
+      },
     },
     instructions: {
       marginTop: theme.spacing(1),
@@ -47,6 +61,80 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
+
+
+
+const ColorlibConnector = withStyles({
+  alternativeLabel: {
+    top: 22,
+  },
+  active: {
+    '& $line': {
+      borderColor: '#00425E',
+      backgroundColor: '#00425E',
+    },
+  },
+  completed: {
+      '& $line': {
+        borderColor: 'green',
+        backgroundColor: 'green',
+    },
+  },
+  line: {
+    height: 3,
+    border: 0,
+    backgroundColor: '#eaeaf0',
+    borderColor: '#eaeaf0',
+    borderRadius: 1,
+  },
+})(StepConnector);
+
+const useColorlibStepIconStyles = makeStyles({
+  root: {
+    backgroundColor: '#ccc',
+    zIndex: 1,
+    color: '#fff',
+    width: 50,
+    height: 50,
+    display: 'flex',
+    borderRadius: '50%',
+    justifyContent: 'center',
+    paddingLeft: '20%',
+    alignItems: 'center',
+  },
+  active: {
+    backgroundColor: '#00425E',
+  },
+  completed: {
+    backgroundColor: 'green',
+  },
+});
+
+function ColorlibStepIcon(props: StepIconProps) {
+  const classes = useColorlibStepIconStyles();
+  const { active, completed } = props;
+
+  const icons: { [index: string]: React.ReactElement } = {
+    1: <EditLocationIcon />,
+    2: <ApartmentIcon />,
+    3: <SupervisorAccountIcon />,
+    4: <MenuBookIcon />,
+  };
+
+  return (
+    <div
+      className={clsx(classes.root, {
+        [classes.active]: active,
+        [classes.completed]: completed,
+      })}
+    >
+      {icons[String(props.icon)]}
+    </div>
+  );
+}
+
+
+
 
 function getSteps() {
   return ["Address of your School", "School Informations", "Add Admins", "Summary"];
@@ -129,6 +217,15 @@ function OnboardingForm({  }: Props): ReactElement {
           </Step>
         ))}
       </Stepper>
+
+      {/* <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper> */}
+
       <div>
         {activeStep === steps.length ? (
           <div className={classes.buttonContainer}>
@@ -155,7 +252,7 @@ function OnboardingForm({  }: Props): ReactElement {
                 variant="contained"
                 color="primary"
                 onClick={handleNext}
-                className={classes.button}
+                className={classes.nextFinishButton}
               >
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
               </Button>

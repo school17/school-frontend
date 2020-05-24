@@ -58,6 +58,12 @@ createStyles({
   button: {
     marginTop: theme.spacing(6) + 10
   },
+  addDivisionButton: {
+    background: "#00425E",
+    "&:hover": {
+      backgroundColor: "#003248",
+    },
+  },
   Grid: {
     marginLeft: "auto"
   },

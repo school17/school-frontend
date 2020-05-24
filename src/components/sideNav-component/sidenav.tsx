@@ -23,7 +23,13 @@ import Tooltip from '@material-ui/core/Tooltip';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import {useSelector} from "react-redux";
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import Button from "@material-ui/core/Button";
 import FaceIcon from '@material-ui/icons/Face';
+// import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
@@ -89,6 +95,19 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3),
     },
+    customButton: {
+      marginLeft: "auto",
+      marginRight: "5%",
+    },
+    customDims: {
+      marginLeft: 15,
+      padding: 0,
+      height: 35,
+      width: 35,
+    },
+    customArrow: {
+      padding: 0,
+    },
   }),
 );
 
@@ -130,6 +149,10 @@ export default function SideNav() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const openProfile = Boolean(anchorEl);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -149,6 +172,20 @@ export default function SideNav() {
       )
       
     }
+  }
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  
+  const logout = () => {
+    handleClose();
+    localStorage.removeItem("token");
+    window.location.reload();
   }
 
   return (
@@ -175,6 +212,47 @@ export default function SideNav() {
           <Typography variant="h6" noWrap>
             {name}
           </Typography>
+          {/* <Button variant="outlined" color="secondary" size="medium" 
+            endIcon={<ExitToAppIcon/>} 
+            className = {classes.customButton} 
+            onClick={logout}>
+            LOGOUT
+          </Button> */}
+          <div className = {classes.customButton}>
+            {auth && (
+              <div>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  edge="start"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle className = {classes.customDims}/>
+                  <ArrowDropDownIcon className = {classes.customArrow}/>
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  open={openProfile}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={logout}>Logout</MenuItem>
+                  {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
+                </Menu>
+              </div>
+            )}
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer

@@ -140,7 +140,7 @@ function AddAdmins({goToSummary  }: Props): ReactElement {
         </Grid>
         <Grid item xs={12} md={5}>
               <FormControl className={classes.drawerFormControl}>
-                <InputLabel className={classes.drawerLabel}>Subjects</InputLabel>
+                <InputLabel className={classes.drawerLabel}>Classes</InputLabel>
                 <Autocomplete
                   multiple
                   id="grades-autocomplete"
@@ -175,15 +175,15 @@ function AddAdmins({goToSummary  }: Props): ReactElement {
           </FormControl>
         </Grid>
         <Grid item xs={12} md={2}>
-          <Button variant="contained" color="primary" type="submit">
+          <Button variant="contained" color="primary" type="submit" className={classes.addDivisionButton}>
             Add Divisions
           </Button>
         </Grid>
       </Grid>
       </form>
-      {listAllDivisions}
+      {/* {listAllDivisions}
 
-      {divisionProvidedArray.length}
+      {divisionProvidedArray.length} */}
     </div>
   );
 }

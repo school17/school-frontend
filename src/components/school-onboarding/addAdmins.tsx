@@ -75,11 +75,13 @@ function AddAdmins({goToSummary  }: Props): ReactElement {
   });
 
   const listAllDivisions = divisionList.map((item:any, index: any) => {
-    return(
-      <div key={index}>
-        <span>{item.division}</span>: <span>{item.sections}</span>
-      </div>
-    )
+    if(divisionList.length > 0 && Object.keys(item).length > 0) {
+      return(
+        <div key={index}>
+          <span>{item.division}</span>: <span>{item.sections}</span>
+        </div>
+      )  
+    }
   });
 
   const [selectedGradesList, setselectedGradesList] = useState([]);
@@ -181,6 +183,7 @@ function AddAdmins({goToSummary  }: Props): ReactElement {
         </Grid>
       </Grid>
       </form>
+      {listAllDivisions}
     </div>
   );
 }

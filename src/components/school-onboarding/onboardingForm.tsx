@@ -28,7 +28,8 @@ import {
   submitSchoolInfoFrom
 } from "../../actions/address-form-actions";
 import SchoolInfoForm from "./schoolInfoForm";
-import {updateInstitution} from '../../actions/address-form-actions'
+import {updateInstitution} from '../../actions/address-form-actions';
+import SummaryComponent from './summaryComponent';
 
 interface Props {}
 
@@ -148,7 +149,7 @@ function getStepContent(step: number, goToSummary: any): any {
     case 2:
       return <AddAdmins goToSummary={goToSummary}/>;
     case 3:
-      return "Summary"
+      return <SummaryComponent/>
     default:
       return "ERROR";
   }

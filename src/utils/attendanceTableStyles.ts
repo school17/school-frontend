@@ -16,22 +16,19 @@ export const tableRowTheme = createMuiTheme({
     },
     MuiTableCell: {
       body: {
-        padding: '28px 8px',
-        fontSize: '14px',
+        fontSize: '12px',
         fontWeight: 500,
         textAlign: 'center',
-        borderRight: '1px solid lightgrey'
+        maxWidth: "200px"
       },
       head: {
         fontWeight: 900,
         padding: 8,
-        fontSize: 15,
+        fontSize: 10,
         textAlign: 'center',
         position: 'sticky',
-        borderRight: '1px solid lightgrey'
       },
       stickyHeader :{
-        backgroundColor: 'rgb(230, 230, 230)'
       }
     }
   }

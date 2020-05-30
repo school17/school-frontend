@@ -71,8 +71,8 @@ function TimeOffListComponent({names, attendance, dates, dataRows}: Props): Reac
           <img src={url} width='30px' height='30px' style={{borderRadius: "50%", margin: "0px 5px"}}/>
           <div style={{fontWeight: 500, marginLeft:"5px"}}><span>{row.value}</span></div>
           <div style={{
-    width: "15px",
-    height: "15px",
+    width: "20px",
+    height: "20px",
     borderRadius: "50%",
     backgroundColor: "lightblue",
     display: "flex",

@@ -67,12 +67,12 @@ function TimeOffListComponent({names, attendance, dates, dataRows}: Props): Reac
       Cell: (row:any) =>{
         const url:any = row.data[row.row.id].picture ?  row.data[row.row.id].picture : 'http://getdrawings.com/free-icon/teacher-icon-69.png'
         const count:any =  row.data[row.row.id].count; 
-        return <div style={{display: 'flex', alignItems:'center', minWidth:"200px", justifyContent: "space-between"}}>
-          <img src={url} width='50px' height='50px' style={{borderRadius: "50%", margin: "0px 5px"}}/>
-          <div style={{fontWeight: 500, marginLeft:"10px"}}><span>{row.value}</span></div>
+        return <div style={{display: 'flex', alignItems:'center', minWidth:"150px", justifyContent: "space-between"}}>
+          <img src={url} width='30px' height='30px' style={{borderRadius: "50%", margin: "0px 5px"}}/>
+          <div style={{fontWeight: 500, marginLeft:"5px"}}><span>{row.value}</span></div>
           <div style={{
-    width: "30px",
-    height: "30px",
+    width: "15px",
+    height: "15px",
     borderRadius: "50%",
     backgroundColor: "lightblue",
     display: "flex",
@@ -87,7 +87,7 @@ function TimeOffListComponent({names, attendance, dates, dataRows}: Props): Reac
           accessor: value,
           Cell: (row:any) => {
             let attendance = row.data[row.row.id];
-            return attendance[value] ? <div style={{width: "20px", height: "20px", borderRadius:"50%", backgroundColor:"teal"}}></div> : ''
+            return attendance[value] ? <div style={{width: "10px", height: "10px", borderRadius:"50%", backgroundColor:"#0F1727"}}></div> : ''
           }
       }); 
     });

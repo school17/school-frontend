@@ -68,25 +68,25 @@ const generateDates = (monthIndex: any) => {
   for(let i=1; i<=new Date(2020, monthIndex, 0).getDate(); i++ ){
     switch (new Date(2020, monthIndex - 1, i).getDay()){
        case 0:
-        dates.push(i+ " S");
+        dates.push(i+ " SUN");
         break;
        case 1:
-        dates.push(i+ " M");
+        dates.push(i+ " MON");
         break;
         case 2:
-        dates.push(i+ " T");
+        dates.push(i+ " TUE");
         break;
         case 3:
-        dates.push(i+ " W");
+        dates.push(i+ " WED");
         break;
         case 4:
-        dates.push(i+ " T");
+        dates.push(i+ " THR");
         break;
         case 5:
-        dates.push(i+ " F");
+        dates.push(i+ " FRI");
         break;
         case 6:
-        dates.push(i+ " S");
+        dates.push(i+ " SAT");
         break;
     }
   

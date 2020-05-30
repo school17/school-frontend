@@ -13,6 +13,11 @@ export const drawerTheme = createMuiTheme({
         color: 'coral'
       }
     },
+    MuiSelect:{
+      root:{
+        textAlign: "left"
+      }
+    },
     MuiOutlinedInput: {
       root: {
         backgroundColor: "#F5F6F8",

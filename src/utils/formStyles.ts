@@ -18,6 +18,11 @@ export const textFieldTheme  = createMuiTheme({
         }
       }
     },
+    MuiSelect:{
+      root:{
+        textAlign: "left"
+      }
+    },
     MuiButton: {
       containedPrimary: {
         backgroundColor: "#00425E",

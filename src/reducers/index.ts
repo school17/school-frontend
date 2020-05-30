@@ -10,6 +10,7 @@ import userDetailsReducer from './user-details-reducers';
 import teacherReducer from './teachers-reducers';
 import classReducer from './class-reducers';
 import studentReducer from './students-reducers';
+import attendanceReducer from "./attendance-reducers";
 
 const reducers = {
   postStore: postsReducer,
@@ -20,7 +21,8 @@ const reducers = {
   userDetailsReducer: userDetailsReducer,
   teacherReducer: teacherReducer,
   classReducer: classReducer,
-  studentReducer: studentReducer
+  studentReducer: studentReducer,
+  attendanceReducer: attendanceReducer
 }
 
 const rootReducer = combineReducers(reducers);

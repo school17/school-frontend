@@ -30,6 +30,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
 
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
@@ -168,6 +169,7 @@ export default function SideNav() {
       <ListItemLink to="/teachers" primary="Teachers" icon={<Tooltip title="Teachers" aria-label="teachers" placement="right"><LocalLibraryIcon /></Tooltip>}></ListItemLink>
       <ListItemLink to="/class" primary="Class Room" icon={<Tooltip title="Manage Class Room" aria-label="Class Room" placement="right"><MeetingRoomIcon /></Tooltip>}></ListItemLink>
       <ListItemLink to="/students-management" primary="Manage Students" icon={<Tooltip title="Manage Students" aria-label="Manage Students" placement="right"><FaceIcon /></Tooltip>}></ListItemLink>
+      <ListItemLink to="/view-leaves" primary="View Leaves" icon={<Tooltip title="View Leaves" aria-label="View Leaves" placement="right"><PeopleAltIcon /></Tooltip>}></ListItemLink>
         </div>
       )
       

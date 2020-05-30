@@ -33,6 +33,10 @@ export const CREATE_STUDENT_URL = `${DOMAIN}/institutionId/students/create_stude
 
 export const UPDATE_STUDENT_URL = `${DOMAIN}/institutionId/students/studentId`;
 
+export const GET_ATTENDANCE_NAMES_URL = `${DOMAIN}/institutionId/students/grade/section`
+
+export const GET_MONTH_ATTENDANCE_URL = `${DOMAIN}/institutionId/attendance/grade/section/month/year`
+
 
 
 const TOKEN: any  = localStorage.getItem("token");

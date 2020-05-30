@@ -91,6 +91,10 @@ createStyles({
   button: {
     fontSize: 10
   },
+  searchButton : {
+    fontSize: 15,
+    padding: "12px 0px"
+  },
   customButton: {
     marginRight: 15,
     fontSize: 10

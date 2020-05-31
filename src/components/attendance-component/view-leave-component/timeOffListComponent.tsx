@@ -87,7 +87,7 @@ function TimeOffListComponent({names, attendance, dates, dataRows}: Props): Reac
           accessor: value,
           Cell: (row:any) => {
             let attendance = row.data[row.row.id];
-            return attendance[value] ? <div style={{width: "10px", height: "10px", borderRadius:"50%", backgroundColor:"#0F1727"}}></div> : ''
+            return attendance[value] ? <div style={{width: "15px", height: "15px", borderRadius:"50%", backgroundColor:"#0F1727", margin:"auto"}}></div> : ''
           }
       }); 
     });

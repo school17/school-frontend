@@ -29,7 +29,8 @@ interface Props {
   dates: any,
   dataRows:any
   currentMonth:any,
-  currentYear:any
+  currentYear:any,
+  updateMonth: any
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
   );
 
-function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth, currentYear}: Props): ReactElement {
+function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth, currentYear, updateMonth}: Props): ReactElement {
   const classes = useStyles();
 
   switch(currentMonth){
@@ -122,6 +123,8 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
       monthButtonValue.value = `${currentMonth} ${currentYear}`;
       monthButtonValue.innerText = `${currentMonth} ${currentYear}`;
     }
+
+    updateMonth(currentMonth, currentYear);
   }
 
   const getNextMonth = (ev:any) => {
@@ -141,6 +144,8 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
       monthButtonValue.value = `${currentMonth} ${currentYear}`;
       monthButtonValue.innerText = `${currentMonth} ${currentYear}`;
     }
+
+    updateMonth(currentMonth, currentYear);
   }
 
   const buttonMonthGroup = () => {return(<div className={classes.root}>

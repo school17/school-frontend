@@ -9,6 +9,7 @@ import {useSelector, useDispatch} from "react-redux";
 
 import {getAttendanceStudentsName, getAttendance} from "../../../actions/attendance-actions";
 import SelectGradeOptions from "./selectGradeOptions";
+import { toStatement } from '@babel/types';
 interface Props {
   
 }
@@ -38,20 +39,24 @@ const[data, setData] = useState([]);
 
 
 const [formData, setFormData] = useState({
-  month: "JANUARY",
-  monthIndex: 1
-})
+  grade: '',
+  section: ''
+});
 
 const [monthAndYear, setMonthAndYear] = useState({
   currentMonth: new Date().toString().split(" ")[1],
-  currentYear: Number(new Date().toString().split(" ")[3])
+  currentYear: Number(new Date().toString().split(" ")[3]),
+  changeMonth: false
 });
 
 const fetchAttendance = (formData:any) => {
   setFormData(formData);
-  //generateDates(formData.monthIndex);
-  //dispatch(getAttendanceStudentsName(institution, formData.grade, formData.section));
-  dispatch(getAttendance(institution, formData.grade, formData.section, formData.month, "2020"));
+  dispatch(getAttendance(institution, formData.grade, formData.section, monthAndYear.currentMonth, monthAndYear.currentYear));
+  setMonthAndYear({
+    currentMonth: monthAndYear.currentMonth,
+    currentYear: monthAndYear.currentYear,
+    changeMonth: false
+  });
 }
 
 
@@ -65,7 +70,21 @@ useEffect(()=>{
     setData([]);
     setDates([]);
   }
-},[dataLoading, formData])
+
+  if(monthAndYear.changeMonth) {
+    fetchAttendance(formData);
+  }
+
+
+},[dataLoading, formData, monthAndYear])
+
+const updateMonth = (month:any, year:any) => {
+  setMonthAndYear({
+    currentMonth: month,
+    currentYear: year,
+    changeMonth: true
+  });
+}
 
 const generateDates = (monthIndex: any) => {
   let dates:any = [];
@@ -136,7 +155,8 @@ const check =  () =>{
   if(dates.length > 1   && !dataLoading && data.length > 1){
     // let currentMonth:any = new Date().toString().split(" ")[1];
     // let currentYear:any = Number(new Date().toString().split(" ")[3]);
-    return <TimeOffListComponent names={names} attendance={attendance} dates={dates} dataRows={data} currentMonth={monthAndYear.currentMonth} currentYear={monthAndYear.currentYear}/> 
+    return <TimeOffListComponent names={names} attendance={attendance} dates={dates} dataRows={data} currentMonth={monthAndYear.currentMonth} 
+    currentYear={monthAndYear.currentYear} updateMonth={updateMonth}/> 
   }
 }
 

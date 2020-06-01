@@ -49,6 +49,8 @@ const [monthAndYear, setMonthAndYear] = useState({
   changeMonth: false
 });
 
+const months = ["JANUARY", "FEBURUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER",];
+
 const fetchAttendance = (formData:any) => {
   setFormData(formData);
   dispatch(getAttendance(institution, formData.grade, formData.section, monthAndYear.currentMonth, monthAndYear.currentYear));
@@ -62,7 +64,8 @@ const fetchAttendance = (formData:any) => {
 
 useEffect(()=>{
   if(!dataLoading) {
-    generateDates(formData.monthIndex);
+    generateDates(months.indexOf(monthAndYear.currentMonth) > 0 ? 
+    months.indexOf(monthAndYear.currentMonth) : months.indexOf("JUNE"));
     genetateData();
   }
 
@@ -88,8 +91,8 @@ const updateMonth = (month:any, year:any) => {
 
 const generateDates = (monthIndex: any) => {
   let dates:any = [];
-  for(let i=1; i<=new Date(2020, monthIndex, 0).getDate(); i++ ){
-    switch (new Date(2020, monthIndex - 1, i).getDay()){
+  for(let i=1; i<=new Date(2020, monthIndex + 1, 0).getDate(); i++ ){
+    switch (new Date(2020, monthIndex, i).getDay()){
        case 0:
         dates.push(i+ " SUN");
         break;

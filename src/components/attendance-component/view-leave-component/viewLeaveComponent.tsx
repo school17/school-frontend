@@ -42,6 +42,10 @@ const [formData, setFormData] = useState({
   monthIndex: 1
 })
 
+const [monthAndYear, setMonthAndYear] = useState({
+  currentMonth: new Date().toString().split(" ")[1],
+  currentYear: Number(new Date().toString().split(" ")[3])
+});
 
 const fetchAttendance = (formData:any) => {
   setFormData(formData);
@@ -106,9 +110,10 @@ const genetateData = () => {
       count: 0
     }
       dates.forEach((value:any)=>{
+        const date:any = value.split(" ");
         Object.assign(obj, {
-          [value]: findAbsence(obj.name, value),
-          count: findAbsence(obj.name, value) ? obj.count + 1 : obj.count
+          [value]: findAbsence(obj.name, date[0]),
+          count: findAbsence(obj.name, date[0]) ? obj.count + 1 : obj.count
         })
     });
     rowData.push(obj);
@@ -119,7 +124,7 @@ const genetateData = () => {
 const findAbsence = (name:any, date:any) => {
   let absence = false;
   for(var i=0; i< attendance.length; i++){
-    if(attendance[i].name == name && date.includes(attendance[i].date)) {
+    if(attendance[i].name == name && date === (attendance[i].date)) {
       absence = true;
       break;
     }
@@ -129,7 +134,9 @@ const findAbsence = (name:any, date:any) => {
 
 const check =  () =>{
   if(dates.length > 1   && !dataLoading && data.length > 1){
-    return <TimeOffListComponent names={names} attendance={attendance} dates={dates} dataRows={data}/> 
+    // let currentMonth:any = new Date().toString().split(" ")[1];
+    // let currentYear:any = Number(new Date().toString().split(" ")[3]);
+    return <TimeOffListComponent names={names} attendance={attendance} dates={dates} dataRows={data} currentMonth={monthAndYear.currentMonth} currentYear={monthAndYear.currentYear}/> 
   }
 }
 

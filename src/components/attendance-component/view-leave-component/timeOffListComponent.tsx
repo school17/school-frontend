@@ -17,12 +17,20 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+
 import {useDispatch} from "react-redux";
 interface Props {
   names:any,
   attendance: any,
   dates: any,
   dataRows:any
+  currentMonth:any,
+  currentYear:any
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,15 +47,118 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '30px',
       justifyContent: 'center',
       alignItems: 'center'
+    },
+    root: {
+      display: 'flex',
+      alignItems: 'stretch',
+      // '& > *': {
+      //   margin: theme.spacing(1),
+      // },
+    },
+    arrowButton: {
+    },
+    monthButton: {
     }
   })
-  )
+  );
 
+// let currentMonth:string;
+// let currentYear:number;
 
-function TimeOffListComponent({names, attendance, dates, dataRows}: Props): ReactElement {
+function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth, currentYear}: Props): ReactElement {
   const classes = useStyles();
+
+  switch(currentMonth){
+    case "Jan": currentMonth = "JANUARY";
+              break;
+    case "Feb": currentMonth = "FEBURUARY";
+              break;
+    case "Mar": currentMonth = "MARCH";
+              break;
+    case "Apr": currentMonth = "APRIL";
+              break;
+    case "May": currentMonth = "MAY";
+              break;
+    case "Jun": currentMonth = "JUNE";
+              break;
+    case "Jul": currentMonth = "JULY";
+              break;
+    case "Aug": currentMonth = "AUGUST";
+              break;
+    case "Sep": currentMonth = "SEPTEMBER";
+              break;
+    case "Oct": currentMonth = "OCTOBER";
+              break;
+    case "Nov": currentMonth = "NOVEMBER";
+              break;
+    case "Dec": currentMonth = "DECEMBER";
+              break;
+  }
+
+  const months = ["JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER", "JANUARY", "FEBURUARY", "MARCH", "APRIL", "MAY"];
+  const acedamicHalves = {
+    firstHalfYear: (months.indexOf(currentMonth) < 7) ? currentYear : currentYear-1,
+    secondHalfYear: (months.indexOf(currentMonth) >= 7) ? currentYear : currentYear+1,
+  }
+  console.log(acedamicHalves);
   const [data, setTableData] = useState(dataRows);
   const [tableHeaders, setTableheaders] = useState(dates);
+  // const [monthAndYear, setMonthAndYear] = useState({
+  //   month: currentMonth ,
+  //   year: currentYear,
+  // });
+
+  const getPrevMonth = (ev:any) => {
+    let monthButtonValue:any = document.getElementById("monthButton");
+    let buttonMonth = monthButtonValue.value.split(" ")[0];
+    const buttonYear = monthButtonValue.value.split(" ")[1];
+    let monthIndex = months.indexOf(buttonMonth);
+    let prevIndex = monthIndex-1;
+    if(monthIndex > 0){
+      currentMonth = months[prevIndex];
+      currentYear = (prevIndex < 7) ? acedamicHalves.firstHalfYear : acedamicHalves.secondHalfYear;
+      monthButtonValue.value = `${currentMonth} ${currentYear}`;
+      monthButtonValue.innerText = `${currentMonth} ${currentYear}`;
+    }else{
+      currentMonth = months[monthIndex];
+      currentYear = buttonYear;
+      monthButtonValue.value = `${currentMonth} ${currentYear}`;
+      monthButtonValue.innerText = `${currentMonth} ${currentYear}`;
+    }
+  }
+
+  const getNextMonth = (ev:any) => {
+    let monthButtonValue:any = document.getElementById("monthButton");
+    let buttonMonth = monthButtonValue.value.split(" ")[0];
+    const buttonYear = monthButtonValue.value.split(" ")[1];
+    let monthIndex = months.indexOf(buttonMonth);
+    let nextIndex = monthIndex+1;
+    if(monthIndex < months.length-1){
+      currentMonth = months[nextIndex];
+      currentYear = (nextIndex < 7) ? acedamicHalves.firstHalfYear : acedamicHalves.secondHalfYear;
+      monthButtonValue.value = `${currentMonth} ${currentYear}`;
+      monthButtonValue.innerText = `${currentMonth} ${currentYear}`;
+    }else{
+      currentMonth = months[monthIndex];
+      currentYear = buttonYear;
+      monthButtonValue.value = `${currentMonth} ${currentYear}`;
+      monthButtonValue.innerText = `${currentMonth} ${currentYear}`;
+    }
+  }
+
+  const buttonMonthGroup = () => {return(<div className={classes.root}>
+                                          <Button variant="outlined" size="small" className={classes.arrowButton} onClick={getPrevMonth}>
+                                            <ArrowLeftIcon/>
+                                          </Button>           
+                                                                                          {/* {`${monthAndYear.month} ${monthAndYear.year}`} */}
+                                          <Button id="monthButton" variant="outlined" className={classes.monthButton} value={`${currentMonth} ${currentYear}`}>{`${currentMonth} ${currentYear}`}</Button>
+                                          <Button variant="outlined" size="small" className={classes.arrowButton} onClick={getNextMonth}>
+                                            <ArrowRightIcon/>
+                                          </Button>
+                                        </div>);
+                                }
+                            
+
   useEffect(()=>{
     if(dates.length > 1) {
       setTableheaders(dates)
@@ -62,7 +173,7 @@ function TimeOffListComponent({names, attendance, dates, dataRows}: Props): Reac
   const columns = React.useMemo(()=>{
     const defineColumns:any = [];
     defineColumns.push({
-      Header: "Name",
+      Header: buttonMonthGroup(),  //"Name"
       accessor: 'name',
       Cell: (row:any) =>{
         const url:any = row.data[row.row.id].picture ?  row.data[row.row.id].picture : 'http://getdrawings.com/free-icon/teacher-icon-69.png'

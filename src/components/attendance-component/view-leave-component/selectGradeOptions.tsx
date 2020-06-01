@@ -112,7 +112,7 @@ function SelectGradeOptions({callBack}: Props): ReactElement {
     <ThemeProvider theme={drawerTheme}>
       <form onSubmit={formik.handleSubmit}>
       <Grid container className={drawerClass.form}>
-      <Grid item xs={6} md={3}>
+      <Grid item xs={6} md={2}>
                 <FormControl className={classes.drawerFormControl}>
                   <InputLabel className={classes.drawerLabel} shrink={false}>Month </InputLabel>
                   <Select
@@ -133,7 +133,7 @@ function SelectGradeOptions({callBack}: Props): ReactElement {
                   )}
                 </FormControl>
               </Grid>
-      <Grid item xs={6} md={3}>
+      <Grid item xs={6} md={2}>
                 <FormControl className={classes.drawerFormControl}>
                   <InputLabel className={classes.drawerLabel} shrink={false}>Division </InputLabel>
                   <Select
@@ -156,7 +156,7 @@ function SelectGradeOptions({callBack}: Props): ReactElement {
               </Grid>
               {
                 formik.values.division ? 
-                <Grid item xs={6} md={2}>
+                <Grid item xs={6} md={1}>
                 <FormControl className={classes.drawerFormControl}>
                   <InputLabel className={classes.drawerLabel} shrink={false}>Class</InputLabel>
                   <Select
@@ -181,7 +181,7 @@ function SelectGradeOptions({callBack}: Props): ReactElement {
               }
               {
                 formik.values.grade? 
-                <Grid item xs={6} md={2}>
+                <Grid item xs={6} md={1}>
                 <FormControl className={classes.drawerFormControl}>
                   <InputLabel className={classes.drawerLabel} shrink={false}>Section</InputLabel>
                   <Select

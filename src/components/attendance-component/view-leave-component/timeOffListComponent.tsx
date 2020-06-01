@@ -17,12 +17,20 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+
 import {useDispatch} from "react-redux";
 interface Props {
   names:any,
   attendance: any,
   dates: any,
   dataRows:any
+  currentMonth:any,
+  currentYear:number,
+  updateMonth: any
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,15 +47,117 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '30px',
       justifyContent: 'center',
       alignItems: 'center'
+    },
+    root: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    arrowButton: {
+    },
+    monthButton: {
+      marginLeft: "5px",
+      marginRight: "5px",
+      cursor: "default",
+      backgroundColor: "transparent",
+      "&:hover": {
+        backgroundColor: "transparent"
+      }
     }
   })
-  )
+  );
 
-
-function TimeOffListComponent({names, attendance, dates, dataRows}: Props): ReactElement {
+function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth, currentYear, updateMonth}: Props): ReactElement {
   const classes = useStyles();
+
+  switch(currentMonth){
+    case "Jan": currentMonth = "JANUARY";
+              break;
+    case "Feb": currentMonth = "FEBURUARY";
+              break;
+    case "Mar": currentMonth = "MARCH";
+              break;
+    case "Apr": currentMonth = "APRIL";
+              break;
+    case "May": currentMonth = "MAY";
+              break;
+    case "Jun": currentMonth = "JUNE";
+              break;
+    case "Jul": currentMonth = "JULY";
+              break;
+    case "Aug": currentMonth = "AUGUST";
+              break;
+    case "Sep": currentMonth = "SEPTEMBER";
+              break;
+    case "Oct": currentMonth = "OCTOBER";
+              break;
+    case "Nov": currentMonth = "NOVEMBER";
+              break;
+    case "Dec": currentMonth = "DECEMBER";
+              break;
+  }
+
+  const months = ["JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER", "JANUARY", "FEBURUARY", "MARCH", "APRIL", "MAY"];
+  const acedamicHalves = {
+    firstHalfYear: (months.indexOf(currentMonth) < 7) ? currentYear : Number(currentYear-1),
+    secondHalfYear: (months.indexOf(currentMonth) >= 7) ? currentYear : Number(currentYear+1),
+  }
+  console.log(acedamicHalves);
   const [data, setTableData] = useState(dataRows);
   const [tableHeaders, setTableheaders] = useState(dates);
+
+  const getPrevMonth = (ev:any) => {
+    let monthButtonValue:any = document.getElementById("monthButton");
+    let buttonMonth = monthButtonValue.value.split(" ")[0];
+    const buttonYear = monthButtonValue.value.split(" ")[1];
+    let monthIndex = months.indexOf(buttonMonth);
+    let prevIndex = monthIndex-1;
+    if(monthIndex > 0){
+      currentMonth = months[prevIndex];
+      currentYear = (prevIndex < 7) ? acedamicHalves.firstHalfYear : acedamicHalves.secondHalfYear;
+      monthButtonValue.value = `${currentMonth} ${currentYear}`;
+      monthButtonValue.innerText = `${currentMonth} ${currentYear}`;
+    }else{
+      currentMonth = months[monthIndex];
+      currentYear = buttonYear;
+      monthButtonValue.value = `${currentMonth} ${currentYear}`;
+      monthButtonValue.innerText = `${currentMonth} ${currentYear}`;
+    }
+
+    updateMonth(currentMonth, currentYear);
+  }
+
+  const getNextMonth = (ev:any) => {
+    let monthButtonValue:any = document.getElementById("monthButton");
+    let buttonMonth = monthButtonValue.value.split(" ")[0];
+    const buttonYear = monthButtonValue.value.split(" ")[1];
+    let monthIndex = months.indexOf(buttonMonth);
+    let nextIndex = monthIndex+1;
+    console.log(monthIndex);
+    if(monthIndex < months.length-1){
+      currentMonth = months[nextIndex];
+      currentYear = (nextIndex < 7) ? acedamicHalves.firstHalfYear : acedamicHalves.secondHalfYear;
+      monthButtonValue.value = `${currentMonth} ${currentYear}`;
+      monthButtonValue.innerText = `${currentMonth} ${currentYear}`;
+    }else{
+      currentMonth = months[monthIndex];
+      currentYear = buttonYear;
+      monthButtonValue.value = `${currentMonth} ${currentYear}`;
+      monthButtonValue.innerText = `${currentMonth} ${currentYear}`;
+    }
+
+    updateMonth(currentMonth, currentYear);
+  }
+
+  const buttonMonthGroup = () => {return(<div className={classes.root}>
+                                          <Button style={{maxWidth: '30px', minWidth: '15px', marginLeft: '10%'}} variant="outlined" className={classes.arrowButton} onClick={getPrevMonth}>
+                                            <ArrowLeftIcon style={{marginLeft: "10px"}}/>
+                                          </Button>
+                                          <Button style={{maxWidth: '70%', minWidth: '50%'}} id="monthButton" variant="outlined" className={classes.monthButton} value={`${currentMonth} ${currentYear}`} disableRipple>{`${currentMonth} ${currentYear}`}</Button>
+                                          <Button style={{maxWidth: '30px', minWidth: '15px'}} variant="outlined" className={classes.arrowButton} onClick={getNextMonth}>
+                                            <ArrowRightIcon style={{marginLeft: "10px"}}/>
+                                          </Button>
+                                        </div>);
+                                }                            
   useEffect(()=>{
     if(dates.length > 1) {
       setTableheaders(dates)
@@ -62,7 +172,7 @@ function TimeOffListComponent({names, attendance, dates, dataRows}: Props): Reac
   const columns = React.useMemo(()=>{
     const defineColumns:any = [];
     defineColumns.push({
-      Header: "Name",
+      Header: buttonMonthGroup(),
       accessor: 'name',
       Cell: (row:any) =>{
         const url:any = row.data[row.row.id].picture ?  row.data[row.row.id].picture : 'http://getdrawings.com/free-icon/teacher-icon-69.png'
@@ -83,7 +193,10 @@ function TimeOffListComponent({names, attendance, dates, dataRows}: Props): Reac
     })
     tableHeaders.forEach((value:any,key:any)=>{
       defineColumns.push({
-          Header: value,
+          Header: <div>
+                    <div>{value.split(" ")[0]}</div>
+                    <div>{value.split(" ")[1]}</div>
+                  </div>,
           accessor: value,
           Cell: (row:any) => {
             let attendance = row.data[row.row.id];

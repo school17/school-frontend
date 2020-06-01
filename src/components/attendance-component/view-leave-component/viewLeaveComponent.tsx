@@ -9,6 +9,7 @@ import {useSelector, useDispatch} from "react-redux";
 
 import {getAttendanceStudentsName, getAttendance} from "../../../actions/attendance-actions";
 import SelectGradeOptions from "./selectGradeOptions";
+import { toStatement } from '@babel/types';
 interface Props {
   
 }
@@ -21,6 +22,8 @@ function ViewLeaveComponent({}: Props): ReactElement {
     },
   })
 );
+
+const indexOfMonth = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const dispatch = useDispatch();
 const classes = useStyles();
@@ -36,24 +39,35 @@ const [dates, setDates] = useState([]);
 
 const[data, setData] = useState([]);
 
+const [monthAndYear, setMonthAndYear] = useState({
+  currentMonth: new Date().toString().split(" ")[1],
+  currentYear: Number(new Date().toString().split(" ")[3]),
+  changeMonth: false
+});
+
+const months = ["JANUARY", "FEBURUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER",];
 
 const [formData, setFormData] = useState({
-  month: "JANUARY",
-  monthIndex: 1
-})
-
+  monthIndex: indexOfMonth.indexOf(monthAndYear.currentMonth),
+  grade: '',
+  section: ''
+});
 
 const fetchAttendance = (formData:any) => {
   setFormData(formData);
-  //generateDates(formData.monthIndex);
-  //dispatch(getAttendanceStudentsName(institution, formData.grade, formData.section));
-  dispatch(getAttendance(institution, formData.grade, formData.section, formData.month, "2020"));
+  dispatch(getAttendance(institution, formData.grade, formData.section, monthAndYear.currentMonth, monthAndYear.currentYear));
+  setMonthAndYear({
+    currentMonth: monthAndYear.currentMonth,
+    currentYear: monthAndYear.currentYear,
+    changeMonth: false
+  });
 }
 
 
 useEffect(()=>{
   if(!dataLoading) {
-    generateDates(formData.monthIndex);
+    generateDates(months.indexOf(monthAndYear.currentMonth) > 0 ? 
+    months.indexOf(monthAndYear.currentMonth) : months.indexOf("JUNE"));
     genetateData();
   }
 
@@ -61,12 +75,26 @@ useEffect(()=>{
     setData([]);
     setDates([]);
   }
-},[dataLoading, formData])
+
+  if(monthAndYear.changeMonth) {
+    fetchAttendance(formData);
+  }
+
+
+},[dataLoading, formData, monthAndYear])
+
+const updateMonth = (month:any, year:any) => {
+  setMonthAndYear({
+    currentMonth: month,
+    currentYear: year,
+    changeMonth: true
+  });
+}
 
 const generateDates = (monthIndex: any) => {
   let dates:any = [];
-  for(let i=1; i<=new Date(2020, monthIndex, 0).getDate(); i++ ){
-    switch (new Date(2020, monthIndex - 1, i).getDay()){
+  for(let i=1; i<=new Date(2020, monthIndex + 1, 0).getDate(); i++ ){
+    switch (new Date(2020, monthIndex, i).getDay()){
        case 0:
         dates.push(i+ " SUN");
         break;
@@ -106,9 +134,10 @@ const genetateData = () => {
       count: 0
     }
       dates.forEach((value:any)=>{
+        const date:any = value.split(" ");
         Object.assign(obj, {
-          [value]: findAbsence(obj.name, value),
-          count: findAbsence(obj.name, value) ? obj.count + 1 : obj.count
+          [value]: findAbsence(obj.name, date[0]),
+          count: findAbsence(obj.name, date[0]) ? obj.count + 1 : obj.count
         })
     });
     rowData.push(obj);
@@ -119,7 +148,7 @@ const genetateData = () => {
 const findAbsence = (name:any, date:any) => {
   let absence = false;
   for(var i=0; i< attendance.length; i++){
-    if(attendance[i].name == name && date.includes(attendance[i].date)) {
+    if(attendance[i].name == name && date === (attendance[i].date)) {
       absence = true;
       break;
     }
@@ -129,7 +158,10 @@ const findAbsence = (name:any, date:any) => {
 
 const check =  () =>{
   if(dates.length > 1   && !dataLoading && data.length > 1){
-    return <TimeOffListComponent names={names} attendance={attendance} dates={dates} dataRows={data}/> 
+    // let currentMonth:any = new Date().toString().split(" ")[1];
+    // let currentYear:any = Number(new Date().toString().split(" ")[3]);
+    return <TimeOffListComponent names={names} attendance={attendance} dates={dates} dataRows={data} currentMonth={monthAndYear.currentMonth} 
+    currentYear={monthAndYear.currentYear} updateMonth={updateMonth}/> 
   }
 }
 

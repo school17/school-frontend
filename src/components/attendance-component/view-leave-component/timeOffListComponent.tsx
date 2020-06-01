@@ -19,7 +19,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
@@ -50,20 +49,22 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     root: {
       display: 'flex',
-      alignItems: 'stretch',
-      // '& > *': {
-      //   margin: theme.spacing(1),
-      // },
+      alignItems: 'center',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
     },
     arrowButton: {
     },
     monthButton: {
+      cursor: "default",
+      backgroundColor: "transparent",
+      "&:hover": {
+        backgroundColor: "transparent"
+      }
     }
   })
   );
-
-// let currentMonth:string;
-// let currentYear:number;
 
 function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth, currentYear}: Props): ReactElement {
   const classes = useStyles();
@@ -103,10 +104,6 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
   console.log(acedamicHalves);
   const [data, setTableData] = useState(dataRows);
   const [tableHeaders, setTableheaders] = useState(dates);
-  // const [monthAndYear, setMonthAndYear] = useState({
-  //   month: currentMonth ,
-  //   year: currentYear,
-  // });
 
   const getPrevMonth = (ev:any) => {
     let monthButtonValue:any = document.getElementById("monthButton");
@@ -151,14 +148,12 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
                                             <ArrowLeftIcon/>
                                           </Button>           
                                                                                           {/* {`${monthAndYear.month} ${monthAndYear.year}`} */}
-                                          <Button id="monthButton" variant="outlined" className={classes.monthButton} value={`${currentMonth} ${currentYear}`}>{`${currentMonth} ${currentYear}`}</Button>
+                                          <Button id="monthButton" size="large" variant="outlined" className={classes.monthButton} value={`${currentMonth} ${currentYear}`} disableRipple>{`${currentMonth} ${currentYear}`}</Button>
                                           <Button variant="outlined" size="small" className={classes.arrowButton} onClick={getNextMonth}>
                                             <ArrowRightIcon/>
                                           </Button>
                                         </div>);
-                                }
-                            
-
+                                }                            
   useEffect(()=>{
     if(dates.length > 1) {
       setTableheaders(dates)
@@ -173,7 +168,7 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
   const columns = React.useMemo(()=>{
     const defineColumns:any = [];
     defineColumns.push({
-      Header: buttonMonthGroup(),  //"Name"
+      Header: buttonMonthGroup(),
       accessor: 'name',
       Cell: (row:any) =>{
         const url:any = row.data[row.row.id].picture ?  row.data[row.row.id].picture : 'http://getdrawings.com/free-icon/teacher-icon-69.png'

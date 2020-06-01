@@ -69,33 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
 function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth, currentYear, updateMonth}: Props): ReactElement {
   const classes = useStyles();
 
-  switch(currentMonth){
-    case "Jan": currentMonth = "JANUARY";
-              break;
-    case "Feb": currentMonth = "FEBURUARY";
-              break;
-    case "Mar": currentMonth = "MARCH";
-              break;
-    case "Apr": currentMonth = "APRIL";
-              break;
-    case "May": currentMonth = "MAY";
-              break;
-    case "Jun": currentMonth = "JUNE";
-              break;
-    case "Jul": currentMonth = "JULY";
-              break;
-    case "Aug": currentMonth = "AUGUST";
-              break;
-    case "Sep": currentMonth = "SEPTEMBER";
-              break;
-    case "Oct": currentMonth = "OCTOBER";
-              break;
-    case "Nov": currentMonth = "NOVEMBER";
-              break;
-    case "Dec": currentMonth = "DECEMBER";
-              break;
-  }
-
   const months = ["JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER", "JANUARY", "FEBURUARY", "MARCH", "APRIL", "MAY"];
   const acedamicHalves = {
     firstHalfYear: (months.indexOf(currentMonth) < 7) ? currentYear : Number(currentYear-1),

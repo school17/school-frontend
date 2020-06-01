@@ -38,14 +38,48 @@ const {names, attendance, dataLoading} = useSelector((store:any) => {
 const [dates, setDates] = useState([]);
 
 const[data, setData] = useState([]);
+const fullMonthString = (currentMonth:any) => {
+  let month;
+  switch(currentMonth){
+    case "Jan": month = "JANUARY";
+              break;
+    case "Feb": month = "FEBURUARY";
+              break;
+    case "Mar": month = "MARCH";
+              break;
+    case "Apr": month = "APRIL";
+              break;
+    case "May": month = "MAY";
+              break;
+    case "Jun": month = "JUNE";
+              break;
+    case "Jul": month = "JULY";
+              break;
+    case "Aug": month = "AUGUST";
+              break;
+    case "Sep": month = "SEPTEMBER";
+              break;
+    case "Oct": month = "OCTOBER";
+              break;
+    case "Nov": month = "NOVEMBER";
+              break;
+    case "Dec": month = "DECEMBER";
+              break;
+    default:
+          month = "JUNE"
+          break;
+  }
+
+  return month
+}
 
 const [monthAndYear, setMonthAndYear] = useState({
-  currentMonth: new Date().toString().split(" ")[1],
+  currentMonth: fullMonthString(new Date().toString().split(" ")[1]),
   currentYear: Number(new Date().toString().split(" ")[3]),
   changeMonth: false
 });
 
-const months = ["JANUARY", "FEBURUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER",];
+const months = ["JANUARY", "FEBURUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
 
 const [formData, setFormData] = useState({
   monthIndex: indexOfMonth.indexOf(monthAndYear.currentMonth),

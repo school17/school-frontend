@@ -150,11 +150,11 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
 
   const buttonMonthGroup = () => {return(<div className={classes.root}>
                                           <Button style={{maxWidth: '30px', minWidth: '15px', marginLeft: '10%'}} variant="outlined" className={classes.arrowButton} onClick={getPrevMonth}>
-                                            <ArrowLeftIcon/>
+                                            <ArrowLeftIcon style={{marginLeft: "10px"}}/>
                                           </Button>
                                           <Button style={{maxWidth: '70%', minWidth: '50%'}} id="monthButton" variant="outlined" className={classes.monthButton} value={`${currentMonth} ${currentYear}`} disableRipple>{`${currentMonth} ${currentYear}`}</Button>
                                           <Button style={{maxWidth: '30px', minWidth: '15px'}} variant="outlined" className={classes.arrowButton} onClick={getNextMonth}>
-                                            <ArrowRightIcon/>
+                                            <ArrowRightIcon style={{marginLeft: "10px"}}/>
                                           </Button>
                                         </div>);
                                 }                            

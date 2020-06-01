@@ -112,7 +112,7 @@ function SelectGradeOptions({callBack}: Props): ReactElement {
     <ThemeProvider theme={drawerTheme}>
       <form onSubmit={formik.handleSubmit}>
       <Grid container className={drawerClass.form}>
-      <Grid item xs={6} md={2}>
+      {/* <Grid item xs={6} md={2}>
                 <FormControl className={classes.drawerFormControl}>
                   <InputLabel className={classes.drawerLabel} shrink={false}>Month </InputLabel>
                   <Select
@@ -132,7 +132,7 @@ function SelectGradeOptions({callBack}: Props): ReactElement {
                 </strong>
                   )}
                 </FormControl>
-              </Grid>
+              </Grid> */}
       <Grid item xs={6} md={2}>
                 <FormControl className={classes.drawerFormControl}>
                   <InputLabel className={classes.drawerLabel} shrink={false}>Division </InputLabel>

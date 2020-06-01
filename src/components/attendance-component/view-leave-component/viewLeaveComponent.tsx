@@ -23,6 +23,8 @@ function ViewLeaveComponent({}: Props): ReactElement {
   })
 );
 
+const indexOfMonth = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 const dispatch = useDispatch();
 const classes = useStyles();
 
@@ -37,12 +39,6 @@ const [dates, setDates] = useState([]);
 
 const[data, setData] = useState([]);
 
-
-const [formData, setFormData] = useState({
-  grade: '',
-  section: ''
-});
-
 const [monthAndYear, setMonthAndYear] = useState({
   currentMonth: new Date().toString().split(" ")[1],
   currentYear: Number(new Date().toString().split(" ")[3]),
@@ -50,6 +46,12 @@ const [monthAndYear, setMonthAndYear] = useState({
 });
 
 const months = ["JANUARY", "FEBURUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER",];
+
+const [formData, setFormData] = useState({
+  monthIndex: indexOfMonth.indexOf(monthAndYear.currentMonth),
+  grade: '',
+  section: ''
+});
 
 const fetchAttendance = (formData:any) => {
   setFormData(formData);

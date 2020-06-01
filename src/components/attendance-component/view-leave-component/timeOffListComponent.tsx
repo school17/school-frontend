@@ -29,7 +29,7 @@ interface Props {
   dates: any,
   dataRows:any
   currentMonth:any,
-  currentYear:any,
+  currentYear:number,
   updateMonth: any
 }
 
@@ -51,13 +51,12 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'flex',
       alignItems: 'center',
-      '& > *': {
-        margin: theme.spacing(1),
-      },
     },
     arrowButton: {
     },
     monthButton: {
+      marginLeft: "5px",
+      marginRight: "5px",
       cursor: "default",
       backgroundColor: "transparent",
       "&:hover": {
@@ -99,8 +98,8 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
 
   const months = ["JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER", "JANUARY", "FEBURUARY", "MARCH", "APRIL", "MAY"];
   const acedamicHalves = {
-    firstHalfYear: (months.indexOf(currentMonth) < 7) ? currentYear : currentYear-1,
-    secondHalfYear: (months.indexOf(currentMonth) >= 7) ? currentYear : currentYear+1,
+    firstHalfYear: (months.indexOf(currentMonth) < 7) ? currentYear : Number(currentYear-1),
+    secondHalfYear: (months.indexOf(currentMonth) >= 7) ? currentYear : Number(currentYear+1),
   }
   console.log(acedamicHalves);
   const [data, setTableData] = useState(dataRows);
@@ -133,6 +132,7 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
     const buttonYear = monthButtonValue.value.split(" ")[1];
     let monthIndex = months.indexOf(buttonMonth);
     let nextIndex = monthIndex+1;
+    console.log(monthIndex);
     if(monthIndex < months.length-1){
       currentMonth = months[nextIndex];
       currentYear = (nextIndex < 7) ? acedamicHalves.firstHalfYear : acedamicHalves.secondHalfYear;
@@ -149,12 +149,11 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
   }
 
   const buttonMonthGroup = () => {return(<div className={classes.root}>
-                                          <Button variant="outlined" size="small" className={classes.arrowButton} onClick={getPrevMonth}>
+                                          <Button style={{maxWidth: '30px', minWidth: '15px', marginLeft: '10%'}} variant="outlined" className={classes.arrowButton} onClick={getPrevMonth}>
                                             <ArrowLeftIcon/>
-                                          </Button>           
-                                                                                          {/* {`${monthAndYear.month} ${monthAndYear.year}`} */}
-                                          <Button id="monthButton" size="large" variant="outlined" className={classes.monthButton} value={`${currentMonth} ${currentYear}`} disableRipple>{`${currentMonth} ${currentYear}`}</Button>
-                                          <Button variant="outlined" size="small" className={classes.arrowButton} onClick={getNextMonth}>
+                                          </Button>
+                                          <Button style={{maxWidth: '70%', minWidth: '50%'}} id="monthButton" variant="outlined" className={classes.monthButton} value={`${currentMonth} ${currentYear}`} disableRipple>{`${currentMonth} ${currentYear}`}</Button>
+                                          <Button style={{maxWidth: '30px', minWidth: '15px'}} variant="outlined" className={classes.arrowButton} onClick={getNextMonth}>
                                             <ArrowRightIcon/>
                                           </Button>
                                         </div>);
@@ -194,7 +193,10 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
     })
     tableHeaders.forEach((value:any,key:any)=>{
       defineColumns.push({
-          Header: value,
+          Header: <div>
+                    <div>{value.split(" ")[0]}</div>
+                    <div>{value.split(" ")[1]}</div>
+                  </div>,
           accessor: value,
           Cell: (row:any) => {
             let attendance = row.data[row.row.id];

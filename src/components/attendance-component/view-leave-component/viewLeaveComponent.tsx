@@ -6,6 +6,7 @@ import {
   createStyles
 } from "@material-ui/core/styles";
 import {useSelector, useDispatch} from "react-redux";
+import { trackPromise } from 'react-promise-tracker';
 
 import {getAttendanceStudentsName, getAttendance} from "../../../actions/attendance-actions";
 import SelectGradeOptions from "./selectGradeOptions";
@@ -191,7 +192,7 @@ const findAbsence = (name:any, date:any) => {
 }
 
 const check =  () =>{
-  if(dates.length > 1   && !dataLoading && data.length > 1){
+  if(dates.length > 1  && data.length > 1){
     // let currentMonth:any = new Date().toString().split(" ")[1];
     // let currentYear:any = Number(new Date().toString().split(" ")[3]);
     return <TimeOffListComponent names={names} attendance={attendance} dates={dates} dataRows={data} currentMonth={monthAndYear.currentMonth} 

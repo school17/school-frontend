@@ -22,7 +22,7 @@ const reducers = {
   teacherReducer: teacherReducer,
   classReducer: classReducer,
   studentReducer: studentReducer,
-  attendanceReducer: attendanceReducer
+  attendanceReducer: attendanceReducer,
 }
 
 const rootReducer = combineReducers(reducers);

@@ -74,7 +74,6 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
     firstHalfYear: (months.indexOf(currentMonth) < 7) ? currentYear : Number(currentYear-1),
     secondHalfYear: (months.indexOf(currentMonth) >= 7) ? currentYear : Number(currentYear+1),
   }
-  console.log(acedamicHalves);
   const [data, setTableData] = useState(dataRows);
   const [tableHeaders, setTableheaders] = useState(dates);
 
@@ -105,7 +104,6 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
     const buttonYear = monthButtonValue.value.split(" ")[1];
     let monthIndex = months.indexOf(buttonMonth);
     let nextIndex = monthIndex+1;
-    console.log(monthIndex);
     if(monthIndex < months.length-1){
       currentMonth = months[nextIndex];
       currentYear = (nextIndex < 7) ? acedamicHalves.firstHalfYear : acedamicHalves.secondHalfYear;
@@ -122,11 +120,11 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
   }
 
   const buttonMonthGroup = () => {return(<div className={classes.root}>
-                                          <Button style={{maxWidth: '30px', minWidth: '15px', marginLeft: '10%'}} variant="outlined" className={classes.arrowButton} onClick={getPrevMonth}>
+                                          <Button style={{maxWidth: '30px', minWidth: '15px', marginLeft: '10%', backgroundColor: "#F5F6F8"}} variant="outlined" className={classes.arrowButton} onClick={getPrevMonth}>
                                             <ArrowLeftIcon style={{marginLeft: "10px"}}/>
                                           </Button>
-                                          <Button style={{maxWidth: '70%', minWidth: '50%'}} id="monthButton" variant="outlined" className={classes.monthButton} value={`${currentMonth} ${currentYear}`} disableRipple>{`${currentMonth} ${currentYear}`}</Button>
-                                          <Button style={{maxWidth: '30px', minWidth: '15px'}} variant="outlined" className={classes.arrowButton} onClick={getNextMonth}>
+                                          <Button style={{maxWidth: '70%', minWidth: '50%', backgroundColor: "#F5F6F8", fontSize: "10px", fontWeight: "bolder",padding: "9px 0px"}} id="monthButton" variant="outlined" className={classes.monthButton} value={`${currentMonth} ${currentYear}`} disableRipple>{`${currentMonth} ${currentYear}`}</Button>
+                                          <Button style={{maxWidth: '30px', minWidth: '15px', backgroundColor: "#F5F6F8"}} variant="outlined" className={classes.arrowButton} onClick={getNextMonth}>
                                             <ArrowRightIcon style={{marginLeft: "10px"}}/>
                                           </Button>
                                         </div>);
@@ -139,7 +137,6 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
     if(data.length > 1) {
       setTableData(dataRows);
     }
-    console.log("TABLE",dataRows)
   },[dates, data])
 
   const columns = React.useMemo(()=>{

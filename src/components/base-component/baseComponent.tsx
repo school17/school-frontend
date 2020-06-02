@@ -10,12 +10,8 @@ import {connectWs} from "../socket/message";
 import {
   createStyles,
   makeStyles,
-  Theme,
-  MuiThemeProvider
+  Theme
 } from "@material-ui/core/styles";
-import { InputLabel, FormControl, TextField } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,11 +28,8 @@ interface Props {
 }
 
 function BaseComponent({}: Props): ReactElement {
-  const classes = useStyles();
-
   const dispatch = useDispatch();
   connectWs();
-
 
   const {institution} = useSelector((store:any) => {
     return store.loginReducer

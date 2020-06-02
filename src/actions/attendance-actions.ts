@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
+import { trackPromise } from 'react-promise-tracker';
 
 import {GET_ATTENDANCE_NAMES_URL, GET_MONTH_ATTENDANCE_URL} from './url';
 
@@ -17,13 +18,13 @@ export const getAttendanceStudentsName = (institutionId: any, grade: any, sectio
     try {
       const url = `${GET_ATTENDANCE_NAMES_URL.replace("institutionId", institutionId).replace("grade", grade).replace("section", section)}`;
       const TOKEN: any  = localStorage.getItem("token");
-      const response = await axios.get(url, {
+      const response = await trackPromise(axios.get(url, {
         'headers': {
           'Authorization': TOKEN,
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin' : '*'
         }
-      })
+      }))
       return dispatch({type: attendaceAction.GET_STUDENT_ATTENDANCE_NAMES, payload: response.data})
     }catch(e){
 
@@ -40,13 +41,13 @@ export const getAttendance = (institutionId: any, grade: any, section: any, mont
     try {
       const TOKEN: any  = localStorage.getItem("token");
       let url = `${GET_ATTENDANCE_NAMES_URL.replace("institutionId", institutionId).replace("grade", grade).replace("section", section)}`;
-      let response = await axios.get(url, {
+      let response = await trackPromise(axios.get(url, {
         'headers': {
           'Authorization': TOKEN,
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin' : '*'
         }
-      });
+      }));
       dispatch({type: attendaceAction.GET_STUDENT_ATTENDANCE_NAMES, payload: response.data})
       url = `${GET_MONTH_ATTENDANCE_URL.replace("institutionId", institutionId).
       replace("grade", grade).replace("section", section).replace("month", month).replace("year", year)}`;

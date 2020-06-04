@@ -27,7 +27,11 @@ export const tableRowTheme = createMuiTheme({
         },
         "&:nth-child(1)": {
           padding: "15px 15px"
-        }
+        },
+        "&:not(:first-child)": {
+          minWidth: 30,
+          maxWidth: 30
+        },
       },
       head: {
         fontWeight: 900,

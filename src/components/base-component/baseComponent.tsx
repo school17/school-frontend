@@ -29,7 +29,6 @@ interface Props {
 
 function BaseComponent({}: Props): ReactElement {
   const dispatch = useDispatch();
-  connectWs();
 
   const {institution} = useSelector((store:any) => {
     return store.loginReducer
@@ -40,6 +39,8 @@ function BaseComponent({}: Props): ReactElement {
       dispatch(getSchoolDetails(institution));
     }
   },[institution])
+
+  connectWs(institution);
   return (
     <div>
       <BrowserRouter>

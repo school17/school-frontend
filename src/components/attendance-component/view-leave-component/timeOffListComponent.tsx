@@ -21,6 +21,9 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import Tooltip from '@material-ui/core/Tooltip';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import funnel from "../../../svg/funnel.svg";
 
 import {useDispatch} from "react-redux";
 interface Props {
@@ -62,7 +65,36 @@ const useStyles = makeStyles((theme: Theme) =>
       "&:hover": {
         backgroundColor: "transparent"
       }
-    }
+    },
+    holiday: {
+      color: "lightgray"
+    },
+    filterparent: {
+    minWidth: "24px",
+    maxWidth: "24px",
+    display: "flex",
+    flexDirection: "column",
+      "&:hover" :{
+        "& span":{
+          display: 'none'
+        },
+        "& img": {
+          display: "block"
+        }
+      },
+      "& img" :{
+        left: "6px",
+        width: "15px",
+        height: "23px",
+        display:"none",
+        position: "relative",
+        color:"orange",
+        marginRight: 0,
+      },
+      "& span" :{
+        marginLeft: "2px"
+      }
+    },
   })
   );
 
@@ -119,6 +151,14 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
     updateMonth(currentMonth, currentYear);
   }
 
+  const filter = (value?:any) => {
+    const filteredData = data.filter((d:any) => {
+      const searchString: any  = `"${value.split(" ")[0]} ${value.split(" ")[1]}":true`;
+      return JSON.stringify(d).includes(searchString);
+    });
+    setTableData(filteredData);
+  }
+
   const buttonMonthGroup = () => {return(<div className={classes.root}>
                                           <Button style={{maxWidth: '30px', minWidth: '15px', marginLeft: '10%', backgroundColor: "#F5F6F8"}} variant="outlined" className={classes.arrowButton} onClick={getPrevMonth}>
                                             <ArrowLeftIcon style={{marginLeft: "10px"}}/>
@@ -130,14 +170,16 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
                                         </div>);
                                 }                            
   useEffect(()=>{
-    if(dates.length > 1) {
+    /*if(dates.length > 0) {
       setTableheaders(dates)
     }
 
-    if(data.length > 1) {
+    if(data.length > 0) {
       setTableData(dataRows);
-    }
+    }*/
   },[dates, data])
+
+  
 
   const columns = React.useMemo(()=>{
     const defineColumns:any = [];
@@ -163,9 +205,11 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
     })
     tableHeaders.forEach((value:any,key:any)=>{
       defineColumns.push({
-          Header: <div>
+          Header: <div className = {value.includes("SUN") ? classes.holiday : ""}>
                     <div>{value.split(" ")[0]}</div>
-                    <div>{value.split(" ")[1]}</div>
+                    <div className={classes.filterparent}><span>{value.split(" ")[1]}</span>
+                    <img src={funnel} onClick={()=>filter(value)}></img>
+                    </div>
                   </div>,
           accessor: value,
           Cell: (row:any) => {

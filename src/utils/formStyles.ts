@@ -95,7 +95,7 @@ createStyles({
   formFields: {
     paddingTop: 20,
     maxHeight: '500px',
-    overflowY: 'scroll'
+    //overflowY: 'scroll'
   },
   datePicker: {
     border: 'none',

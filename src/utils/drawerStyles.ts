@@ -80,7 +80,7 @@ createStyles({
     backgroundColor: "#FFF",
     paddingTop: 20,
     maxHeight: 'calc(100vh - 50px)',
-    overflowY: 'scroll'
+    //overflowY: 'scroll'
   },
   buttonContainer: {
     position:'fixed',

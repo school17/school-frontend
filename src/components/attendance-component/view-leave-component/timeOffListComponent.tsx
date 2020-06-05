@@ -187,11 +187,11 @@ function TimeOffListComponent({names, attendance, dates, dataRows, currentMonth,
       Header: buttonMonthGroup(),
       accessor: 'name',
       Cell: (row:any) =>{
-        const url:any = row.data[row.row.id].picture ?  row.data[row.row.id].picture : 'http://getdrawings.com/free-icon/teacher-icon-69.png'
+        const url:any = row.data[row.row.id].user.picture ?  row.data[row.row.id].user.picture : 'http://getdrawings.com/free-icon/teacher-icon-69.png'
         const count:any =  row.data[row.row.id].count; 
         return <div style={{display: 'flex', alignItems:'center', minWidth:"150px", justifyContent: "space-between"}}>
           <img src={url} width='30px' height='30px' style={{borderRadius: "50%", margin: "0px 5px"}}/>
-          <div style={{fontWeight: 500, marginLeft:"5px"}}><span>{row.value}</span></div>
+          <div style={{fontWeight: 500, marginLeft:"5px"}}><span>{row.data[row.row.id].user.name}</span></div>
           <div style={{
     width: "25px",
     height: "25px",

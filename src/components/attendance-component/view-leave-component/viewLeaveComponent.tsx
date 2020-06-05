@@ -33,7 +33,7 @@ const {institution} = useSelector((store:any) => {
   return store.loginReducer
 });
 
-const {names, attendance, dataLoading} = useSelector((store:any) => {
+const {users, attendance, dataLoading} = useSelector((store:any) => {
   return store.attendanceReducer
 });
 const [dates, setDates] = useState([]);
@@ -163,16 +163,16 @@ const generateDates = (monthIndex: any) => {
 
 const genetateData = () => {
   const rowData:any = []
-  for(let i=0; i<names.length; i++){
+  for(let i=0; i<users.length; i++){
     let obj:any = {
-      name: names[i],
+      user: users[i],
       count: 0
     }
       dates.forEach((value:any)=>{
         const date:any = value.split(" ");
         Object.assign(obj, {
-          [value]: findAbsence(obj.name, date[0]),
-          count: findAbsence(obj.name, date[0]) ? obj.count + 1 : obj.count
+          [value]: findAbsence(obj.user, date[0]),
+          count: findAbsence(obj.user, date[0]) ? obj.count + 1 : obj.count
         })
     });
     rowData.push(obj);
@@ -180,10 +180,10 @@ const genetateData = () => {
   setData(rowData);
 }
 
-const findAbsence = (name:any, date:any) => {
+const findAbsence = (user:any, date:any) => {
   let absence = false;
   for(var i=0; i< attendance.length; i++){
-    if(attendance[i].name == name && date === (attendance[i].date)) {
+    if(attendance[i].name == user.name && date === (attendance[i].date)) {
       absence = true;
       break;
     }
@@ -193,7 +193,7 @@ const findAbsence = (name:any, date:any) => {
 
 const check =  () =>{
   if(dates.length > 1 && data.length > 1 && Object.keys(data[0]).length > 3){
-    return <TimeOffListComponent names={names} attendance={attendance} dates={dates} dataRows={data} currentMonth={monthAndYear.currentMonth} 
+    return <TimeOffListComponent names={users} attendance={attendance} dates={dates} dataRows={data} currentMonth={monthAndYear.currentMonth} 
     currentYear={monthAndYear.currentYear} updateMonth={updateMonth}/> 
   }
 }

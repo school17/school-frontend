@@ -1,5 +1,5 @@
 const initialState = {
-  names: [],
+  users: [],
   dataLoading: true,
   attendance: {}
 }
@@ -8,14 +8,15 @@ export default (state = initialState,  action:any = {}) => {
 
   switch(action.type){
     case "GET_STUDENT_ATTENDANCE_NAMES" :{
-      const names:any =  [];
+      const users:any =  [];
       if(action.payload.length > 0) {
         action.payload.forEach((value:any) => {
-          names.push(value.name);
+          const user = {name: value.name, picture: value.picture}
+          users.push(user);
         })
       }
       return {
-        names: names,
+        users: users,
       }
     }
 

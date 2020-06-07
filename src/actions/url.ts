@@ -1,5 +1,6 @@
 
-const DOMAIN = 'http://localhost:8081/api/institution';
+//const DOMAIN = 'http://localhost:8081/api/institution';
+const DOMAIN = 'http://ec2-13-58-111-197.us-east-2.compute.amazonaws.com/api/institution';
 
 export const SAVE_TEACHER_URL = `${DOMAIN}/institutionId/create_teacher`;
 

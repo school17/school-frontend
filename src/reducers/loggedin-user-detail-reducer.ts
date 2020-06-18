@@ -1,12 +1,12 @@
 const initialState = {
-  user: {}
+  loggedInUser: {}
 }
 
 export default (state = initialState,  action:any = {}) => {
   switch(action.type) {
-    case 'GET_USER_DETAILS': {
+    case 'SET_LOGGEDIN_USER_DETAILS': {
       return {
-      user: action.payload
+        loggedInUser: action.payload
       }
     }
     default: {

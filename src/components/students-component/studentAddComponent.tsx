@@ -218,6 +218,7 @@ function StudentDrawerComponent({openDrawer, callBack, student}: Props): ReactEl
         values["institutionId"] = institution;
         dispatch(saveStudent(institution, values, isUpdate, imageFile));
       }
+      formik.resetForm();
       handleClose();
     }
   });

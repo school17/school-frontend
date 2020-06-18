@@ -23,10 +23,12 @@ export default (state = initialState,  action:any = {}) => {
     }
 
     case 'CREATE_STUDENT': {
+      const student:any =  [];
+      student.push(action.payload)
       return {
         ...state,
         studentsPayload: {
-          students: [...state.studentsPayload.students, action.payload]
+          students: [...student, ...state.studentsPayload.students]
         }
       }
     }

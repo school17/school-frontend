@@ -1,6 +1,6 @@
 
-//const DOMAIN = 'http://localhost:8081/api/institution';
-const DOMAIN = 'http://ec2-13-58-111-197.us-east-2.compute.amazonaws.com/api/institution';
+const DOMAIN = 'http://localhost:8081/api/institution';
+//const DOMAIN = 'http://ec2-13-58-111-197.us-east-2.compute.amazonaws.com/api/institution';
 
 export const SAVE_TEACHER_URL = `${DOMAIN}/institutionId/create_teacher`;
 
@@ -34,9 +34,15 @@ export const CREATE_STUDENT_URL = `${DOMAIN}/institutionId/students/create_stude
 
 export const UPDATE_STUDENT_URL = `${DOMAIN}/institutionId/students/studentId`;
 
-export const GET_ATTENDANCE_NAMES_URL = `${DOMAIN}/institutionId/students/grade/section`
+export const GET_ATTENDANCE_NAMES_URL = `${DOMAIN}/institutionId/students/grade/section`;
 
-export const GET_MONTH_ATTENDANCE_URL = `${DOMAIN}/institutionId/attendance/grade/section/month/year`
+export const GET_MONTH_ATTENDANCE_URL = `${DOMAIN}/institutionId/attendance/grade/section/month/year`;
+
+export const GET_NOTIFICATIONS_URL = `${DOMAIN}/institutionId/notification`;
+
+export const GET_TEACHER_DETAILS_URL = `${DOMAIN}/institutionId/teachers/email`;
+
+export const GET_STUDENT_DETAILS_URL = `${DOMAIN}/institutionId/students/email`;
 
 
 

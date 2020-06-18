@@ -16,7 +16,7 @@ function OnbardingBaseComponent({}: Props): ReactElement {
     return store.loginReducer
   })
   const authorizationHandler = () => {
-    if(institutionId === institution) {
+    if(institutionId == institution) {
         //dispatch(getSchoolDetails(institutionId))
       return (
       <OnboardingFrom></OnboardingFrom>

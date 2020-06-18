@@ -24,10 +24,12 @@ export default (state = initialState,  action:any = {}) => {
     }
 
     case 'SAVE_TEACHER': {
+      const teacher: any = [];
+      teacher.push(action.payload);
       return {
         ...state,
         teachersPayload: {
-         teachers: [...state.teachersPayload.teachers, action.payload]
+         teachers: [...teacher, ...state.teachersPayload.teachers]
         },
         saved: true
       }

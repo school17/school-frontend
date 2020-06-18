@@ -30,7 +30,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 const drawerWidth = 240;
@@ -270,6 +270,7 @@ export default function SideNav() {
         </div>
         <Divider />
         <List>
+          <ListItemLink to="/student/dashboard" primary="Dashboard" icon={<Tooltip title="Dashboard" aria-label="Dashboard" placement="right"><DashboardIcon /></Tooltip>}></ListItemLink>
           <ListItemLink to="/support" primary="Support" icon={<Tooltip title="Support" aria-label="support" placement="right"><LibraryBooksIcon /></Tooltip>}></ListItemLink>
           <ListItemLink to="/syllabus" primary="Syllabus" icon={<Tooltip title="Syllabus" aria-label="syllabus" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>
           <ListItemLink to={`/institution/${institution}/school-onboarding`} primary="School Details" icon={<Tooltip title="School-onbarding" aria-label="School-onbarding" placement="right"><HelpIcon /></Tooltip>}></ListItemLink>

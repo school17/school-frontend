@@ -8,7 +8,7 @@ import Spinner from "./components/loader/spinner";
 const App: React.FC = () => {
   const theme = createMuiTheme({
     typography: {
-      fontFamily: "Nunito Sans, Roboto, sans-serif"
+      fontFamily: "Nunito Sans, Roboto, sans-serif",
     }
   });
   return (

@@ -17,7 +17,24 @@ function LandingRedirect({}: Props): ReactElement {
     if(user.temporaryPassword){
       url = '/reset-password'
     }else {
-      url = role === 'ADMIN' ? `/institution/${institution}/school-onboarding` :'/syllabus';
+      switch(role) {
+        case "ADMIN" : {
+          url = `/institution/${institution}/school-onboarding`;
+          break;
+        }
+        case "STUDENT" : {
+          url = `/student/dashboard`;
+          break;
+        }
+        case "TEACHER": {
+          url = `/teacher/dashboard`;
+          break;
+        }
+        default : {
+          url = "/syllabus";
+          break;
+        }
+      }
     }
   return (
     <Redirect

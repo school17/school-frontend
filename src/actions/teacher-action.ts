@@ -2,7 +2,6 @@ import { Dispatch } from 'redux';
 import axios from 'axios';
 import { SAVE_TEACHER_URL, HEADERS, 
   UPDATE_TEACHER_URL, SEARCH_TEACHER_URL, DELETE_TEACHER_URL } from './url';
-import { async } from 'q';
 
 import cogoToast from 'cogo-toast';
 

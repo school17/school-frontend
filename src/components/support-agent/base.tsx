@@ -7,10 +7,12 @@ import TeacherComponent from '../teacher-component/teacherComponent';
 import ClassComponent from '../class-component/classComponent';
 import StudentBaseComponent from '../students-component/studentBaseComponent';
 import ViewLeaveComponent from "../attendance-component/view-leave-component/viewLeaveComponent";
+import DashboardComponent from "../dashboard-component/dashboardComponent"
 function Base(): ReactElement {
   return (
     <div>
       <Switch>
+        <Route path="/student/dashboard" component={DashboardComponent}></Route>
         <Route path="/syllabus" component={SyllabusBase}></Route>
         <Route path="/teachers" component={TeacherComponent}></Route>
         <Route path="/students-management" component={StudentBaseComponent}></Route>

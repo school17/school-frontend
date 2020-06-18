@@ -138,6 +138,7 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
     onSubmit: (values: any) => {
       const isUpdate = teacher ? teacher.id : false;
       dispatch(saveTeacherAction(institution, values, isUpdate, imageFile));
+      formik.resetForm();
       handleClose();
     }
   });

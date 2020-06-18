@@ -85,7 +85,7 @@ function LoginComponent({  }: Props): ReactElement {
   const fetchToken = () => {
     axios({
       method: "post",
-      url: "http://ec2-13-58-111-197.us-east-2.compute.amazonaws.com/login",
+      url: "http://localhost:8081/login",
       data: {
         email: email,
         password: password
@@ -104,6 +104,7 @@ function LoginComponent({  }: Props): ReactElement {
         localStorage.setItem("role", token.role);
         localStorage.setItem("institution", token.institution);
         localStorage.setItem("expiry", token.expiry);
+        localStorage.setItem("email", token.sub);
         setUserName(response.data.Authorization);
       })
       .catch(error => {

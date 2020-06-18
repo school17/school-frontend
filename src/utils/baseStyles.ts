@@ -5,7 +5,7 @@ const pirmary = '#0F1727'
 const color = '#EAE2B7'
 export const Theme = createMuiTheme({
   typography: {
-    fontFamily: "Nunito Sans, Roboto, sans-serif"
+    fontFamily: "Nunito Sans, Roboto, sans-serif",
   },
   overrides: {
     MuiDrawer: {

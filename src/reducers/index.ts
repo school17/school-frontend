@@ -11,6 +11,8 @@ import teacherReducer from './teachers-reducers';
 import classReducer from './class-reducers';
 import studentReducer from './students-reducers';
 import attendanceReducer from "./attendance-reducers";
+import loggedinUserReducer from "./loggedin-user-detail-reducer";
+import notificationReducer from "./notification-reducers";
 
 const reducers = {
   postStore: postsReducer,
@@ -23,6 +25,8 @@ const reducers = {
   classReducer: classReducer,
   studentReducer: studentReducer,
   attendanceReducer: attendanceReducer,
+  loggedinUserReducer:loggedinUserReducer,
+  notificationReducer:notificationReducer
 }
 
 const rootReducer = combineReducers(reducers);

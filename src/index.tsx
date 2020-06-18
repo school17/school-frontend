@@ -6,6 +6,9 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './store/index';
 import './fonts/CircularStd-Medium.otf';
+import JavascriptTimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+JavascriptTimeAgo.addLocale(en);
 ReactDOM.render(
   <Provider store={store}>
      <App />

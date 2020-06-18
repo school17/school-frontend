@@ -19,13 +19,13 @@ export const searchStudents = (institutionId: any, searchQuery:any, filterValues
       const url = `${SEARCH_STUDENTS_URL.replace("institutionId", institutionId)}?pageNumber=${searchQuery.pageNumber}&?pageSize=${searchQuery.pageSize}`;
       let student = filterValues ? filterValues : {};
       const TOKEN: any  = localStorage.getItem("token");
-      const response = await trackPromise(axios.post(url, student, {
+      const response = await axios.post(url, student, {
         'headers': {
           'Authorization': TOKEN,
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin' : '*'
         }
-      }));
+      });
       return dispatch({type: studentActions.SEARCH_STUDENTS, payload: response.data})
     }catch(e){
 
@@ -41,13 +41,13 @@ export const saveStudent = (institutionId: any,  student: any, id?: any, imageFi
         const url = `${UPDATE_STUDENT_URL.replace("institutionId", institutionId).replace("studentId", student.id)}`;
         const TOKEN: any  = localStorage.getItem("token");
         const postData = transformStudentData(student,institutionId, id);
-        const response = await trackPromise(axios.put(url, postData, {
+        const response = await axios.put(url, postData, {
           'headers': {
             'Authorization': TOKEN,
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : '*'
           }
-        }));
+        });
         return dispatch({type: studentActions.UPDATE_STUDENT, payload: response.data})
 
       }else {

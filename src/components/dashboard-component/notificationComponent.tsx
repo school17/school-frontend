@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 10,
       overflow: "auto",
       maxHeight: 280,
+      minHeight: 200,
       textAlign: "initial",
       padding: 5,
       fontWeight: 900,
@@ -58,6 +59,13 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 15,
       color: "#5993E9",
       cursor: "pointer",
+    },
+    notFound: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 150,
+    fontWeight: 900
     }
   })
 );
@@ -107,8 +115,8 @@ function NotificationComponent({}: Props): ReactElement {
   return (
     <div className={classes.root}>
       <div className={classes.header}>NOTIFICATIONS</div>
-      <div>
-      {notifications.length > 0 ? listNotifications : "No Notification found"}
+      <div className={`${notifications.length < 1 ? classes.notFound : ""}`}>
+      {notifications.length > 0 ? listNotifications : <span>No Notification found</span>}
       </div>
       
     </div>

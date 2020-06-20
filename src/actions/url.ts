@@ -44,6 +44,12 @@ export const GET_TEACHER_DETAILS_URL = `${DOMAIN}/institutionId/teachers/email`;
 
 export const GET_STUDENT_DETAILS_URL = `${DOMAIN}/institutionId/students/email`;
 
+export const GET_SUBJECT_TEACGET_ASSOCIATION_URL =  `${DOMAIN}/institutionId/associate_subject_teacher/grade/section`;
+
+export const SAVE_TEACHER_SUBJECT_ASSOCIATION = `${DOMAIN}/institutionId/associate_subject_teacher`;
+
+export const UPDATE_SUBJECT_TEACHER_ASSOCIATION =   `${DOMAIN}/institutionId/associate_subject_teacher/id/grade/section`;
+
 
 
 const TOKEN: any  = localStorage.getItem("token");

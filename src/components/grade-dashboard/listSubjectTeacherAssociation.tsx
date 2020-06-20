@@ -32,7 +32,8 @@ const useStyles = makeStyles({
   },
   tableRowHead: {
     fontWeight: 900,
-    color: "#00425E",
+    //color: "#00425E",
+    color: "orange"
   },
   buttonContainer: {
     display: "flex",

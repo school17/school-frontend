@@ -36,10 +36,9 @@ function SubjectTeacherAssociationComponent({institution, grade, section}: Props
 
   useEffect(() => {
     dispatch(fetchTeacher(institution, searchQuery, {}));
-    if(Object.keys(subjectTeacherAssociation).length < 1) {
-      dispatch(getSubjectTeacherAssociation(institution,  grade, section))
-    }
-  }, [subjectTeacherAssociation])
+    dispatch(getSubjectTeacherAssociation(institution,  grade, section))
+
+  }, [])
 
   const clicked = () => {
     if(openDrawer) toggleOpenDrawer(false);

@@ -6,6 +6,15 @@ export const subjects = [
   "Language",
   "G.K",
   "Computer Science",
-  "Physics"
+  "Physics",
+  "Botany",
+  "Zoology",
+  "Physics",
+  "Chemistry",
+  "Hindi",
+  "Tamil",
+  "History",
+  "Geography",
+  "Economics"
 
 ]

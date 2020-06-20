@@ -11,6 +11,7 @@ import { makeStyles, Theme, createStyles, MuiThemeProvider, ThemeProvider } from
 import EditIcon from '@material-ui/icons/Edit';
 import {tableRowTheme} from '../../utils/tableStyles';
 import {fetchGrades} from '../../actions/class-actions';
+import {Link} from "react-router-dom";
 import ClassAddDrawerComponent from './classAddDrawerComponent';
 
 import {Button, TextField} from "@material-ui/core";
@@ -100,7 +101,8 @@ function ClassListComponent({classPayload, institution}: Props): ReactElement {
         accessor: 'actions',
         Cell: (row:any) => {
           let grade = row.data[row.row.id];
-          return <span><EditIcon onClick = {()=>{clicked(grade)}}></EditIcon></span>
+          return <Link to={`/grade/${grade.grade}/${grade.section}`}><span>View</span></Link>
+          {/*<span><EditIcon onClick = {()=>{clicked(grade)}}></EditIcon></span>*/}
         }
       }
     ],

@@ -1,3 +1,4 @@
+import { gradeDashboardActions } from './../actions/grade-dashboard-actions';
 
 
 import { combineReducers } from 'redux';
@@ -13,6 +14,7 @@ import studentReducer from './students-reducers';
 import attendanceReducer from "./attendance-reducers";
 import loggedinUserReducer from "./loggedin-user-detail-reducer";
 import notificationReducer from "./notification-reducers";
+import gradeDashboardReducer from "./grade-dashboard-reducer";
 
 const reducers = {
   postStore: postsReducer,
@@ -26,7 +28,8 @@ const reducers = {
   studentReducer: studentReducer,
   attendanceReducer: attendanceReducer,
   loggedinUserReducer:loggedinUserReducer,
-  notificationReducer:notificationReducer
+  notificationReducer:notificationReducer,
+  gradeDashboardReducer:gradeDashboardReducer
 }
 
 const rootReducer = combineReducers(reducers);

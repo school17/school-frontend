@@ -39,7 +39,7 @@ export const fetchTeacher = (institutionId: any, searchQuery:any, filterValues?:
           'Access-Control-Allow-Origin' : '*'
         }
       })
-      cogoToast.success("Teachers fetched successfully", {position: 'top-right'})
+      //cogoToast.success("Teachers fetched successfully", {position: 'top-right'})
       return dispatch({type: teachersAction.GET_TEACHER, payload: response.data})
     }catch(e){
 
@@ -47,12 +47,12 @@ export const fetchTeacher = (institutionId: any, searchQuery:any, filterValues?:
   }
 }
 
-export const saveTeacherAction = (institutionId: any, teacher: any, id?: any, imageFile?: any) => {
+export const saveTeacherAction = (institutionId: any, teacher: any, id?: any, imageFile?: any, savedTeacher?:any) => {
   return async (dispatch: Dispatch) => {
     /*if(imageFile) {
       teacher.imageFile = imageFile;
     }*/
-    const postData = transformTeacherData(teacher,institutionId, id);
+    const postData = transformTeacherData(teacher,institutionId, id, savedTeacher);
     try {
       if(id) {
         const url: any = UPDATE_TEACHER_URL.replace('institutionId', institutionId).replace("teacherId",id);
@@ -103,10 +103,15 @@ export const deleteTeacher = (institutionId: any, id:any) => {
 }
 
 
-const transformTeacherData = (teacher:any, institutionId:any, id? :any) => {
+const transformTeacherData = (teacher:any, institutionId:any, id? :any, savedTeacher?:any) => {
   teacher.institutionId = institutionId;
     if(id){
       teacher.id  = id;
+      teacher.grade = savedTeacher.grade;
+      if(savedTeacher.createdAt) {
+        teacher.createdAt = savedTeacher.createdAt ? savedTeacher.createdAt : "";
+        teacher.timeTable = savedTeacher.timeTable ? savedTeacher.timeTable : "";
+      }
     }
     if(typeof(teacher.division) !== "object"){
       teacher.division = [teacher.division];

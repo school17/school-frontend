@@ -1,6 +1,8 @@
 const initialState = {
   gradeDetails:{},
-  subjectTeacherAssociation: {}
+  subjectTeacherAssociation: {},
+  timetable: {},
+  studentsList: {}
 }
 
 export default (state = initialState,  action:any = {}) => {
@@ -23,6 +25,27 @@ export default (state = initialState,  action:any = {}) => {
       return  {
         ...state, 
         subjectTeacherAssociation: action.payload
+      }
+    }
+
+    case 'SAVE_TIME_TABLE': {
+      return {
+        ...state, 
+        timetable: action.payload
+      }
+    }
+
+    case 'GET_TIME_TABLE_FOR_GRADE' : {
+      return {
+        ...state, 
+        timetable: action.payload
+      }
+    }
+
+    case 'GET_GRADE_STUDENTS': {
+      return {
+        ...state,
+        studentsList: action.payload
       }
     }
 

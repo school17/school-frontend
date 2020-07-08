@@ -71,6 +71,25 @@ export default (state = initialState,  action:any = {}) => {
       }
     }
 
+    case 'UPDATE_TEACHER_TIME_TABLE_ON_DELETE' : {
+      const teachersList = state.teachersPayload.teachers.map((teacher:any) => {
+        if(teacher.name === action.payload['name']) {
+          let timeTable = teacher.timeTable;
+          timeTable[getDayIndex(action.payload['day'])][action.payload['day']][action.payload['period']] = ''
+          teacher.timeTable = timeTable
+        }
+        return teacher;
+      })
+      return {
+        ...state,
+        teachersPayload: {
+          teachers: teachersList,
+          totalPages: state.teachersPayload.totalPages,
+          totalElements: state.teachersPayload.totalElements
+        }
+      }
+    }
+
     default: {
       if(state){
         return state
@@ -78,4 +97,24 @@ export default (state = initialState,  action:any = {}) => {
       return initialState;
     }
   }
+}
+
+const getDayIndex = (day:any) => {
+  let index = 0;
+  switch(day) {
+    case "Monday":
+      index=0; break;
+    case "Tuesday":
+      index=1; break;
+    case "Wednesday":
+      index=2; break;
+    case "Thursday":
+      index=3; break;
+    case "Friday":
+      index=4; break;
+    case "Saturday":
+      index=5;break;
+    
+  }
+  return index;
 }

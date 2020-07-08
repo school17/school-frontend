@@ -15,6 +15,7 @@ import attendanceReducer from "./attendance-reducers";
 import loggedinUserReducer from "./loggedin-user-detail-reducer";
 import notificationReducer from "./notification-reducers";
 import gradeDashboardReducer from "./grade-dashboard-reducer";
+import testReducer from "./test-reducers";
 
 const reducers = {
   postStore: postsReducer,
@@ -29,7 +30,8 @@ const reducers = {
   attendanceReducer: attendanceReducer,
   loggedinUserReducer:loggedinUserReducer,
   notificationReducer:notificationReducer,
-  gradeDashboardReducer:gradeDashboardReducer
+  gradeDashboardReducer:gradeDashboardReducer,
+  testReducer:testReducer
 }
 
 const rootReducer = combineReducers(reducers);

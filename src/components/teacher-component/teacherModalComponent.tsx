@@ -137,7 +137,7 @@ function TeacherModalComponent({ opeModel, callBack, teacher }: Props): ReactEle
     enableReinitialize: true,
     onSubmit: (values: any) => {
       const isUpdate = teacher ? teacher.id : false;
-      dispatch(saveTeacherAction(institution, values, isUpdate, imageFile));
+      dispatch(saveTeacherAction(institution, values, isUpdate, imageFile, teacher));
       formik.resetForm();
       handleClose();
     }

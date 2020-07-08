@@ -63,14 +63,14 @@ function SubjectTeacherAssociationComponent({institution, grade, section}: Props
         </div>
       )
     } else {
-      return (
+      /*return (
         <div>
           <ListSubjectTeacherAssociation association={subjectTeacherAssociation.subjectTeachers} showEdit={true} callBack={clicked}></ListSubjectTeacherAssociation>
           <AddSubjectTeacherAssociationDrawer openDrawer = {openDrawer} callBack={clicked} drawerClass={drawerClass} addedAssociation={subjectTeacherAssociation.subjectTeachers}></AddSubjectTeacherAssociationDrawer>
         </div>
         
         
-      )
+      )*/
     }
   }
   return (

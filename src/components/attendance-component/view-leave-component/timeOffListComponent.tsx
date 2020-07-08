@@ -2,30 +2,23 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import namor from 'namor'
 import {
   useTable,
-  usePagination,
-  TableOptions
+  usePagination
 } from 'react-table';
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import {
-  MuiThemeProvider,
-  ThemeProvider
+  MuiThemeProvider
 } from "@material-ui/core/styles";
 import {tableRowTheme} from '../../../utils/attendanceTableStyles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import MaUTable from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import Tooltip from '@material-ui/core/Tooltip';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import funnel from "../../../svg/funnel.svg";
 
-import {useDispatch} from "react-redux";
 interface Props {
   names:any,
   attendance: any,

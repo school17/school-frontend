@@ -3,7 +3,13 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {getGradeDetails} from "../../actions/grade-dashboard-actions";
 import SubjectTeacherAssociationComponent from "./subjectTeacherAssociationComponent";
+import TimeTableBaseComponent from "./timeTableBaseComponent";
+import DetailsCardComponent from "./detailsCardComponent";
+import StudentsList from "./studentsList";
+import Timetablemin from "./../../common/dashboard-common-components/timetablemin";
 import {Grid} from "@material-ui/core";
+import ExamTimeTable from "./../../common/dashboard-common-components/examTimeTable";
+
 import {
   makeStyles,
   Theme,
@@ -36,9 +42,10 @@ function GradeBaseComponent({}: Props): ReactElement {
     return store.loginReducer;
   });
 
-  const {gradeDetails} = useSelector((store:any) => {
+  const {gradeDetails, subjectTeacherAssociation} = useSelector((store:any) => {
     return store.gradeDashboardReducer;
-  })
+  });
+
   useEffect(() => {
     if(institution) {
       dispatch(getGradeDetails(institution, {grade: grade, section: section}))
@@ -46,20 +53,37 @@ function GradeBaseComponent({}: Props): ReactElement {
   }, [institution])
   return (
     <div className={classes.header}>
-       <h4>DASHBOARD FOR GRADE {grade} {section}</h4>
-      <Grid container spacing={4}>
-      <Grid item xs={12} md={9}>
-      <Paper className={classes.root}>
-      <h4>Class Teacher: {gradeDetails.teacher}</h4>
-      <h4>Total Students: {gradeDetails.strength}</h4>
-      </Paper>
+      <Grid container spacing={2}>
+      <Grid item xs={12} md={3}>
+        <Grid container spacing={2}>
+        <Grid item xs={12} md={12}>
+        <DetailsCardComponent gradeDetails={gradeDetails}></DetailsCardComponent>
+        </Grid>
+        <Grid item xs={12} md={12}>
+        <Timetablemin institution= {institution} grade= {grade} section={section}></Timetablemin>
+        </Grid>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={3} >
-      <Paper className={classes.root}>
-      <SubjectTeacherAssociationComponent institution= {institution} grade= {grade} section={section}></SubjectTeacherAssociationComponent>
-      </Paper>
-        
+      <Grid item xs={12} md={4}>
+        <ExamTimeTable institution= {institution} grade= {grade} section={section} division={gradeDetails.division}></ExamTimeTable>
       </Grid>
+      <Grid item xs={12} md={5}>
+        <StudentsList institution= {institution} grade= {grade} section={section}></StudentsList>
+      </Grid>
+      {(Object.keys(subjectTeacherAssociation).length > 0) ? 
+       <Grid item xs={12} md={12}>
+       <Paper className={classes.root}>
+       {/*<TimeTableBaseComponent institution= {institution} grade= {grade} section={section}></TimeTableBaseComponent>*/}
+       </Paper>
+       </Grid> : 
+        <Grid item xs={12} md={3} >
+        <Paper className={classes.root}>
+        <SubjectTeacherAssociationComponent institution= {institution} grade= {grade} section={section}></SubjectTeacherAssociationComponent>
+        </Paper>
+          
+        </Grid>}
+     
+      
     </Grid>
     </div>
     

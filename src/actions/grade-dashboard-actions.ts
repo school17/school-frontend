@@ -1,12 +1,17 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
 
-import {SEARCH_GRADES_URL, GET_SUBJECT_TEACGET_ASSOCIATION_URL, SAVE_TEACHER_SUBJECT_ASSOCIATION, UPDATE_SUBJECT_TEACHER_ASSOCIATION}  from './url';
+import {SEARCH_GRADES_URL, 
+  GET_SUBJECT_TEACGET_ASSOCIATION_URL, 
+  SAVE_TEACHER_SUBJECT_ASSOCIATION, 
+  UPDATE_SUBJECT_TEACHER_ASSOCIATION,
+  GET_STUDENTS_BY_GRADE}  from './url';
 
 export enum gradeDashboardActions  {
   GET_GRADE_DETAILS = "GET_GRADE_DETAILS",
   GET_SUBJECT_TEACHER_ASSOCIATION = "GET_SUBJECT_TEACHER_ASSOCIATION",
-  SAVE_SUBJECT_TEACHER_ASSOCIATION = "SAVE_SUBJECT_TEACHER_ASSOCIATION"
+  SAVE_SUBJECT_TEACHER_ASSOCIATION = "SAVE_SUBJECT_TEACHER_ASSOCIATION",
+  GET_GRADE_STUDENTS = "GET_GRADE_STUDENTS"
 }
 
 
@@ -103,4 +108,27 @@ export const getSubjectTeacherAssociation = (institutionId: any, grade: any, sec
     }
   }
 
+}
+
+export const getStudents = (institutionId: any, grade: any, section:any) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const url = `${GET_STUDENTS_BY_GRADE
+        .replace("institutionId", institutionId)
+        .replace("grade", grade)
+        .replace("section", section)}`;
+    
+        const response = await axios.get(url, {
+          'headers': {
+            'Authorization': TOKEN,
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin' : '*'
+          }
+        });
+        return dispatch({type: gradeDashboardActions.GET_GRADE_STUDENTS, payload: response.data})
+
+    }catch(e) {
+
+    }
+  }
 }

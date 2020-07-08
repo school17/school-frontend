@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,6 +10,7 @@ import { Button } from "@material-ui/core";
 import { drawerTheme, useDrawerStyles } from '../../utils/drawerStyles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
+import BootstrapTooltip from '../../common/bootstrapTooltip';
 interface Props {
   association:any,
   showEdit:any,
@@ -27,13 +28,17 @@ const useStyles = makeStyles({
     maxHeight: 350,
   },
   tableBodyHead : {
-    fontWeight: 900,
+    fontWeight: 800,
     color: "#0F1727",
   },
   tableRowHead: {
-    fontWeight: 900,
-    //color: "#00425E",
-    color: "orange"
+    fontWeight: 800,
+    color: "#00425E",
+  },
+  demo: {
+    width: 300,
+    heigth: 300,
+    backgroundColor: "teal"
   },
   buttonContainer: {
     display: "flex",
@@ -51,6 +56,7 @@ const useStyles = makeStyles({
 function ListSubjectTeacherAssociation({association, showEdit, hideHeading, hasRemoveAbility, removeFaculty, callBack}: Props): ReactElement {
   const classes = useStyles();
   const drawerClass = useDrawerStyles();
+
   useEffect(()=>{
   },[association])
   const renderTeacher = (row:any) => {
@@ -58,6 +64,18 @@ function ListSubjectTeacherAssociation({association, showEdit, hideHeading, hasR
     return (
       <span>{teacher}</span>
     )
+  }
+  const getTeacher = (row:any) => {
+    return row[Object.keys(row)[0]];
+  }
+
+  const dragStart = (e:any) => {
+    const target:any = e.target;
+    e.dataTransfer.setData('subject_id', target.id);
+  }
+
+  const onDragOver = (e:any) => {
+    e.stopPropagation();
   }
   return (
     <ThemeProvider theme={drawerTheme}>
@@ -95,9 +113,20 @@ function ListSubjectTeacherAssociation({association, showEdit, hideHeading, hasR
         <TableBody>
          {association.map((row:any, index:any) => (
            <TableRow key={index}>
-            <TableCell align="left" className={classes.tableBodyHead}>{Object.keys(row)[0]}</TableCell>
+            <TableCell align="left" className={classes.tableBodyHead} 
+              id = {Object.keys(row)[0]}
+              draggable={true} 
+              onDragStart={dragStart}
+              onDragOver = {onDragOver}
+              data-subject = {Object.keys(row)[0]}
+              data-teacher = {getTeacher(row)}
+             >
+              {Object.keys(row)[0]}
+            </TableCell>
             <TableCell align="left" className={classes.tableBodyHead}>{renderTeacher(row)}</TableCell>
-            {hasRemoveAbility? <TableCell align="right" className={classes.tableBodyHead}><DeleteIcon onClick={()=>removeFaculty(row)} className={classes.icon}></DeleteIcon></TableCell> : "" }
+            {hasRemoveAbility? <TableCell align="right" className={classes.tableBodyHead}><BootstrapTooltip title="Remove">
+            <DeleteIcon onClick={()=>removeFaculty(row)} className={classes.icon}></DeleteIcon>
+            </BootstrapTooltip></TableCell> : "" }
            </TableRow>
          ))}
         </TableBody>
@@ -105,6 +134,7 @@ function ListSubjectTeacherAssociation({association, showEdit, hideHeading, hasR
       </TableContainer>  
       
     </div>
+   
     </ThemeProvider>
   )
 }

@@ -50,7 +50,15 @@ export const SAVE_TEACHER_SUBJECT_ASSOCIATION = `${DOMAIN}/institutionId/associa
 
 export const UPDATE_SUBJECT_TEACHER_ASSOCIATION =   `${DOMAIN}/institutionId/associate_subject_teacher/id/grade/section`;
 
+export const SAVE_TIME_TABLE = `${DOMAIN}/institutionId/grade/section/timetable`;
 
+export const GET_TIME_TABLE_FOR_GRADE = `${DOMAIN}/institutionId/grade/section/timetable`;
+
+export const UPDATE_TEACHER_TIME_TABLE_ON_DELETE = `${DOMAIN}/institutionId/teacher/name/timetable/day/period`;
+
+export const GET_STUDENTS_BY_GRADE = `${DOMAIN}/institutionId/students/grade/section`;
+
+export const GET_GRADE_TEST_LIST = `${DOMAIN}/institutionId/test/division/grade`;
 
 const TOKEN: any  = localStorage.getItem("token");
 

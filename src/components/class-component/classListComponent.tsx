@@ -43,6 +43,10 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '30px',
       justifyContent: 'center',
       alignItems: 'center'
+    },
+    actions : {
+      display: "flex",
+      justifyContent: "space-around"
     }
   })
   )
@@ -101,8 +105,11 @@ function ClassListComponent({classPayload, institution}: Props): ReactElement {
         accessor: 'actions',
         Cell: (row:any) => {
           let grade = row.data[row.row.id];
-          return <Link to={`/grade/${grade.grade}/${grade.section}`}><span>View</span></Link>
-          {/*<span><EditIcon onClick = {()=>{clicked(grade)}}></EditIcon></span>*/}
+          return <div className={classes.actions}>
+              <Link to={`/grade/${grade.grade}/${grade.section}`}><span>View</span></Link>
+              <span><EditIcon onClick = {()=>{clicked(grade)}}></EditIcon></span>
+            </div>
+          {/**/}
         }
       }
     ],

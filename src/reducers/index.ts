@@ -16,6 +16,8 @@ import loggedinUserReducer from "./loggedin-user-detail-reducer";
 import notificationReducer from "./notification-reducers";
 import gradeDashboardReducer from "./grade-dashboard-reducer";
 import testReducer from "./test-reducers";
+import logworkReducer from "./logwork-reducers";
+import homeworkReducer from "./homework-reducers";
 
 const reducers = {
   postStore: postsReducer,
@@ -31,6 +33,9 @@ const reducers = {
   loggedinUserReducer:loggedinUserReducer,
   notificationReducer:notificationReducer,
   gradeDashboardReducer:gradeDashboardReducer,
+  testReducer:testReducer,
+  logworkReducer:logworkReducer,
+  homeworkReducer:homeworkReducer,
   testReducer:testReducer
 }
 

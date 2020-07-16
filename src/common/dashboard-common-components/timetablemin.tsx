@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {getTimeTable} from '../../actions/time-table-actions';
 import {useDashboardPrimaryStyles} from '../../utils/dashboradstyles';
 import DoneIcon from '@material-ui/icons/Done';
+import Grow from '@material-ui/core/Grow';
+import {getToday} from "../../utils/dateUtils";
+import { Drawer } from '@material-ui/core';
+import TimeTableBaseComponent from "../../components/grade-dashboard/timeTableBaseComponent";
+
 import {
   makeStyles,
   Theme,
@@ -103,6 +108,9 @@ function Timetablemin({institution, grade, section}: Props): ReactElement {
 
   const [toggleDaySelector, setToggleDaySelector] = useState(false);
 
+  const [openTimeTable, setOpenTimeTable] = useState(false);
+
+  const [selectedDay, setSelectedDay] = useState(getToday() === 'Sunday' ? 'Monday' : getToday());
   const [selectedDay, setSelectedDay] = useState(getDay());
 
   const [isupdating, setIsUpdating] = useState(false);
@@ -130,7 +138,7 @@ function Timetablemin({institution, grade, section}: Props): ReactElement {
       const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
       return (<div id="time-table-day-selector" className={classes.daySelector}>
          {days.map((day: any, index:any) => {
-          return(<div className={classes.day} onClick={()=>{selectDayTimeTable(day)}}>
+          return(<div className={classes.day} onClick={()=>{selectDayTimeTable(day)}}  key={index}>
           <span>{day}</span>
           {day == selectedDay ? <DoneIcon></DoneIcon> : ''}
           </div>)
@@ -177,16 +185,28 @@ function Timetablemin({institution, grade, section}: Props): ReactElement {
       <div>
         <div className={classes.header}>
           <span>Time Table</span>
-          <span className={dashboardClasses.action}> Edit </span>
+          <span className={dashboardClasses.action} onClick={()=>setOpenTimeTable(true)}> Edit </span>
         </div>
         <div className={classes.header}>
           <span  className={dashboardClasses.action} onClick={openDaySelector}> {selectedDay}</span>
         </div>{daySelector()}
-        <div style={{marginTop: 10}}>
-          {periods()}
-        </div>
-        
+        <Grow
+          in={true}
+          style={{ transformOrigin: '0 0 0' }}
+         {...({ timeout: 1000 })}
+        >
+          <div style={{marginTop: 10}}>
+            {periods()}
+          </div>
+        </Grow>   
       </div>
+      <Drawer
+        open={openTimeTable}
+        onClose={()=>setOpenTimeTable(false)}
+        anchor='right'
+      >
+        <TimeTableBaseComponent institution= {institution} grade= {grade} section={section}></TimeTableBaseComponent>
+      </Drawer>
     </div>
   )
 }

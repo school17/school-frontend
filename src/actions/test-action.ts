@@ -8,8 +8,8 @@ enum testActions {
   GET_GRADE_TEST = "GET_GRADE_TEST"
 }
 
-const token: any  = localStorage.getItem("token");
 export const getGradeTestList = (institutionId: any, division:any, grade:any  ) => {
+  const token: any  = localStorage.getItem("token");
   return async (dispatch: Dispatch) => {
     try {
     const url = `${GET_GRADE_TEST_LIST.replace("institutionId", institutionId).replace('grade', grade).replace('division', division)}`;

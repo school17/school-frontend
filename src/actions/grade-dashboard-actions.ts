@@ -15,9 +15,8 @@ export enum gradeDashboardActions  {
 }
 
 
-const TOKEN: any  = localStorage.getItem("token");
 export const getGradeDetails = (institutionId: any, filterValue:any ) => {
-
+  const TOKEN: any  = localStorage.getItem("token");
   return async (dispatch: Dispatch) => {
     try {
     const url = `${SEARCH_GRADES_URL.replace("institutionId", institutionId)}`;
@@ -45,6 +44,7 @@ export const saveSubjectTeacherAssociation = (institutionId: any, grade:any, sec
     subjectTeachers: association,
     division: "HIGHER SECONDARY"
   }
+  const TOKEN: any  = localStorage.getItem("token");
   return async (dispatch: Dispatch) => {
     try {
     const url = `${SAVE_TEACHER_SUBJECT_ASSOCIATION.replace("institutionId", institutionId)}`;
@@ -64,7 +64,7 @@ export const saveSubjectTeacherAssociation = (institutionId: any, grade:any, sec
 }
 
 export const editSubjectTeacherAssociation = (institutionId: any, grade:any, section:any, subjectTeacherAssociation:any) => {
-
+  const TOKEN: any  = localStorage.getItem("token");
   return async (dispatch: Dispatch) => {
     try {
     const url = `${UPDATE_SUBJECT_TEACHER_ASSOCIATION.replace("institutionId", institutionId).replace("grade",grade).replace("section",section).replace("id",subjectTeacherAssociation.id)}`;
@@ -86,7 +86,7 @@ export const editSubjectTeacherAssociation = (institutionId: any, grade:any, sec
 }
 
 export const getSubjectTeacherAssociation = (institutionId: any, grade: any, section:any) => {
-
+  const TOKEN: any  = localStorage.getItem("token");
   return async (dispatch: Dispatch) => {
     try {
       const url = `${GET_SUBJECT_TEACGET_ASSOCIATION_URL
@@ -111,6 +111,7 @@ export const getSubjectTeacherAssociation = (institutionId: any, grade: any, sec
 }
 
 export const getStudents = (institutionId: any, grade: any, section:any) => {
+  const TOKEN: any  = localStorage.getItem("token");
   return async (dispatch: Dispatch) => {
     try {
       const url = `${GET_STUDENTS_BY_GRADE

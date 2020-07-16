@@ -60,6 +60,15 @@ export const GET_STUDENTS_BY_GRADE = `${DOMAIN}/institutionId/students/grade/sec
 
 export const GET_GRADE_TEST_LIST = `${DOMAIN}/institutionId/test/division/grade`;
 
+export const GET_LOG_WORK = `${DOMAIN}/institutionId/grade/section/logwork/date`;
+
+export const SAVE_LOG_WORK = `${DOMAIN}/institutionId/grade/section/logwork`;
+
+export const SAVE_HOME_WORK = `${DOMAIN}/institutionId/grade/section/homework`;
+
+export const GET_HOME_WORK = `${DOMAIN}/institutionId/grade/section/homework/date`;
+
+
 const TOKEN: any  = localStorage.getItem("token");
 
 export const HEADERS = {

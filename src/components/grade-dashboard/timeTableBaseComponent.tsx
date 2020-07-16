@@ -35,7 +35,7 @@ function TimeTableBaseComponent({institution, grade, section}: Props): ReactElem
   });
   useEffect(() => {
     dispatch(getTimeTable(institution, grade, section))
-  },[])
+  },[grade, section])
   return (
     <ThemeProvider theme={drawerTheme}>
       <Grid container>

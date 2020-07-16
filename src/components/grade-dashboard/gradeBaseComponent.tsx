@@ -87,6 +87,14 @@ function GradeBaseComponent({}: Props): ReactElement {
       <Grid item xs={12} md={5}>
         <StudentsList institution= {institution} grade= {grade} section={section}></StudentsList>
       </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <ExamTimeTable institution= {institution} grade= {grade} section={section} division={gradeDetails.division}></ExamTimeTable>
+      </Grid>
+      <Grid item xs={12} md={5}>
+        <StudentsList institution= {institution} grade= {grade} section={section}></StudentsList>
+      </Grid>
       {(Object.keys(subjectTeacherAssociation).length > 0) ? 
        <Grid item xs={12} md={12}>
        <Paper className={classes.root}>

@@ -37,7 +37,6 @@ export const saveTimeTable = (institutionId: any, grade:any , section:any , time
 
 export const getTimeTable = (institutionId: any, grade:any , section:any ) => {
   const token: any  = localStorage.getItem("token");
-
   return async (dispatch: Dispatch) => {
     try {
     const url = `${SAVE_TIME_TABLE.replace("institutionId", institutionId).replace('grade', grade).replace('section', section)}`;
@@ -58,7 +57,6 @@ export const getTimeTable = (institutionId: any, grade:any , section:any ) => {
 
 export const updateTeacherTimeTableOnDelete = (institutionId: any, name: any, day:any, period:any ) => {
   const token: any  = localStorage.getItem("token");
-
   return async (dispatch: Dispatch) => {
     try {
     const url = `${UPDATE_TEACHER_TIME_TABLE_ON_DELETE.replace("institutionId", institutionId).replace('name', name).replace('day', day).replace('period', period)}`;

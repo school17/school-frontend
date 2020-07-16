@@ -7,6 +7,7 @@ import Grow from '@material-ui/core/Grow';
 import {getToday} from "../../utils/dateUtils";
 import { Drawer } from '@material-ui/core';
 import TimeTableBaseComponent from "../../components/grade-dashboard/timeTableBaseComponent";
+
 import {
   makeStyles,
   Theme,
@@ -72,6 +73,33 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function Timetablemin({institution, grade, section}: Props): ReactElement {
+  const getDay = () => {
+    let day = ""
+    switch (new Date().getDay()) {
+      case 0:
+        day = "Sunday";
+        break;
+      case 1:
+        day = "Monday";
+        break;
+      case 2:
+        day = "Tuesday";
+        break;
+      case 3:
+        day = "Wednesday";
+        break;
+      case 4:
+        day = "Thursday";
+        break;
+      case 5:
+        day = "Friday";
+        break;
+      case 6:
+        day = "Saturday";
+    }
+
+    return day;
+  }
   const dispatch = useDispatch();
 
   const [dayTimeTable, setDayTimeTable] = useState([])
@@ -83,6 +111,9 @@ function Timetablemin({institution, grade, section}: Props): ReactElement {
   const [openTimeTable, setOpenTimeTable] = useState(false);
 
   const [selectedDay, setSelectedDay] = useState(getToday() === 'Sunday' ? 'Monday' : getToday());
+  const [selectedDay, setSelectedDay] = useState(getDay());
+
+  const [isupdating, setIsUpdating] = useState(false);
 
   const classes = useStyles();
 

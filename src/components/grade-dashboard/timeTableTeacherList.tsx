@@ -179,7 +179,6 @@ function TimeTableTeacherList({institution, grade, section,  showDropDownToggle,
   useEffect(() => {
     dispatch(fetchTeacher(institution, searchQuery, {}));
     dispatch(getSubjectTeacherAssociation(institution,  grade, section))
-
   }, [grade, section])
   return (
     <div className={classes.container}>

@@ -160,7 +160,6 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
             {constructTestList()}
         </ul>
         </Zoom>
-
       ) 
     }
     
@@ -222,8 +221,7 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
         <span className={classes.date}>DATE</span>
         <span className={classes.time}>TIME</span>
         <span className={classes.subject}>SUBJECT</span>
-      </div>
-      
+      </div>     
         <Grow
          in={testTimeTable.length > 1 }
          style={{ transformOrigin: '0 0 0' }}
@@ -233,7 +231,7 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
           {testTimeTable.length > 1 ? examSchedule(): ''}
         </div>
        </Grow>
-      
+     
     </div>
   )
 }

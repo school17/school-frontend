@@ -56,62 +56,48 @@ function GradeBaseComponent({}: Props): ReactElement {
   }, [institution])
   return (
     <div className={classes.header}>
-      <Grid container spacing={2}>
-      <Grid item xs={12} md={3}>
-        <Grid container spacing={2}>
-        <Grid item xs={12} md={12}>
-        <DetailsCardComponent gradeDetails={gradeDetails}></DetailsCardComponent>
-        </Grid>
-        <Grid item xs={12} md={12}>
-        <Timetablemin institution= {institution} grade= {grade} section={section}></Timetablemin>
+       <Grid container spacing={2}>
+        <Grid item xs={12} md={3}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={12}>
+              <DetailsCardComponent gradeDetails={gradeDetails}></DetailsCardComponent>
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <Timetablemin institution= {institution} grade= {grade} section={section}></Timetablemin>
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <HomeworkComponent institution= {institution} grade= {grade} section={section}></HomeworkComponent>
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <LogWorkComponent institution= {institution} grade= {grade} section={section}></LogWorkComponent>
+            </Grid>
+            <Grid item xs={12} md={12}>
+              {
+                (Object.keys(subjectTeacherAssociation).length > 0) ?  ""
+                :
+                <Paper className={classes.root}>
+                   <SubjectTeacherAssociationComponent institution= {institution} grade= {grade} section={section}></SubjectTeacherAssociationComponent>
+                </Paper>
+              }
+            </Grid>
+          </Grid>
         </Grid>
 
-        <Grid item xs={12} md={12}>
-        <HomeworkComponent institution= {institution} grade= {grade} section={section}></HomeworkComponent>
+        <Grid item xs={12} md={4}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={12}>
+              {(institution && grade && section)?  <ExamTimeTable institution= {institution} grade= {grade} section={section} division={gradeDetails.division}></ExamTimeTable> : ''}
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <TeachersCard institution= {institution} grade= {grade} section={section}></TeachersCard>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={12}>
-        <LogWorkComponent institution= {institution} grade= {grade} section={section}></LogWorkComponent>
+        <Grid item xs={12} md={5}>
+          <StudentsList institution= {institution} grade= {grade} section={section}></StudentsList>
         </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} md={4}>
-      <Grid container spacing={2}>
-      <Grid item xs={12} md={12}>
-        {(institution && grade && section)?  <ExamTimeTable institution= {institution} grade= {grade} section={section} division={gradeDetails.division}></ExamTimeTable> : ''}
-      </Grid>
-      <Grid item xs={12} md={12}>
-        <TeachersCard institution= {institution} grade= {grade} section={section}></TeachersCard>
-      </Grid>
-      </Grid>
-      </Grid>
-      <Grid item xs={12} md={5}>
-        <StudentsList institution= {institution} grade= {grade} section={section}></StudentsList>
-      </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <ExamTimeTable institution= {institution} grade= {grade} section={section} division={gradeDetails.division}></ExamTimeTable>
-      </Grid>
-      <Grid item xs={12} md={5}>
-        <StudentsList institution= {institution} grade= {grade} section={section}></StudentsList>
-      </Grid>
-      {(Object.keys(subjectTeacherAssociation).length > 0) ? 
-       <Grid item xs={12} md={12}>
-       <Paper className={classes.root}>
-       {/*<TimeTableBaseComponent institution= {institution} grade= {grade} section={section}></TimeTableBaseComponent>*/}
-       </Paper>
-       </Grid> : 
-        <Grid item xs={12} md={3} >
-        <Paper className={classes.root}>
-        <SubjectTeacherAssociationComponent institution= {institution} grade= {grade} section={section}></SubjectTeacherAssociationComponent>
-        </Paper>
-          
-        </Grid>}
-     
-      
-    </Grid>
+       </Grid>
     </div>
-    
   )
 }
 

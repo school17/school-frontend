@@ -111,7 +111,6 @@ function Timetablemin({institution, grade, section}: Props): ReactElement {
   const [openTimeTable, setOpenTimeTable] = useState(false);
 
   const [selectedDay, setSelectedDay] = useState(getToday() === 'Sunday' ? 'Monday' : getToday());
-  const [selectedDay, setSelectedDay] = useState(getDay());
 
   const [isupdating, setIsUpdating] = useState(false);
 

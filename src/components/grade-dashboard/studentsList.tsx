@@ -78,7 +78,7 @@ function StudentsList({institution, grade, section}: Props): ReactElement {
         const imageUrl = student.picture ? student.picture : getProfilePicUrl();
         return (
           <div className={classes.items}>
-            <img className={classes.image} src={imageUrl} width='30px' height='30px' style={{borderRadius: "50%", marginRight: "15px"}}/>
+            <img className={classes.image} src={imageUrl} width='30px' height='30px' style={{borderRadius: "50%", marginRight: "15px", border:"solid 2px orangered"}}/>
             <div className={rowClassName}>
               <span className={classes.rollNo}>1102{index + 1}</span>
               <span className={classes.name}>{student.name}</span>

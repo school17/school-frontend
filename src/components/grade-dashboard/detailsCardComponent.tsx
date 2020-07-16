@@ -48,7 +48,7 @@ function DetailsCardComponent({gradeDetails}: Props): ReactElement {
       <span className={classes.classDetails}>{gradeDetails.grade} - {gradeDetails.section}</span>
       <span className={classes.label}>CLASS TEACHER</span>
       <div className={classes.teacherDetails}>
-      <img src={imgurl} width='30px' height='30px' style={{borderRadius: "50%", marginRight: "15px"}}/>
+      <img src={imgurl} width='30px' height='30px' style={{borderRadius: "50%", marginRight: "15px",  border: "solid 2px orangered"}}/>
       <span>{gradeDetails.teacher}</span>
       </div>
     </div>

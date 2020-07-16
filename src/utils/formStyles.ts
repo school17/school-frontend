@@ -48,6 +48,12 @@ createStyles({
     marginBottom: theme.spacing(3),
     width: "75%"
   },
+  secondaryInput: {
+    backgroundColor: "#FFF",
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    width: "75%"
+  },
   drawerFormControl: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),

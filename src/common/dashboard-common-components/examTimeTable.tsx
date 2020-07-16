@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {getGradeTestList} from "../../actions/test-action";
 import DoneIcon from '@material-ui/icons/Done';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Grow from '@material-ui/core/Grow';
+import Zoom from '@material-ui/core/Zoom';
 
 import {
   makeStyles,
@@ -140,7 +142,7 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
       testTimeTable.map((test:any, index:any) => {
         const classNames = classes.testList + ' ' + ((index%2 == 1) ? ' ' : classes.oddRow)
         return (
-         <div className = {classNames}>
+         <div className = {classNames} key={index}>
             <span className={classes.date}><span>{test.date}, 2020</span></span>
             <span className={classes.time}><span className={classes.leftAling}>{test.time}</span></span>
             <span className={classes.subject}><span className={classes.leftAling}>{test.subject}</span></span>
@@ -153,9 +155,12 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
   const testDropDown = () => {
     if(showTestSelector) {
       return (
+        <Zoom in={showTestSelector} mountOnEnter unmountOnExit>
         <ul className={classes.dropDown}>
             {constructTestList()}
         </ul>
+        </Zoom>
+
       ) 
     }
     
@@ -186,14 +191,12 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
 
 
   useEffect(()=>{
-    if((division && testList.length < 1) || ( testList.length >1 && testList[0].grade !== grade)) {
-      if(fetchList) {
-        setFetchList(false);
+    if((division && testList.length < 1) || (testList.length > 1 && (grade !== testList[0].grade  && fetchList))) {
         dispatch(getGradeTestList(institution, division, grade));
-      }
+        setFetchList(false);
     }
 
-    if(testList.length > 0 && !selectedTest && !fetchList) {
+    if(testList.length > 0 && !selectedTest && (testList.length > 1 && grade === testList[0].grade)) {
       setDefaultTest();
     }
 
@@ -212,7 +215,7 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
           <span>{selectedTest}</span>
           <ExpandMoreIcon></ExpandMoreIcon>
         </div>
-        {testDropDown()}
+          {testDropDown()}
         <span>Edit</span>
       </div>
       <div className = {classes.heading}>
@@ -220,9 +223,17 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
         <span className={classes.time}>TIME</span>
         <span className={classes.subject}>SUBJECT</span>
       </div>
-      <div>
-        {testTimeTable.length > 1 ? examSchedule(): ''}
-      </div>
+      
+        <Grow
+         in={testTimeTable.length > 1 }
+         style={{ transformOrigin: '0 0 0' }}
+         {...(testTimeTable.length > 1  ? { timeout: 1000 } : {})}
+        >
+        <div>
+          {testTimeTable.length > 1 ? examSchedule(): ''}
+        </div>
+       </Grow>
+      
     </div>
   )
 }

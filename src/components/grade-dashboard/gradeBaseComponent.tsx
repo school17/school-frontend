@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {getGradeDetails} from "../../actions/grade-dashboard-actions";
 import SubjectTeacherAssociationComponent from "./subjectTeacherAssociationComponent";
 import TimeTableBaseComponent from "./timeTableBaseComponent";
+import TeachersCard from "./teachersCard";
 import DetailsCardComponent from "./detailsCardComponent";
 import StudentsList from "./studentsList";
 import Timetablemin from "./../../common/dashboard-common-components/timetablemin";
 import {Grid} from "@material-ui/core";
 import ExamTimeTable from "./../../common/dashboard-common-components/examTimeTable";
+import LogWorkComponent from "./logWorkComponent";
+import HomeworkComponent from "../../common/dashboard-common-components/homeworkComponent";
 
 import {
   makeStyles,
@@ -62,10 +65,24 @@ function GradeBaseComponent({}: Props): ReactElement {
         <Grid item xs={12} md={12}>
         <Timetablemin institution= {institution} grade= {grade} section={section}></Timetablemin>
         </Grid>
+
+        <Grid item xs={12} md={12}>
+        <HomeworkComponent institution= {institution} grade= {grade} section={section}></HomeworkComponent>
+        </Grid>
+        <Grid item xs={12} md={12}>
+        <LogWorkComponent institution= {institution} grade= {grade} section={section}></LogWorkComponent>
+        </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12} md={4}>
-        <ExamTimeTable institution= {institution} grade= {grade} section={section} division={gradeDetails.division}></ExamTimeTable>
+      <Grid container spacing={2}>
+      <Grid item xs={12} md={12}>
+        {(institution && grade && section)?  <ExamTimeTable institution= {institution} grade= {grade} section={section} division={gradeDetails.division}></ExamTimeTable> : ''}
+      </Grid>
+      <Grid item xs={12} md={12}>
+        <TeachersCard institution= {institution} grade= {grade} section={section}></TeachersCard>
+      </Grid>
+      </Grid>
       </Grid>
       <Grid item xs={12} md={5}>
         <StudentsList institution= {institution} grade= {grade} section={section}></StudentsList>

@@ -24,6 +24,9 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      backgroundColor: "#FFF"
+    },
    tableRow: {
     minWidth: "100px",
     height: 120,
@@ -121,8 +124,8 @@ function TimeTableComponent({showDropDownToggle,setShowDropDownToggle, instituti
   const classes = useStyles();
   const drawerClass = useDrawerStyles();
   const dispatch = useDispatch();
-  const top = 200;
-  const left = 450;
+  const top = 110;
+  const left = 310;
   const [arrays, setArrays]:any = useState(timeTableInitialData);
   const header:any = arrays[0];
 
@@ -306,7 +309,7 @@ function TimeTableComponent({showDropDownToggle,setShowDropDownToggle, instituti
   }
 
   return (
-    <div id="time-table">
+    <div id="time-table" className={classes.root}>
       {(Object.keys(subjectTeacherAssociation).length > 0) && showDropDownToggle ? 
       <div id="dynamicDropDown" className={classes.dynamicDropDown}>{subjectDropDown()}</div> : ""}
       <table>

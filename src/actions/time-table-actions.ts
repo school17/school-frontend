@@ -8,11 +8,8 @@ export enum timetableActions{
   UPDATE_TEACHER_TIME_TABLE_ON_DELETE = "UPDATE_TEACHER_TIME_TABLE_ON_DELETE"
 }
 
-
-
-const token: any  = localStorage.getItem("token");
-
 export const saveTimeTable = (institutionId: any, grade:any , section:any , timetable:any) => {
+  const token: any  = localStorage.getItem("token");
   const payload = { 
     institutionId: institutionId,
     grade: grade,
@@ -39,6 +36,7 @@ export const saveTimeTable = (institutionId: any, grade:any , section:any , time
 
 
 export const getTimeTable = (institutionId: any, grade:any , section:any ) => {
+  const token: any  = localStorage.getItem("token");
 
   return async (dispatch: Dispatch) => {
     try {
@@ -59,6 +57,7 @@ export const getTimeTable = (institutionId: any, grade:any , section:any ) => {
 }
 
 export const updateTeacherTimeTableOnDelete = (institutionId: any, name: any, day:any, period:any ) => {
+  const token: any  = localStorage.getItem("token");
 
   return async (dispatch: Dispatch) => {
     try {

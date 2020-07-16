@@ -35,8 +35,7 @@ const reducers = {
   gradeDashboardReducer:gradeDashboardReducer,
   testReducer:testReducer,
   logworkReducer:logworkReducer,
-  homeworkReducer:homeworkReducer,
-  testReducer:testReducer
+  homeworkReducer:homeworkReducer
 }
 
 const rootReducer = combineReducers(reducers);

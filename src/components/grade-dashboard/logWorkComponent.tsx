@@ -65,12 +65,23 @@ function LogWorkComponent({institution, grade, section}: Props): ReactElement {
   });
 
   useEffect(() => {
-    if(Object.keys(timetable).length < 1 || (timetable.grade !== grade || timetable.section !== section)) {
+    
+    if(Object.keys(timetable).length < 1 || (timetable.grade !== grade || timetable.section  !== section)) {
+      //console.log("From if "+grade+" "+section+" "+Object.keys(timetable).length+" "+timetable.grade+" "+timetable.section);
       dispatch(getTimeTable(institution, grade, section));
     }
-    if(Object.keys(timetable).length > 1 ) {
+    if(Object.keys(timetable).length > 1 && (timetable.grade === grade && timetable.section === section)) {
+      //console.log("From else if "+grade+" "+section+" "+Object.keys(timetable).length+" "+timetable.grade+" "+timetable.section);
+  
       setDefaultTimeTable();
     }
+    
+/*
+    else if(Object.keys(timetable).length > 1 ) {
+      console.log("From else if "+grade+" "+section+" "+Object.keys(timetable).length+" "+timetable.grade+" "+timetable.section);
+  
+      setDefaultTimeTable();
+    }*/
   },[timetable, dayTimeTable, day, grade, section]);
 
 

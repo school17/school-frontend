@@ -31,7 +31,6 @@ export default function AdminComponent({}: Props): ReactElement {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <h1>Admin Dashboard</h1>  
       <AdminListComponent>
       </AdminListComponent>
     </div>

@@ -3,7 +3,7 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  ThemeProvider,
+  ThemeProvider
 } from "@material-ui/core/styles";
 import ExamIcon from "../../svg/Examination.svg";
 import { useFormik } from "formik";
@@ -16,20 +16,22 @@ import { tests } from "../../constants/test";
 import { Drawer } from "@material-ui/core";
 import { drawerTheme, useDrawerStyles } from "../../utils/drawerStyles";
 import Grid from "@material-ui/core/Grid";
-import { InputLabel, Select, MenuItem } from "@material-ui/core";
+import { InputLabel, Select, MenuItem, TextField } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import { formUseStyles } from "../../utils/formStyles";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import { Calendar } from "react-modern-calendar-datepicker";
 import { getMonth, getDay, getToday } from "../../utils/dateUtils";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import DatePicker from "react-modern-calendar-datepicker";
+import ExamsListComponent from "./examComponent/examsListComponent";
 
 interface Props {}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      boxShadow: "1px 0px 15px -1px rgba(0,0,0,0.08)",
+      boxShadow: "1px 0px 15px -1px rgba(0,0,0,0.08)"
     },
     date: {
       display: "flex",
@@ -37,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: "10px",
       color: "#6DA0E6",
       marginLeft: "10px",
-      marginBottom:"70px"
+      marginBottom: "70px"
     },
     actions: {
       display: "flex",
@@ -45,26 +47,21 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "space-between",
       "& > svg": {
         color: "#000fff",
-        marginLeft:"50%"
-    }
-  }
-  })  
+        marginLeft: "50%",
+        position: "relative",
+        top: "-27px",
+        left: "90%"
+      }
+    },
+  })
 );
 
-function AdminListComponent({}: Props): ReactElement {
+function AdminListComponent({  }: Props): ReactElement {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [examsList, setExamsList]:any = useState([]);
   const drawerClass = useDrawerStyles();
   const formStyles = formUseStyles();
-  const [toggleCalendar, setToggleCalendar] = useState(false);
-  const [day, setDay] = useState(
-    getToday() === "Sunday" ? "Monday" : getToday()
-  );
-  const [selectedDay, setSelectedDay]: any = useState({
-    day: new Date().getDate(),
-    month: new Date().getMonth() + 1,
-    year: new Date().getFullYear(),
-  });
   const subjectDropDown = subjects.map((item: string, index: any) => {
     return (
       <MenuItem value={item} key={index}>
@@ -93,7 +90,7 @@ function AdminListComponent({}: Props): ReactElement {
       </MenuItem>
     );
   });
-  const sessionTimeDropDown = sessionTime.map((item: string, index: any) => {
+  const timeDropDown = sessionTime.map((item: string, index: any) => {
     return (
       <MenuItem value={item} key={index}>
         {item}
@@ -114,8 +111,8 @@ function AdminListComponent({}: Props): ReactElement {
     if (!values.test) {
       errors.test = "Required";
     }
-    if (!values.sessionTime) {
-      errors.sessionTime = "Required";
+    if (!values.time) {
+      errors.time = "Required";
     }
     return errors;
   };
@@ -125,7 +122,8 @@ function AdminListComponent({}: Props): ReactElement {
       division: "",
       grade: "",
       test: "",
-      sessionTime: "",
+      time: "",
+      date: null,
     },
     validate,
     isInitialValid: false,
@@ -133,51 +131,34 @@ function AdminListComponent({}: Props): ReactElement {
     onSubmit: (values: any) => {
       setOpenDrawer(false);
       formik.resetForm();
-    },
+      console.log(Object.assign(formik.values, {schedule: examsList}));
+    }
   });
-  const renderDate = () => {
-    if (selectedDay) {
-      const date = `${selectedDay.day} ${getMonth(selectedDay.month)}  ${
-        selectedDay.year
+
+  const addExamToList = () => {
+    debugger
+    let date = '';
+    const formikValues:any = formik.values;
+      date = `${formikValues.date.day} ${getMonth(formikValues.date.month)}  ${
+        formikValues.date.year
       }`;
-      return (
-        <span>
-          {selectedDay.day}, {getMonth(selectedDay.month)},{" "}
-          {getDay(new Date(date).getDay())}
-        </span>
-      );
+    
+    const exam = {
+      date: date,
+      time: formik.values.time,
+      subject: formik.values.subject
     }
-  };
-  const updateDay = () => {
-    const date = `${selectedDay.day} ${getMonth(selectedDay.month)}  ${
-      selectedDay.year
-    }`;
-    setDay(getDay(new Date(date).getDay()));
-  };
-  const displayCalendar = () => {
-    if (toggleCalendar) {
-      return (
-        <Calendar
-          value={selectedDay}
-          onChange={(e: any) => {
-            setToggleCalendar(false);
-            setSelectedDay(e);
-            updateDay();
-          }}
-          shouldHighlightWeekends
-        />
-      );
-    }
-  };
+    setExamsList([...examsList, exam]);
+  }
   return (
-    <div className={classes.root}>
+    <div>
       <img
         src={ExamIcon}
         style={{
           position: "absolute",
           height: "50px",
           width: "50px",
-          left: "80px",
+          left: "80px"
         }}
         onClick={() => {
           setOpenDrawer(true);
@@ -189,7 +170,7 @@ function AdminListComponent({}: Props): ReactElement {
           position: "absolute",
           height: "50px",
           width: "50px",
-          left: "180px",
+          left: "180px"
         }}
       />
       <ThemeProvider theme={drawerTheme}>
@@ -207,27 +188,34 @@ function AdminListComponent({}: Props): ReactElement {
             </div>
             <form onSubmit={formik.handleSubmit}>
               <Grid container className={drawerClass.form}>
-              <Grid item xs={12} md={12}>
-      <FormControl className={formStyles.drawerFormControl}>
-      <InputLabel className={formStyles.drawerLabel} shrink={false}>Divisons</InputLabel>
-      <Select
-          name="division"
-          id="division"
-          variant="outlined"
-          error={!!formik.errors.division && !!formik.touched.division}
-          value={formik.values.division}
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          >
-          {divisonsDropDown}
-      </Select>
-      {formik.errors.division && formik.touched.division && (
-                    <strong className={formStyles.error}>
-        Division is required
-      </strong>
-      )}
-      </FormControl>
-      </Grid>
+                <Grid item xs={12} md={12}>
+                  <FormControl className={formStyles.drawerFormControl}>
+                    <InputLabel
+                      className={formStyles.drawerLabel}
+                      shrink={false}
+                    >
+                      Divisons
+                    </InputLabel>
+                    <Select
+                      name="division"
+                      id="division"
+                      variant="outlined"
+                      error={
+                        !!formik.errors.division && !!formik.touched.division
+                      }
+                      value={formik.values.division}
+                      onBlur={formik.handleBlur}
+                      onChange={formik.handleChange}
+                    >
+                      {divisonsDropDown}
+                    </Select>
+                    {formik.errors.division && formik.touched.division && (
+                      <strong className={formStyles.error}>
+                        Division is required
+                      </strong>
+                    )}
+                  </FormControl>
+                </Grid>
                 <Grid item xs={12} md={12}>
                   <FormControl className={formStyles.drawerFormControl}>
                     <InputLabel
@@ -280,38 +268,42 @@ function AdminListComponent({}: Props): ReactElement {
                     )}
                   </FormControl>
                 </Grid>
-                      <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={12}>
                   <FormControl className={formStyles.drawerFormControl}>
-                  <InputLabel
+                    <InputLabel
                       className={formStyles.drawerLabel}
                       shrink={false}
                     >
                       Session / Subjects
                     </InputLabel>
-                      <div style={{display: "flex"}}>
+                    <div style={{ display: "flex" }}>
                       <Select
-                        name="sessionTime"
-                        id="sessionTime"
+                        name="time"
+                        id="time"
                         variant="outlined"
-                        style={{width:"90px",marginTop:"10px"}}
+                        style={{ width: "90px", marginTop: "10px" }}
                         error={
-                          !!formik.errors.sessionTime &&
-                          !!formik.touched.sessionTime
+                          !!formik.errors.time &&
+                          !!formik.touched.time
                         }
-                        value={formik.values.sessionTime}
+                        value={formik.values.time}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
                       >
-                        {sessionTimeDropDown}
+                        {timeDropDown}
                       </Select>
 
                       <Select
                         name="subject"
                         id="subject"
                         variant="outlined"
-                        style={{width:"250px",marginTop:"10px",marginLeft:"10px"}}
+                        style={{
+                          width: "250px",
+                          marginTop: "10px",
+                          marginLeft: "10px"
+                        }}
                         error={
-                            !!formik.errors.subject && !!formik.touched.subject
+                          !!formik.errors.subject && !!formik.touched.subject
                         }
                         value={formik.values.subject}
                         onBlur={formik.handleBlur}
@@ -320,20 +312,20 @@ function AdminListComponent({}: Props): ReactElement {
                         {subjectDropDown}
                       </Select>
                     </div>
-                    
+
                     {(formik.errors.subject && formik.touched.subject && (
                       <strong className={formStyles.error}>
                         Subject is required
                       </strong>
                     )) ||
-                      (formik.errors.sessionTime &&
-                        formik.touched.sessionTime && (
+                      (formik.errors.time &&
+                        formik.touched.time && (
                           <strong className={formStyles.error}>
                             Session is required
                           </strong>
-                        ))} 
+                        ))}
                   </FormControl>
-                </Grid> 
+                </Grid>
                 <Grid item xs={12} md={12}>
                   <FormControl className={formStyles.drawerFormControl}>
                     <InputLabel
@@ -342,20 +334,23 @@ function AdminListComponent({}: Props): ReactElement {
                     >
                       Date
                     </InputLabel>
-                      <div className={classes.date}>
-                        <CalendarTodayIcon
-                           onClick={() => {
-                            setToggleCalendar(true);
-                          }}
-                        ></CalendarTodayIcon>
-                        {renderDate()}
-                        <div className={classes.actions}>
-                        <AddCircleOutlineIcon onClick={()=>{console.log("Added")}}></AddCircleOutlineIcon>
-                        </div>
-                        {displayCalendar()}
-                      </div>
-                      </FormControl>
-                      </Grid>
+                    <DatePicker
+                       value={formik.values.date}
+                       onChange = {(e:any)=> {
+                         formik.setFieldValue('date', e, true)
+                        }}
+                    ></DatePicker>
+                  </FormControl>
+                  <AddCircleOutlineIcon
+                      onClick={()=>{addExamToList()}}
+                      style={{
+                        color: "#000fff",
+                        position: "relative",
+                        top: "-20px",
+                        left: "90%"
+                      }} 
+                  ></AddCircleOutlineIcon>
+                </Grid>
 
                 <Grid item xs={12} md={12}>
                   <div className={drawerClass.buttonContainer}>
@@ -364,8 +359,8 @@ function AdminListComponent({}: Props): ReactElement {
                       color="primary"
                       type="submit"
                       className={drawerClass.button}
-                      disabled = {!formik.isValid}
-                     >
+                      disabled={!formik.isValid}
+                    >
                       Save
                     </Button>
                     <Button
@@ -383,6 +378,7 @@ function AdminListComponent({}: Props): ReactElement {
               </Grid>
             </form>
           </div>
+          <ExamsListComponent examsList={examsList}></ExamsListComponent>
         </Drawer>
       </ThemeProvider>
     </div>

@@ -9,6 +9,8 @@ import StudentBaseComponent from '../students-component/studentBaseComponent';
 import ViewLeaveComponent from "../attendance-component/view-leave-component/viewLeaveComponent";
 import DashboardComponent from "../dashboard-component/dashboardComponent";
 import GradeBaseComponent from "../grade-dashboard/gradeBaseComponent";
+import AdminComponent from "../admin-component/adminComponent";
+import ExaminationComponent from "../Examination-Component/examinationComponent";
 function Base(): ReactElement {
   return (
     <div>
@@ -19,9 +21,11 @@ function Base(): ReactElement {
         <Route path="/students-management" component={StudentBaseComponent}></Route>
         <Route path="/view-leaves" component={ViewLeaveComponent}></Route>
         <Route path="/class" component={ClassComponent}></Route>
+        <Route path="/admin" component={AdminComponent}></Route>
         <Route path="/institution/:institutionId/school-onboarding" component={OnbardingBaseComponent}></Route>
         <Route path="/grade/:grade/:section" component={GradeBaseComponent}></Route>
         <Route path="/" component = {LandingRedirect}></Route>
+        <Route path="/examination" component={ExaminationComponent}></Route>
       </Switch>
     </div>
   )

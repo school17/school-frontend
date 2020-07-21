@@ -1,49 +1,57 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from "react";
+import clsx from "clsx";
 import Base from "../support-agent/base";
-import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import HelpIcon from '@material-ui/icons/Help';
-import { Omit } from '@material-ui/types';
-import Tooltip from '@material-ui/core/Tooltip';
-import BootstrapTooltip from '../../common/bootstrapTooltip';
-import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
-import {useSelector, useDispatch} from "react-redux";
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import {
+  createStyles,
+  makeStyles,
+  useTheme,
+  Theme,
+} from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import List from "@material-ui/core/List";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
+import HelpIcon from "@material-ui/icons/Help";
+import { Omit } from "@material-ui/types";
+import Tooltip from "@material-ui/core/Tooltip";
+import BootstrapTooltip from "../../common/bootstrapTooltip";
+import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
+import { useSelector, useDispatch } from "react-redux";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import Button from "@material-ui/core/Button";
-import FaceIcon from '@material-ui/icons/Face';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-
-import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
+import FaceIcon from "@material-ui/icons/Face";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import AdminIcon from "@material-ui/icons/SupervisorAccount";
+import {
+  Link as RouterLink,
+  LinkProps as RouterLinkProps,
+} from "react-router-dom";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex'
+      display: "flex",
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
+      transition: theme.transitions.create(["width", "margin"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
@@ -51,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
     appBarShift: {
       marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
+      transition: theme.transitions.create(["width", "margin"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
@@ -60,35 +68,35 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 36,
     },
     hide: {
-      display: 'none',
+      display: "none",
     },
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
-      whiteSpace: 'nowrap',
+      whiteSpace: "nowrap",
     },
     drawerOpen: {
       width: drawerWidth,
-      transition: theme.transitions.create('width', {
+      transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
     drawerClose: {
-      transition: theme.transitions.create('width', {
+      transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      overflowX: 'hidden',
+      overflowX: "hidden",
       width: theme.spacing(7) + 1,
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up("sm")]: {
         width: theme.spacing(9) + 1,
       },
     },
     toolbar: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
       padding: theme.spacing(0, 1),
       ...theme.mixins.toolbar,
     },
@@ -109,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
     customArrow: {
       padding: 0,
     },
-  }),
+  })
 );
 
 interface ListItemLinkProps {
@@ -123,10 +131,10 @@ function ListItemLink(props: ListItemLinkProps) {
 
   const renderLink = React.useMemo(
     () =>
-      React.forwardRef<any, Omit<RouterLinkProps, 'to'>>((itemProps, ref) => (
-        <RouterLink to={to} ref={ref} {...itemProps}/>
+      React.forwardRef<any, Omit<RouterLinkProps, "to">>((itemProps, ref) => (
+        <RouterLink to={to} ref={ref} {...itemProps} />
       )),
-    [to],
+    [to]
   );
 
   return (
@@ -140,12 +148,12 @@ function ListItemLink(props: ListItemLinkProps) {
 }
 
 export default function SideNav() {
-  const {role, institution} = useSelector((store:any) => {
-    return store.loginReducer
-  })
-  const {onboardingComplete, name} = useSelector((store:any) => {
-    return store.addressFormStore
-  })
+  const { role, institution } = useSelector((store: any) => {
+    return store.loginReducer;
+  });
+  const { onboardingComplete, name } = useSelector((store: any) => {
+    return store.addressFormStore;
+  });
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -163,18 +171,65 @@ export default function SideNav() {
   };
 
   const listMenusAfterOnbaordingCompleted = () => {
-    if(onboardingComplete) {
-      return(
+    if (onboardingComplete) {
+      return (
         <div>
-      <ListItemLink to="/teachers" primary="Teachers" icon={<BootstrapTooltip title="Teachers" aria-label="teachers" placement="right"><LocalLibraryIcon /></BootstrapTooltip>}></ListItemLink>
-      <ListItemLink to="/class" primary="Class Room" icon={<BootstrapTooltip title="Manage Class Room" aria-label="Class Room" placement="right"><MeetingRoomIcon /></BootstrapTooltip>}></ListItemLink>
-      <ListItemLink to="/students-management" primary="Manage Students" icon={<BootstrapTooltip title="Manage Students" aria-label="Manage Students" placement="right"><FaceIcon /></BootstrapTooltip>}></ListItemLink>
-      <ListItemLink to="/view-leaves" primary="View Leaves" icon={<BootstrapTooltip title="View Leaves" aria-label="View Leaves" placement="right"><PeopleAltIcon /></BootstrapTooltip>}></ListItemLink>
+          <ListItemLink
+            to="/teachers"
+            primary="Teachers"
+            icon={
+              <BootstrapTooltip
+                title="Teachers"
+                aria-label="teachers"
+                placement="right"
+              >
+                <LocalLibraryIcon />
+              </BootstrapTooltip>
+            }
+          ></ListItemLink>
+          <ListItemLink
+            to="/class"
+            primary="Class Room"
+            icon={
+              <BootstrapTooltip
+                title="Manage Class Room"
+                aria-label="Class Room"
+                placement="right"
+              >
+                <MeetingRoomIcon />
+              </BootstrapTooltip>
+            }
+          ></ListItemLink>
+          <ListItemLink
+            to="/students-management"
+            primary="Manage Students"
+            icon={
+              <BootstrapTooltip
+                title="Manage Students"
+                aria-label="Manage Students"
+                placement="right"
+              >
+                <FaceIcon />
+              </BootstrapTooltip>
+            }
+          ></ListItemLink>
+          <ListItemLink
+            to="/admin"
+            primary="Admin"
+            icon={
+              <BootstrapTooltip
+                title="Admin"
+                aria-label="Admin"
+                placement="right"
+              >
+                <AdminIcon />
+              </BootstrapTooltip>
+            }
+          ></ListItemLink>
         </div>
-      )
-      
+      );
     }
-  }
+  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -183,12 +238,12 @@ export default function SideNav() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   const logout = () => {
     handleClose();
     localStorage.removeItem("token");
     window.location.reload();
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -214,7 +269,7 @@ export default function SideNav() {
           <Typography variant="h6" noWrap>
             {name}
           </Typography>
-          <div className = {classes.customButton}>
+          <div className={classes.customButton}>
             {auth && (
               <div>
                 <IconButton
@@ -225,20 +280,20 @@ export default function SideNav() {
                   onClick={handleMenu}
                   color="inherit"
                 >
-                  <AccountCircle className = {classes.customDims}/>
-                  <ArrowDropDownIcon className = {classes.customArrow}/>
+                  <AccountCircle className={classes.customDims} />
+                  <ArrowDropDownIcon className={classes.customArrow} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
                   anchorEl={anchorEl}
                   anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
+                    vertical: "bottom",
+                    horizontal: "right",
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
+                    vertical: "bottom",
+                    horizontal: "right",
                   }}
                   open={openProfile}
                   onClose={handleClose}
@@ -266,19 +321,68 @@ export default function SideNav() {
       >
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
           </IconButton>
         </div>
         <Divider />
         <List>
-          <ListItemLink to="/student/dashboard" primary="Dashboard" icon={<BootstrapTooltip title="Dashboard" aria-label="Dashboard" placement="right"><DashboardIcon /></BootstrapTooltip>}></ListItemLink>
-          <ListItemLink to="/support" primary="Support" icon={<BootstrapTooltip title="Support" aria-label="support" placement="right"><LibraryBooksIcon /></BootstrapTooltip>}></ListItemLink>
-          <ListItemLink to="/syllabus" primary="Syllabus" icon={<BootstrapTooltip title="Syllabus" aria-label="syllabus" placement="right"><HelpIcon /></BootstrapTooltip>}></ListItemLink>
-          <ListItemLink to={`/institution/${institution}/school-onboarding`} primary="School Details" icon={<BootstrapTooltip title="School-onbarding" aria-label="School-onbarding" placement="right"><HelpIcon /></BootstrapTooltip>}></ListItemLink>
-          {
-            listMenusAfterOnbaordingCompleted()
-          }
-          
+          <ListItemLink
+            to="/student/dashboard"
+            primary="Dashboard"
+            icon={
+              <BootstrapTooltip
+                title="Dashboard"
+                aria-label="Dashboard"
+                placement="right"
+              >
+                <DashboardIcon />
+              </BootstrapTooltip>
+            }
+          ></ListItemLink>
+          <ListItemLink
+            to="/support"
+            primary="Support"
+            icon={
+              <BootstrapTooltip
+                title="Support"
+                aria-label="support"
+                placement="right"
+              >
+                <LibraryBooksIcon />
+              </BootstrapTooltip>
+            }
+          ></ListItemLink>
+          <ListItemLink
+            to="/syllabus"
+            primary="Syllabus"
+            icon={
+              <BootstrapTooltip
+                title="Syllabus"
+                aria-label="syllabus"
+                placement="right"
+              >
+                <HelpIcon />
+              </BootstrapTooltip>
+            }
+          ></ListItemLink>
+          <ListItemLink
+            to={`/institution/${institution}/school-onboarding`}
+            primary="School Details"
+            icon={
+              <BootstrapTooltip
+                title="School-onbarding"
+                aria-label="School-onbarding"
+                placement="right"
+              >
+                <HelpIcon />
+              </BootstrapTooltip>
+            }
+          ></ListItemLink>
+          {listMenusAfterOnbaordingCompleted()}
         </List>
         <Divider />
       </Drawer>

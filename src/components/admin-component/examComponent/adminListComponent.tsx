@@ -12,6 +12,7 @@ import ExamIcon from "../../../svg/exam.svg";
 import studentIcon from "../../../svg/student.svg";
 import teacherIcon from "../../../svg/teacher.svg";
 import notificationIcon from "../../../svg/notification.svg";
+import timeoffIcon from "../../../svg/timeoff.svg";
 import classRoomIcon from "../../../svg/classroom.svg";
 import { useFormik } from "formik";
 import { subjects } from "../../../constants/subjects";
@@ -257,13 +258,24 @@ function AdminListComponent({  }: Props): ReactElement {
       />
       <span>Add Notification</span>
       </div>
-        </Grid> <Grid  item xs={4} md={3}>
+        </Grid>
+         <Grid  item xs={4} md={3}>
         <Link className={classes.iconContainer} to="/class">
         <img
         className={classes.imageIcons}
         src={classRoomIcon}
       />
        <span>Manage Class room</span>
+      </Link>
+        </Grid>
+
+         <Grid  item xs={4} md={3}>
+        <Link className={classes.iconContainer} to="/view-leaves">
+        <img
+        className={classes.imageIcons}
+        src={timeoffIcon}
+      />
+       <span>View Leaves</span>
       </Link>
         </Grid>
 

@@ -5,10 +5,14 @@ import {
   createStyles,
   ThemeProvider
 } from "@material-ui/core/styles";
+import {
+  Link
+} from "react-router-dom";
 import ExamIcon from "../../../svg/exam.svg";
 import studentIcon from "../../../svg/student.svg";
 import teacherIcon from "../../../svg/teacher.svg";
 import notificationIcon from "../../../svg/notification.svg";
+import classRoomIcon from "../../../svg/classroom.svg";
 import { useFormik } from "formik";
 import { subjects } from "../../../constants/subjects";
 import { grades } from "../../../constants/grades";
@@ -92,6 +96,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       alignItems: "center",
       cursor: "pointer",
+      margin:"15px 0px",
+      color: "#5993E9",
       "& > span": {
         marginLeft: 10,
         fontSize: 12
@@ -225,22 +231,22 @@ function AdminListComponent({  }: Props): ReactElement {
         </div>
         </Grid>
         <Grid  item xs={4} md={3}>
-        <div className={classes.iconContainer}>
+        <Link className={classes.iconContainer} to="/students">
         <img
         className={classes.imageIcons}
         src={studentIcon}
       />
        <span>Manage Students</span>
-      </div>
+      </Link>
         </Grid>
         <Grid  item xs={4} md={3}>
-        <div className={classes.iconContainer}>
+        <Link className={classes.iconContainer} to="/teachers">
         <img
         className={classes.imageIcons}
         src={teacherIcon}
       />
        <span>Manage Teachers</span>
-      </div>
+      </Link>
         </Grid>
 
         <Grid  item xs={4} md={3}>
@@ -249,9 +255,18 @@ function AdminListComponent({  }: Props): ReactElement {
         className={classes.imageIcons}
         src={notificationIcon}
       />
-      <span>Manage Class Rooms</span>
+      <span>Add Notification</span>
       </div>
+        </Grid> <Grid  item xs={4} md={3}>
+        <Link className={classes.iconContainer} to="/class">
+        <img
+        className={classes.imageIcons}
+        src={classRoomIcon}
+      />
+       <span>Manage Class room</span>
+      </Link>
         </Grid>
+
       </Grid>
       <ThemeProvider theme={drawerTheme}>
         <Drawer

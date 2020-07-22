@@ -175,45 +175,6 @@ export default function SideNav() {
       return (
         <div>
           <ListItemLink
-            to="/teachers"
-            primary="Teachers"
-            icon={
-              <BootstrapTooltip
-                title="Teachers"
-                aria-label="teachers"
-                placement="right"
-              >
-                <LocalLibraryIcon />
-              </BootstrapTooltip>
-            }
-          ></ListItemLink>
-          <ListItemLink
-            to="/class"
-            primary="Class Room"
-            icon={
-              <BootstrapTooltip
-                title="Manage Class Room"
-                aria-label="Class Room"
-                placement="right"
-              >
-                <MeetingRoomIcon />
-              </BootstrapTooltip>
-            }
-          ></ListItemLink>
-          <ListItemLink
-            to="/students-management"
-            primary="Manage Students"
-            icon={
-              <BootstrapTooltip
-                title="Manage Students"
-                aria-label="Manage Students"
-                placement="right"
-              >
-                <FaceIcon />
-              </BootstrapTooltip>
-            }
-          ></ListItemLink>
-          <ListItemLink
             to="/admin"
             primary="Admin"
             icon={
@@ -363,19 +324,6 @@ export default function SideNav() {
               <BootstrapTooltip
                 title="Syllabus"
                 aria-label="syllabus"
-                placement="right"
-              >
-                <HelpIcon />
-              </BootstrapTooltip>
-            }
-          ></ListItemLink>
-          <ListItemLink
-            to={`/institution/${institution}/school-onboarding`}
-            primary="School Details"
-            icon={
-              <BootstrapTooltip
-                title="School-onbarding"
-                aria-label="School-onbarding"
                 placement="right"
               >
                 <HelpIcon />

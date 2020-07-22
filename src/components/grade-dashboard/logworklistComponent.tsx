@@ -165,7 +165,7 @@ function LogworklistComponent({dayTimeTable, institution, grade, section, select
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
-                  aria-label="Toggle password visibility"
+                  aria-label="edit-log-work"
                 >
                   <CheckCircleIcon onClick={(e:any)=>{saveLogWork(log.period)}} className={classes.saveIcon}/>
                 </IconButton>

@@ -83,7 +83,10 @@ createStyles({
     color: 'black',
     left: '10px',
     fontWeight: 500,
-    fontSize: '15px'
+    fontSize: '15px',
+    "& .DatePicker" :{
+      width: "90%",
+    },
   },
   drawerLabel: {
     top: '-50px',

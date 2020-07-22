@@ -241,10 +241,6 @@ function AdminListComponent({  }: Props): ReactElement {
         </Grid>
         <Grid  item xs={4} md={3}>
         <Link className={classes.iconContainer} to="/teachers">
-      </div>
-        </Grid>
-        <Grid  item xs={4} md={3}>
-        <div className={classes.iconContainer}>
         <img
         className={classes.imageIcons}
         src={teacherIcon}
@@ -252,6 +248,7 @@ function AdminListComponent({  }: Props): ReactElement {
        <span>Manage Teachers</span>
       </Link>
         </Grid>
+
         <Grid  item xs={4} md={3}>
         <div className={classes.iconContainer}>
         <img
@@ -269,9 +266,7 @@ function AdminListComponent({  }: Props): ReactElement {
        <span>Manage Class room</span>
       </Link>
         </Grid>
-      <span>Manage Class Rooms</span>
-      </div>
-        </Grid>
+
       </Grid>
       <ThemeProvider theme={drawerTheme}>
         <Drawer

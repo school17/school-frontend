@@ -5,26 +5,27 @@ import {
   createStyles,
   ThemeProvider
 } from "@material-ui/core/styles";
-import ExamIcon from "../../svg/Examination.svg";
+import ExamIcon from "../../../svg/exam.svg";
+import studentIcon from "../../../svg/student.svg";
+import teacherIcon from "../../../svg/teacher.svg";
+import notificationIcon from "../../../svg/notification.svg";
 import { useFormik } from "formik";
-import { subjects } from "../../constants/subjects";
-import { grades } from "../../constants/grades";
-import { divisions } from "../../constants/divisions";
-import { sessionTime } from "../../constants/session";
+import { subjects } from "../../../constants/subjects";
+import { grades } from "../../../constants/grades";
+import { divisions } from "../../../constants/divisions";
+import { sessionTime } from "../../../constants/session";
 import { Button } from "@material-ui/core";
-import { tests } from "../../constants/test";
+import { tests } from "../../../constants/test";
 import { Drawer } from "@material-ui/core";
-import { drawerTheme, useDrawerStyles } from "../../utils/drawerStyles";
+import { drawerTheme, useDrawerStyles } from "../../../utils/drawerStyles";
 import Grid from "@material-ui/core/Grid";
-import { InputLabel, Select, MenuItem, TextField } from "@material-ui/core";
+import { InputLabel, Select, MenuItem } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
-import { formUseStyles } from "../../utils/formStyles";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import { Calendar } from "react-modern-calendar-datepicker";
-import { getMonth, getDay, getToday } from "../../utils/dateUtils";
+import { formUseStyles } from "../../../utils/formStyles";
+import { getMonth} from "../../../utils/dateUtils";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import DatePicker from "react-modern-calendar-datepicker";
-import ExamsListComponent from "./examComponent/examsListComponent";
+import ExamsListComponent from "./examsListComponent";
 
 interface Props {}
 
@@ -41,6 +42,24 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: "10px",
       marginBottom: "20px"
     },
+    alingText: {
+      textAlign: "initial",
+      fontSize: 18,
+      display: "flex",
+      flexDirection: "column",
+      marginBottom: 20,
+      borderBottom: "dashed 1px lightgrey",
+      paddingBottom: 10,
+    },
+    desc: {
+      fontSize: 12,
+      color: "lightgrey",
+      marginTop: 10
+    },
+    container: {
+      padding: 20,
+      fontWeight: "bold"
+    },
     actions: {
       display: "flex",
       alignItems: "center",
@@ -53,6 +72,11 @@ const useStyles = makeStyles((theme: Theme) =>
         left: "90%"
       }
     },
+    imageIcons: {
+      width: 50,
+      height: 50,
+      borderRadius: "50%"
+    },
     calendar: {
       position: "relative",
     fontSize: 14,
@@ -63,6 +87,15 @@ const useStyles = makeStyles((theme: Theme) =>
     border: "none",
     textAlign: "left",
     width: "90%",
+    },
+    iconContainer: {
+      display: "flex",
+      alignItems: "center",
+      cursor: "pointer",
+      "& > span": {
+        marginLeft: 10,
+        fontSize: 12
+      }
     }
   })
 );
@@ -172,28 +205,54 @@ function AdminListComponent({  }: Props): ReactElement {
     setExamsList([...examsList, exam]);
   }
   return (
-    <div>
-      <img
-        src={ExamIcon}
-        style={{
-          position: "absolute",
-          height: "50px",
-          width: "50px",
-          left: "80px"
-        }}
-        onClick={() => {
-          setOpenDrawer(true);
-        }}
+    <div className={classes.container}>
+    <div className={classes.alingText}>
+    <span>Admin Settings</span>
+    <span className={classes.desc}>All setting related to your institution</span>
+    </div>
+  
+      <Grid container>
+        <Grid  item xs={4} md={3}>
+        <div className={classes.iconContainer}>
+            <img
+            className={classes.imageIcons}
+            src={ExamIcon}
+            onClick={() => {
+              setOpenDrawer(true);
+            }}
+          />
+          <span>Add Exams</span>
+        </div>
+        </Grid>
+        <Grid  item xs={4} md={3}>
+        <div className={classes.iconContainer}>
+        <img
+        className={classes.imageIcons}
+        src={studentIcon}
       />
-      <img
-        src={ExamIcon}
-        style={{
-          position: "absolute",
-          height: "50px",
-          width: "50px",
-          left: "180px"
-        }}
+       <span>Manage Students</span>
+      </div>
+        </Grid>
+        <Grid  item xs={4} md={3}>
+        <div className={classes.iconContainer}>
+        <img
+        className={classes.imageIcons}
+        src={teacherIcon}
       />
+       <span>Manage Teachers</span>
+      </div>
+        </Grid>
+
+        <Grid  item xs={4} md={3}>
+        <div className={classes.iconContainer}>
+        <img
+        className={classes.imageIcons}
+        src={notificationIcon}
+      />
+      <span>Manage Class Rooms</span>
+      </div>
+        </Grid>
+      </Grid>
       <ThemeProvider theme={drawerTheme}>
         <Drawer
           open={openDrawer}

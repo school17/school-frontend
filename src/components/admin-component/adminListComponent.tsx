@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: "10px",
       color: "#6DA0E6",
       marginLeft: "10px",
-      marginBottom: "70px"
+      marginBottom: "20px"
     },
     actions: {
       display: "flex",
@@ -49,10 +49,21 @@ const useStyles = makeStyles((theme: Theme) =>
         color: "#000fff",
         marginLeft: "50%",
         position: "relative",
-        top: "-27px",
+        top: "-60px",
         left: "90%"
       }
     },
+    calendar: {
+      position: "relative",
+    fontSize: 14,
+    fontWeight: "bold",
+    borderRadius: 4,
+    backgroundColor: "#F5F6F8",
+    padding: 15,
+    border: "none",
+    textAlign: "left",
+    width: "90%",
+    }
   })
 );
 
@@ -135,8 +146,18 @@ function AdminListComponent({  }: Props): ReactElement {
     }
   });
 
+  const formatInputValue = () => {
+    let date = "";
+    const formikValues:any = formik.values;
+    if(formikValues && formikValues.date) {
+      date = `${formikValues.date.day} ${getMonth(formikValues.date.month)}  ${
+        formikValues.date.year
+    }`;
+    }
+    return date;
+  };
+
   const addExamToList = () => {
-    debugger
     let date = '';
     const formikValues:any = formik.values;
       date = `${formikValues.date.day} ${getMonth(formikValues.date.month)}  ${
@@ -336,6 +357,10 @@ function AdminListComponent({  }: Props): ReactElement {
                     </InputLabel>
                     <DatePicker
                        value={formik.values.date}
+                       shouldHighlightWeekends
+                       inputPlaceholder="Select a date"
+                       formatInputText={formatInputValue}
+                       inputClassName={classes.calendar}
                        onChange = {(e:any)=> {
                          formik.setFieldValue('date', e, true)
                         }}
@@ -346,8 +371,9 @@ function AdminListComponent({  }: Props): ReactElement {
                       style={{
                         color: "#000fff",
                         position: "relative",
-                        top: "-20px",
-                        left: "90%"
+                        top: "-60px",
+                        left: "90%",
+                        zIndex: 1000
                       }} 
                   ></AddCircleOutlineIcon>
                 </Grid>

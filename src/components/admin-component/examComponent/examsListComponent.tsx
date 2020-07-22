@@ -5,6 +5,13 @@ import {
   createStyles,
   ThemeProvider
 } from "@material-ui/core/styles";
+import TableContainer  from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import DeleteIcon from '@material-ui/icons/Delete';
+import TableBody from '@material-ui/core/TableBody';
+import Table from '@material-ui/core/Table';
 import DeleteIcon from '@material-ui/icons/Delete';
 interface Props {
   examsList:any
@@ -12,20 +19,17 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    content: {
-      display: "flex",
-      color: "black",
-      fontWeight: "bolder",
-      margin: 20,
-      justifyContent: "space-between"
+    container:{
+      maxHeight: 350,
     },
-    header: {
-      display: "flex",
-      fontWeight: "bolder",
-      margin: 20,
-      justifyContent: "space-between",
-      color: "orange"
-    }
+    tableBodyHead : {
+      fontWeight: 800,
+      color: "#0F1727",
+    },
+    tableRowHead: {
+      fontWeight: 800,
+      color: "#00425E",
+    },
   })
 );
 
@@ -36,34 +40,42 @@ const useStyles = makeStyles((theme: Theme) =>
 function ExamsListComponent({examsList}: Props): ReactElement {
   const classes = useStyles();
   const listAllExams = () => {
-    if(examsList.length> 0) {
-      return (examsList.map((exam:any) => {
-        return(<div className={classes.content}>
-          <span>{exam.date}</span>
-          <span>{exam.subject}</span>
-          <span>{exam.time}</span>
-          <DeleteIcon></DeleteIcon>
-        </div>)
-      }))
-    }
+      return (
+        <TableBody>
+          {examsList.map((exam:any, index:any) => {
+            return (
+              <TableRow key={index}>
+              <TableCell align="left" className={classes.tableBodyHead}>{exam.date}</TableCell>
+              <TableCell align="left" className={classes.tableBodyHead}>{exam.subject}</TableCell>
+              <TableCell align="left" className={classes.tableBodyHead}>{exam.time}</TableCell>
+              <TableCell align="left" className={classes.tableBodyHead}><DeleteIcon></DeleteIcon></TableCell>
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      )
   }
 
   const displayHeader = () => {
     if(examsList.length > 0 ) {
       return (
-        <div className={classes.header}>
-          <span>Date</span>
-          <span>Subject</span>
-          <span>Time</span>
-          <span></span>
-        </div>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="time-table">
+          <TableRow>
+          <TableCell align="left" className={classes.tableRowHead}>Date</TableCell>
+          <TableCell align="left" className={classes.tableRowHead}>Subject</TableCell>
+          <TableCell align="left" className={classes.tableRowHead}>Time</TableCell>
+          <TableCell align="right" className={classes.tableRowHead}></TableCell>
+          </TableRow>
+          {listAllExams()}
+          </Table>
+        </TableContainer>
       )
     }
   }
   return (
     <div>
       {displayHeader()}
-      {listAllExams()}
     </div>
   )
 }

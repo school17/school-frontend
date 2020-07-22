@@ -12,7 +12,6 @@ import TableCell from '@material-ui/core/TableCell';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
-import DeleteIcon from '@material-ui/icons/Delete';
 interface Props {
   examsList:any
 }

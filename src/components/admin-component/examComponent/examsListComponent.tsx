@@ -13,13 +13,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
 interface Props {
-  examsList:any
+  examsList:any,
+  deleteExam: any
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container:{
-      maxHeight: 350,
+     paddingBottom: 70
     },
     tableBodyHead : {
       fontWeight: 800,
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 
-function ExamsListComponent({examsList}: Props): ReactElement {
+function ExamsListComponent({examsList, deleteExam}: Props): ReactElement {
   const classes = useStyles();
   const listAllExams = () => {
       return (
@@ -47,7 +48,7 @@ function ExamsListComponent({examsList}: Props): ReactElement {
               <TableCell align="left" className={classes.tableBodyHead}>{exam.date}</TableCell>
               <TableCell align="left" className={classes.tableBodyHead}>{exam.subject}</TableCell>
               <TableCell align="left" className={classes.tableBodyHead}>{exam.time}</TableCell>
-              <TableCell align="left" className={classes.tableBodyHead}><DeleteIcon></DeleteIcon></TableCell>
+              <TableCell align="left" className={classes.tableBodyHead}><DeleteIcon onClick={()=>{deleteExam(exam.subject)}}></DeleteIcon></TableCell>
               </TableRow>
             )
           })}
@@ -60,12 +61,14 @@ function ExamsListComponent({examsList}: Props): ReactElement {
       return (
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="time-table">
+          <TableHead>
           <TableRow>
           <TableCell align="left" className={classes.tableRowHead}>Date</TableCell>
           <TableCell align="left" className={classes.tableRowHead}>Subject</TableCell>
           <TableCell align="left" className={classes.tableRowHead}>Time</TableCell>
           <TableCell align="right" className={classes.tableRowHead}></TableCell>
           </TableRow>
+          </TableHead>
           {listAllExams()}
           </Table>
         </TableContainer>

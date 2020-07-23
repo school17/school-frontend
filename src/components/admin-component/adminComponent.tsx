@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import AdminListComponent from "./examComponent/adminListComponent";
+import AdminActionsComponent from "./adminActionsComponent";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,8 +15,8 @@ export default function AdminComponent({}: Props): ReactElement {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AdminListComponent>
-      </AdminListComponent>
+      <AdminActionsComponent>
+      </AdminActionsComponent>
     </div>
   );
 }

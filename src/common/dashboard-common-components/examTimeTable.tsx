@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "#9C9BA4"
     },
     date: {
-      flex:2
+      flex:3
     },
     time: {
       flex:1
@@ -143,7 +143,7 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
         const classNames = classes.testList + ' ' + ((index%2 == 1) ? ' ' : classes.oddRow)
         return (
          <div className = {classNames} key={index}>
-            <span className={classes.date}><span>{test.date}, 2020</span></span>
+            <span className={classes.date}><span>{test.date}</span></span>
             <span className={classes.time}><span className={classes.leftAling}>{test.time}</span></span>
             <span className={classes.subject}><span className={classes.leftAling}>{test.subject}</span></span>
          </div>

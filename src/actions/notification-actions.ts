@@ -38,7 +38,6 @@ export const saveNotifications =  (institutionId:any, notification:any) => {
           'Access-Control-Allow-Origin' : '*'
         }
       });
-      console.log("response",response);
     }catch(e) {
       console.log(e);
     }

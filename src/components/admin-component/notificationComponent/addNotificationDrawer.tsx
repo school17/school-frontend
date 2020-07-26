@@ -37,19 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-/*const Switches = withStyles({
-  switchBase: {
-    color: blue[300],
-    "&$checked": {
-      color: blue[500],
-    },
-    "&$checked + $track": {
-      backgroundColor: blue[500],
-    },
-  },
-  checked: {},
-  track: {},
-})(Switch);*/
+
 export default function AddNotificationDrawer({
   openAdminNotificationDrawer,
   setOpenAdminNotificationDrawer,

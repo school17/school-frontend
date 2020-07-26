@@ -1,0 +1,1 @@
+export const notificationType = ['INSTITUTION', 'DIVISION', 'GRADE','INDIVIDUAL']

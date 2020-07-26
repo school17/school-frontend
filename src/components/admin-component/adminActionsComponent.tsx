@@ -16,7 +16,7 @@ import timeoffIcon from "../../svg/timeoff.svg";
 import classRoomIcon from "../../svg/classroom.svg";
 import Grid from "@material-ui/core/Grid";
 import AddExamDrawer from "./examComponent/addExamDrawer";
-
+import AddNotificationDrawer from"./notificationComponent/addNotificationDrawer";
 interface Props {}
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -95,6 +95,8 @@ const useStyles = makeStyles((theme: Theme) =>
 function AdminActionsComponent({  }: Props): ReactElement {
   const classes = useStyles();
   const [openExamDrawer, setOpenExamDrawer] = useState(false);
+  const [openNotificationDrawer, setOpenNotificationDrawer] = useState(false);
+
   return (
     <div className={classes.container}>
     <div className={classes.alingText}>
@@ -138,7 +140,9 @@ function AdminActionsComponent({  }: Props): ReactElement {
         <div className={classes.iconContainer}>
         <img
         className={classes.imageIcons}
-        src={notificationIcon}
+        src={notificationIcon} onClick ={() => {
+          setOpenNotificationDrawer(true);
+        }}
       />
       <span>Add Notification</span>
       </div>
@@ -163,7 +167,8 @@ function AdminActionsComponent({  }: Props): ReactElement {
       </Link>
         </Grid>
       </Grid>
-      <AddExamDrawer openDrawer={openExamDrawer} setOpenDrawer={setOpenExamDrawer}></AddExamDrawer>
+      <AddExamDrawer openAdminExamDrawer={openExamDrawer} setOpenAdminExamDrawer={setOpenExamDrawer}></AddExamDrawer>
+      <AddNotificationDrawer openAdminNotificationDrawer={openNotificationDrawer} setOpenAdminNotificationDrawer={setOpenNotificationDrawer}></AddNotificationDrawer>
     </div>
   );
 }

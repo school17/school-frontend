@@ -26,7 +26,7 @@ import Grid from "@material-ui/core/Grid";
 import {saveGradeTest} from "../../../actions/test-action";
 import { useDispatch, useSelector} from "react-redux";
 interface Props {
-  openDrawer:any, setOpenDrawer:any
+  openAdminExamDrawer:any, setOpenAdminExamDrawer:any
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function AddExamDrawer({openDrawer, setOpenDrawer}: Props): ReactElement {
+function AddExamDrawer({openAdminExamDrawer, setOpenAdminExamDrawer}: Props): ReactElement {
   const drawerClass = useDrawerStyles();
   const formStyles = formUseStyles();
   const classes = useStyles();
@@ -94,7 +94,7 @@ function AddExamDrawer({openDrawer, setOpenDrawer}: Props): ReactElement {
     isInitialValid: false,
     enableReinitialize: true,
     onSubmit: (values: any) => {
-      setOpenDrawer(false);
+      setOpenAdminExamDrawer(false);
       formik.resetForm();
       const payload:any = (Object.assign(formik.values, {schedule: examsList}));
       payload["institutionId"]= institution;
@@ -178,11 +178,11 @@ function AddExamDrawer({openDrawer, setOpenDrawer}: Props): ReactElement {
   return (
     <ThemeProvider theme={drawerTheme}>
     <Drawer
-      open={openDrawer}
+      open={openAdminExamDrawer}
       anchor="right"
       elevation={20}
       onClose={() => {
-        setOpenDrawer(false);
+        setOpenAdminExamDrawer(false);
       }}
     >
       <div className={drawerClass.drawer}>
@@ -225,12 +225,14 @@ function AddExamDrawer({openDrawer, setOpenDrawer}: Props): ReactElement {
                   className={formStyles.drawerLabel}
                   shrink={false}
                 >
-                  Grades
+                  Grades / Mode of Test
                 </InputLabel>
+                <div style = {{display:"flex"}}>
                 <Select
                   name="grade"
                   id="grade"
                   variant="outlined"
+                  style = {{width : "175px"}}
                   error={!!formik.errors.grade && !!formik.touched.grade}
                   value={formik.values.grade}
                   onBlur={formik.handleBlur}
@@ -238,25 +240,11 @@ function AddExamDrawer({openDrawer, setOpenDrawer}: Props): ReactElement {
                 >
                   {gradesDropDown}
                 </Select>
-                {formik.errors.grade && formik.touched.grade && (
-                  <strong className={formStyles.error}>
-                    Grade is required
-                  </strong>
-                )}
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} md={12}>
-              <FormControl className={formStyles.drawerFormControl}>
-                <InputLabel
-                  className={formStyles.drawerLabel}
-                  shrink={false}
-                >
-                  Mode of Test
-                </InputLabel>
                 <Select
                   name="testName"
                   id="testName"
                   variant="outlined"
+                  style = {{marginLeft: "10px", width : "175px"}}
                   error={!!formik.errors.testName && !!formik.touched.testName}
                   value={formik.values.testName}
                   onBlur={formik.handleBlur}
@@ -264,6 +252,12 @@ function AddExamDrawer({openDrawer, setOpenDrawer}: Props): ReactElement {
                 >
                   {testsDropDown}
                 </Select>
+                </div>
+                {formik.errors.grade && formik.touched.grade && (
+                  <strong className={formStyles.error}>
+                    Grade is required
+                  </strong>
+                )}
                 {formik.errors.testName && formik.touched.testName && (
                   <strong className={formStyles.error}>
                     Mode of test is required
@@ -375,7 +369,7 @@ function AddExamDrawer({openDrawer, setOpenDrawer}: Props): ReactElement {
                   variant="contained"
                   color="default"
                   onClick={() => {
-                    setOpenDrawer(false);
+                    setOpenAdminExamDrawer(false);
                   }}
                   className={drawerClass.customButton}
                 >

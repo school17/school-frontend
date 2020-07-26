@@ -70,6 +70,7 @@ export const GET_HOME_WORK = `${DOMAIN}/institutionId/grade/section/homework/dat
 
 export const SAVE_GRADE_TEST = `${DOMAIN}/institutionId/test/save`;
 
+export const SAVE_NOTIFICATIONS_URL = `${DOMAIN}/institutionId/notification`;
 
 const TOKEN: any  = localStorage.getItem("token");
 

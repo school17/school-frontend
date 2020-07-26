@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
 import {GET_NOTIFICATIONS_URL} from "./url";
-
+import {SAVE_NOTIFICATIONS_URL} from "./url";
 export enum notificationActions {
   GET_NOTIFICATIONS = "GET_NOTIFICATIONS"
 }
@@ -21,6 +21,24 @@ export const getNotifications = (institutionId:any, email:any, scope:any, divisi
       });
       return dispatch({type: notificationActions.GET_NOTIFICATIONS, payload: response.data})
     }catch(e){
+      console.log(e);
+    }
+  }
+}
+export const saveNotifications =  (institutionId:any, notification:any) => {
+  const TOKEN: any  = localStorage.getItem("token");
+
+  return async (dispatch: Dispatch) => {
+    try {
+      const url = `${SAVE_NOTIFICATIONS_URL.replace("institutionId", institutionId)}`;
+      const response = await axios.post(url,notification, {
+        'headers': {
+          'Authorization': TOKEN,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin' : '*'
+        }
+      });
+    }catch(e) {
       console.log(e);
     }
   }

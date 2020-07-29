@@ -77,7 +77,7 @@ function LoginComponent({  }: Props): ReactElement {
     if (userName) {
       const token: any = jwt_decode(userName.replace("Bearer ", ""));
       dispatch(setLoginDetails(token.role, token.institution, token.sub));
-      dispatch(fetchUserDetails(token.institution, token.sub));
+      dispatch(fetchUserDetails(token.institution, token.sub, token.role));
       dispatch(getSchoolDetails(token.institution))
     }
   }, [userName]);

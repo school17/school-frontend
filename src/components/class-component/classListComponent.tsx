@@ -1,10 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react'
 import {
   useTable,
-  useGroupBy,
-  useFilters,
-  useSortBy,
-  useExpanded,
   usePagination
 } from 'react-table';
 import { makeStyles, Theme, createStyles, MuiThemeProvider, ThemeProvider } from "@material-ui/core/styles";

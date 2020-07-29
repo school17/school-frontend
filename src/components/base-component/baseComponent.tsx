@@ -44,7 +44,8 @@ function BaseComponent({}: Props): ReactElement {
     if(institution){
       dispatch(getSchoolDetails(institution));
       if(Object.keys(loggedInUser).length < 1) {
-        dispatch(fetchUserDetails(institution, email));
+        debugger
+        dispatch(fetchUserDetails(institution, email, role));
         dispatch(setUserDetails(institution, email, role));
       }
       if(institution && loggedInUser && Object.keys(loggedInUser).length > 1) {

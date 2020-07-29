@@ -14,7 +14,7 @@ function Base(): ReactElement {
   return (
     <div>
       <Switch>
-        <Route path="/student/dashboard" component={DashboardComponent}></Route>
+        <Route path="/student/:grade/:section/:id/dashboard" component={DashboardComponent}></Route>
         <Route path="/syllabus" component={SyllabusBase}></Route>
         <Route path="/teachers" component={TeacherComponent}></Route>
         <Route path="/students-management" component={StudentBaseComponent}></Route>

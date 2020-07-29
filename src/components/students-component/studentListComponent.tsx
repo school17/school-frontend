@@ -3,6 +3,7 @@ import {
   useTable,
   usePagination
 } from 'react-table';
+import {Link} from "react-router-dom";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import EditIcon from '@material-ui/icons/Edit';
@@ -43,6 +44,11 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '30px',
       justifyContent: 'center',
       alignItems: 'center'
+    },
+    actions: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
     }
   })
   )
@@ -99,7 +105,10 @@ function StudentListComponent({studentsPayload, institution}: Props): ReactEleme
         accessor: 'actions',
         Cell: (row:any) => {
           let student = row.data[row.row.id];
-          return <span><EditIcon onClick = {()=>{clicked(student)}}></EditIcon> <DeleteIcon onClick = {()=>{deleteSelectedStudent(student)}} ></DeleteIcon></span>
+          return <span className={classes.actions}><EditIcon onClick = {()=>{clicked(student)}}></EditIcon> 
+          <DeleteIcon onClick = {()=>{deleteSelectedStudent(student)}} ></DeleteIcon>
+          <Link to={`/student/${student.grade}/${student.section}/${student.id}/dashboard`}><span>View</span></Link>
+          </span>
         }
       }
     ],

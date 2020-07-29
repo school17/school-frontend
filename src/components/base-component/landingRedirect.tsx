@@ -23,7 +23,7 @@ function LandingRedirect({}: Props): ReactElement {
           break;
         }
         case "STUDENT" : {
-          url = `/student/dashboard`;
+          url = `/student/${user.grade}/${user.section}/${user.id}/dashboard`;
           break;
         }
         case "TEACHER": {

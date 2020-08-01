@@ -5,8 +5,8 @@ import {
   createStyles,
   ThemeProvider,
   withStyles,
+  createMuiTheme
 } from "@material-ui/core/styles";
-import { blue } from "@material-ui/core/colors";
 import { useDrawerStyles } from "../../../utils/drawerStyles";
 import { formUseStyles } from "../../../utils/formStyles";
 import { useFormik } from "formik";
@@ -16,7 +16,7 @@ import { Drawer } from "@material-ui/core";
 import { drawerTheme } from "../../../utils/drawerStyles";
 import { InputLabel, Select, MenuItem, TextField } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
-import Switch from "@material-ui/core/Switch";
+import {CustomSwitch} from "../../../utils/formStyles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import { saveNotifications } from "../../../actions/notification-actions";
@@ -108,7 +108,7 @@ export default function AddNotificationDrawer({
             <Grid container className={drawerClass.form}>
               <Grid item xs={12} md={12}>
                 <FormControl className={formStyles.drawerFormControl}>
-                  <InputLabel className={formStyles.drawerLabel} shrink={false}>
+                  <InputLabel className={formStyles.drawerLabel} style={{color:"black"}} shrink={false}>
                     Notification Type
                   </InputLabel>
                   <div style={{ display: "flex" }}>
@@ -116,7 +116,7 @@ export default function AddNotificationDrawer({
                       name="notificationType"
                       id="notificationType"
                       variant="outlined"
-                      style={{ width: "200px" }}
+                      style={{ width: "200px"}}
                       error={
                         !!formik.errors.notificationType &&
                         !!formik.touched.notificationType
@@ -128,12 +128,13 @@ export default function AddNotificationDrawer({
                       {notificationTypeDropDown}
                     </Select>
                     <FormControlLabel
-                      style={{ marginLeft: "70px" }}
+                      style={{ marginLeft: "70px" , color: "black"}}
                       name="hasFeedback"
                       id="hasFeedback"
                       label="Feedback"
                       labelPlacement="bottom"
-                      control={<Switch onChange={handleChange} />}
+                      control={<CustomSwitch onChange={handleChange} />}
+                      
                       value={formik.values.hasFeedback}
                       onBlur={formik.handleBlur}
                       onChange={formik.handleChange}

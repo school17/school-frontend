@@ -17,7 +17,8 @@ import {
 interface Props {
   institution:any,
   grade:any,
-  section: any
+  section: any,
+  role: any
 }
 
 
@@ -72,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Timetablemin({institution, grade, section}: Props): ReactElement {
+function Timetablemin({institution, grade, section, role}: Props): ReactElement {
   const getDay = () => {
     let day = ""
     switch (new Date().getDay()) {
@@ -131,7 +132,17 @@ function Timetablemin({institution, grade, section}: Props): ReactElement {
       )
     })
   }
-
+  const roles = () =>{
+        if(role !== "STUDENT")
+        {
+         return(
+          <span className={dashboardClasses.action} onClick={()=>setOpenTimeTable(true)}> Edit </span>)
+        }
+        else
+        {
+          return;
+        }
+  }
   const daySelector = () => {
     if(toggleDaySelector) {
       const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -184,7 +195,7 @@ function Timetablemin({institution, grade, section}: Props): ReactElement {
       <div>
         <div className={classes.header}>
           <span>Time Table</span>
-          <span className={dashboardClasses.action} onClick={()=>setOpenTimeTable(true)}> Edit </span>
+          {roles()}  
         </div>
         <div className={classes.header}>
           <span  className={dashboardClasses.action} onClick={openDaySelector}> {selectedDay}</span>

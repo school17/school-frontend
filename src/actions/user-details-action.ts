@@ -23,7 +23,6 @@ export const fetchUserDetails = (institutionId: any, userName: any, role?:any) =
           'Access-Control-Allow-Origin' : '*'
         }
       });
-      debugger
       return dispatch({type: userDetailsActions.GET_USER_DETAILS, payload: response.data})
     }catch(e) {
       console.log(e);

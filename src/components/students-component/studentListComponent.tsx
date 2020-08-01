@@ -107,7 +107,7 @@ function StudentListComponent({studentsPayload, institution}: Props): ReactEleme
           let student = row.data[row.row.id];
           return <span className={classes.actions}><EditIcon onClick = {()=>{clicked(student)}}></EditIcon> 
           <DeleteIcon onClick = {()=>{deleteSelectedStudent(student)}} ></DeleteIcon>
-          <Link to={`/student/${student.grade}/${student.section}/${student.id}/dashboard`}><span>View</span></Link>
+          <Link to={`/student/${student.division}/${student.grade}/${student.section}/${student.id}/dashboard`}><span>View</span></Link>
           </span>
         }
       }

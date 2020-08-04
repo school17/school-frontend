@@ -92,7 +92,7 @@ const fetchAttendance = (formData:any) => {
   setFormData(formData);
   dispatch(getAttendance(institution, formData.grade, formData.section, getMonth(monthAndYear.currentMonth), monthAndYear.currentYear));
   setMonthAndYear({
-    currentMonth: getMonth(monthAndYear.currentMonth),
+    currentMonth: monthAndYear.currentMonth,
     currentYear: monthAndYear.currentYear,
     changeMonth: false
   });

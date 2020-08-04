@@ -90,12 +90,17 @@ const [formData, setFormData] = useState({
 
 const fetchAttendance = (formData:any) => {
   setFormData(formData);
-  dispatch(getAttendance(institution, formData.grade, formData.section, monthAndYear.currentMonth, monthAndYear.currentYear));
+  dispatch(getAttendance(institution, formData.grade, formData.section, getMonth(monthAndYear.currentMonth), monthAndYear.currentYear));
   setMonthAndYear({
-    currentMonth: monthAndYear.currentMonth,
+    currentMonth: getMonth(monthAndYear.currentMonth),
     currentYear: monthAndYear.currentYear,
     changeMonth: false
   });
+}
+
+const getMonth = (month:any) => {
+   const lower_case = month.toLowerCase();
+   return lower_case.charAt(0).toUpperCase() + lower_case.slice(1);
 }
 
 

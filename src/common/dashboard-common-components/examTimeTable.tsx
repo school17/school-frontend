@@ -18,7 +18,8 @@ interface Props {
   institution:any,
   grade:any,
   section: any,
-  division:any
+  division:any,
+  role:any
 }
 
 
@@ -91,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function ExamTimeTable({institution, grade, section, division}: Props): ReactElement {
+function ExamTimeTable({institution, grade, section, division, role}: Props): ReactElement {
   const dispatch = useDispatch();
 
   const [selectedTest, setSelectedTest] = useState('')
@@ -109,6 +110,16 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
     return store.testReducer;
   });
 
+  const edit = () =>{
+    if(role !== "STUDENT")
+    {
+      return( <span>Edit</span>)
+    }
+    else
+    {
+      return;
+    }
+  }
   const setDefaultTest = () => {
     if(testList.length>0) {
       setSelectedTest(testList[0].testName);
@@ -215,7 +226,7 @@ function ExamTimeTable({institution, grade, section, division}: Props): ReactEle
           <ExpandMoreIcon></ExpandMoreIcon>
         </div>
           {testDropDown()}
-        <span>Edit</span>
+          {edit()}
       </div>
       <div className = {classes.heading}>
         <span className={classes.date}>DATE</span>

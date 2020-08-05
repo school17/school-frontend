@@ -22,7 +22,7 @@ export const fetchUserDetails = (institutionId: any, userName: any, role?:any) =
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin' : '*'
         }
-      });      
+      });
       return dispatch({type: userDetailsActions.GET_USER_DETAILS, payload: response.data})
     }catch(e) {
       console.log(e);

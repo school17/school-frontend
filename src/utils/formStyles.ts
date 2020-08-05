@@ -1,6 +1,8 @@
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from "@material-ui/core/styles";
+import {purple} from '@material-ui/core/colors';
+import Switch from '@material-ui/core/Switch';
 
 export const textFieldTheme  = createMuiTheme({
   overrides: {
@@ -113,6 +115,19 @@ createStyles({
     minHeight: 60,
     paddingLeft: 12,
     color:"black"
-  }
-}),
+  },
+})
 );  
+export const CustomSwitch = withStyles({
+  switchBase: {
+    color:'#0F1727',
+    '&$checked': {
+      color: '#0F1727',
+    },
+    '&$checked + $track': {
+      backgroundColor: '#0F1927',
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);

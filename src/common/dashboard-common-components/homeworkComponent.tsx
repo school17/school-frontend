@@ -24,7 +24,8 @@ import { useFormik } from "formik";
 interface Props {
   institution:any,
   grade:any,
-  section:any
+  section:any,
+  role:any
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -68,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-function HomeworkComponent({institution, grade, section}: Props): ReactElement {
+function HomeworkComponent({institution, grade, section, role}: Props): ReactElement {
   const dashboardClasses = useDashboardPrimaryStyles();
   const classes = useStyles();
   const formStyles = formUseStyles();
@@ -116,6 +117,20 @@ function HomeworkComponent({institution, grade, section}: Props): ReactElement {
     return store.homeworkReducer;
   });
 
+const edit = () =>
+{
+  if(role !== "STUDENT")
+  {
+    
+    return(
+       <AddCircleOutlineIcon onClick={()=>{setOpenDrawer(true)}}></AddCircleOutlineIcon>
+       )
+  }
+  else
+  {
+    return;
+  }
+}
   const validateAndSetHomework = (storeHomework: any, homework:any) => {
     if(storeHomework.length > 0) {
       const filteredHomework = storeHomework.filter((work:any) => {
@@ -181,7 +196,7 @@ function HomeworkComponent({institution, grade, section}: Props): ReactElement {
       <section className={classes.header}>
        <div className={classes.actions}>
          <span>Home work</span>
-       <AddCircleOutlineIcon onClick={()=>{setOpenDrawer(true)}}></AddCircleOutlineIcon>
+         {edit()}
        </div>
        <div className={classes.date}>
        <CalendarTodayIcon onClick={()=>{setToggleCalendar(true)}}></CalendarTodayIcon>

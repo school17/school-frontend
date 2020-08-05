@@ -110,7 +110,7 @@ function ExamTimeTable({institution, grade, section, division, role}: Props): Re
     return store.testReducer;
   });
 
-  const roles = () =>{
+  const edit = () =>{
     if(role !== "STUDENT")
     {
       return( <span>Edit</span>)
@@ -226,7 +226,7 @@ function ExamTimeTable({institution, grade, section, division, role}: Props): Re
           <ExpandMoreIcon></ExpandMoreIcon>
         </div>
           {testDropDown()}
-          {roles()}
+          {edit()}
       </div>
       <div className = {classes.heading}>
         <span className={classes.date}>DATE</span>

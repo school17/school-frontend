@@ -132,7 +132,7 @@ function Timetablemin({institution, grade, section, role}: Props): ReactElement 
       )
     })
   }
-  const roles = () =>{
+  const edit = () =>{
         if(role !== "STUDENT")
         {
          return(
@@ -195,7 +195,7 @@ function Timetablemin({institution, grade, section, role}: Props): ReactElement 
       <div>
         <div className={classes.header}>
           <span>Time Table</span>
-          {roles()}  
+          {edit()}  
         </div>
         <div className={classes.header}>
           <span  className={dashboardClasses.action} onClick={openDaySelector}> {selectedDay}</span>

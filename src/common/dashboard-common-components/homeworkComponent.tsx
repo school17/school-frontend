@@ -117,7 +117,7 @@ function HomeworkComponent({institution, grade, section, role}: Props): ReactEle
     return store.homeworkReducer;
   });
 
-const roles = () =>
+const edit = () =>
 {
   if(role !== "STUDENT")
   {
@@ -196,7 +196,7 @@ const roles = () =>
       <section className={classes.header}>
        <div className={classes.actions}>
          <span>Home work</span>
-         {roles()}
+         {edit()}
        </div>
        <div className={classes.date}>
        <CalendarTodayIcon onClick={()=>{setToggleCalendar(true)}}></CalendarTodayIcon>

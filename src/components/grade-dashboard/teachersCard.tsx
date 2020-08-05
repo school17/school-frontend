@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "20px 20px 0px 20px",
       alignItems: "flex-start",
       flexDirection: "column",
-      padding: "10px 0 0 20px",
+      padding: "7px 0 0 5px",
     },
 
     subject: {
@@ -68,6 +68,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "white",
       marginTop: 5
     },
+    container: {
+      paddingBottom: "20px"
+    }
   })
 );
 
@@ -139,7 +142,7 @@ function TeachersCard({institution, grade, section}: Props): ReactElement {
       <div className={classes.header}>
         <strong>Subject Teachers</strong>
       </div>
-    <Grid container>
+    <Grid container className={classes.container}>
      {renderTeacherCard()}
     </Grid>
     </div>

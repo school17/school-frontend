@@ -38,6 +38,8 @@ export const GET_ATTENDANCE_NAMES_URL = `${DOMAIN}/institutionId/students/grade/
 
 export const GET_MONTH_ATTENDANCE_URL = `${DOMAIN}/institutionId/attendance/grade/section/month/year`;
 
+export const ATTENDANCE_BULK_SAVE_URL = `${DOMAIN}/institutionId/attendance/bulksave`;
+
 export const GET_NOTIFICATIONS_URL = `${DOMAIN}/institutionId/notification`;
 
 export const GET_TEACHER_DETAILS_URL = `${DOMAIN}/institutionId/teachers/email`;

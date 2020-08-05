@@ -1,7 +1,11 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import {getStudents} from "../../actions/grade-dashboard-actions";
 import { useDispatch, useSelector } from "react-redux";
-import getProfilePicUrl from './../../utils/randomProfilePicGenerator'
+import getProfilePicUrl from './../../utils/randomProfilePicGenerator';
+import { Drawer } from '@material-ui/core';
+import { drawerTheme, useDrawerStyles } from '../../utils/drawerStyles';
+import { ThemeProvider } from '@material-ui/core/styles';
+import AddAttendanceComponent from "./addAttendanceComponent";
 import {
   makeStyles,
   Theme,
@@ -24,7 +28,14 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 10
     },
     header: {
-      textAlign: "initial"
+      textAlign: "initial",
+      display: "flex",
+      justifyContent: "space-between",
+      "& span:nth-of-type(2)": {
+        color: "#6DA0E6",
+        cursor: "pointer"
+      }
+  
     },
     items: {
       display:"flex",
@@ -67,6 +78,8 @@ function StudentsList({institution, grade, section}: Props): ReactElement {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  const [openAttendanceDrawer, setOpenAttendanceDrawer] = useState(false);
+
   const {studentsList} = useSelector((store:any) => {
     return store.gradeDashboardReducer;
   });
@@ -95,8 +108,13 @@ function StudentsList({institution, grade, section}: Props): ReactElement {
 
   }, [])
   return (
+    <ThemeProvider theme={drawerTheme}>
+    
     <div className={classes.root}>
-      <div className={classes.header}>STUDENTS</div>
+      <div className={classes.header}>
+        <span>STUDENTS</span>
+        <span onClick={()=>{setOpenAttendanceDrawer(true)}}>ATTENDACE</span>
+      </div>
       <div className={classes.items + " " + classes.rowHeader}>
         <span className={classes.image}>ID</span>
         <div className={classes.content}>
@@ -107,6 +125,14 @@ function StudentsList({institution, grade, section}: Props): ReactElement {
       </div>
       {studentsList.length > 0 ? displayStudentsRow(): "NO IT DOES NOT"}
     </div>
+    <Drawer
+      open={openAttendanceDrawer}
+      onClose={()=>setOpenAttendanceDrawer(false)}
+      anchor='right'
+    >
+      <AddAttendanceComponent setOpenAttendanceDrawer = {setOpenAttendanceDrawer} institution={institution}></AddAttendanceComponent>
+    </Drawer>
+    </ThemeProvider>
     
   )
 }

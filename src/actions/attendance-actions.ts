@@ -2,12 +2,33 @@ import { Dispatch } from 'redux';
 import axios from 'axios';
 import { trackPromise } from 'react-promise-tracker';
 
-import {GET_ATTENDANCE_NAMES_URL, GET_MONTH_ATTENDANCE_URL} from './url';
+import {GET_ATTENDANCE_NAMES_URL, GET_MONTH_ATTENDANCE_URL, ATTENDANCE_BULK_SAVE_URL} from './url';
 
 export enum attendaceAction {
   GET_STUDENT_ATTENDANCE_NAMES = "GET_STUDENT_ATTENDANCE_NAMES",
   GET_ATTENDANCE = "GET_ATTENDANCE",
-  LOADING = "LOADING"
+  LOADING = "LOADING",
+  ATTENDANCE_BULK_SAVE = "ATTENDANCE_BULK_SAVE"
+}
+
+
+export const attendanceBulkSave = (attendance: any) => {
+  const TOKEN: any  = localStorage.getItem("token");
+
+  return async (dispatch: Dispatch) => {
+    try {
+      const url = `${ATTENDANCE_BULK_SAVE_URL.replace("institutionId", attendance.institutionId)}`;
+      const response = await axios.post(url,attendance, {
+        'headers': {
+          'Authorization': TOKEN,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin' : '*'
+        }
+      });
+    }catch(e) {
+      console.log(e);
+    }
+  }
 }
 
 

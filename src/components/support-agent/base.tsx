@@ -10,6 +10,7 @@ import ViewLeaveComponent from "../attendance-component/view-leave-component/vie
 import DashboardComponent from "../dashboard-component/dashboardComponent";
 import GradeBaseComponent from "../grade-dashboard/gradeBaseComponent";
 import AdminComponent from "../admin-component/adminComponent";
+import RecordofworkBaseComponent from "../record-of-work/recordofworkBaseComponent";
 function Base(): ReactElement {
   return (
     <div>
@@ -23,6 +24,7 @@ function Base(): ReactElement {
         <Route path="/admin" component={AdminComponent}></Route>
         <Route path="/institution/:institutionId/school-onboarding" component={OnbardingBaseComponent}></Route>
         <Route path="/grade/:grade/:section" component={GradeBaseComponent}></Route>
+        <Route path="/record-of-work" component={RecordofworkBaseComponent}></Route>
         <Route path="/" component = {LandingRedirect}></Route>
       </Switch>
     </div>

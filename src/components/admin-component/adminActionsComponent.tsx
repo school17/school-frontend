@@ -14,6 +14,7 @@ import teacherIcon from "../../svg/teacher.svg";
 import notificationIcon from "../../svg/notification.svg";
 import timeoffIcon from "../../svg/timeoff.svg";
 import classRoomIcon from "../../svg/classroom.svg";
+import recordOfWorkIcon from "../../svg/recordofwork.svg";
 import Grid from "@material-ui/core/Grid";
 import AddExamDrawer from "./examComponent/addExamDrawer";
 import AddNotificationDrawer from"./notificationComponent/addNotificationDrawer";
@@ -154,6 +155,16 @@ function AdminActionsComponent({  }: Props): ReactElement {
         src={classRoomIcon}
       />
        <span>Manage Class room</span>
+      </Link>
+        </Grid>
+
+        <Grid  item xs={4} md={3}>
+        <Link className={classes.iconContainer} to="/record-of-work">
+        <img
+        className={classes.imageIcons}
+        src={recordOfWorkIcon}
+      />
+       <span>Record Of Work</span>
       </Link>
         </Grid>
 

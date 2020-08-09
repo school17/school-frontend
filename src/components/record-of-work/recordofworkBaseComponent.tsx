@@ -24,11 +24,11 @@ function RecordofworkBaseComponent({}: Props): ReactElement {
   return (
     <div className={classes.root}>
     <Grid container>
-    <Grid xs={12} md={2}>
+    <Grid xs={12} md={3}>
     <RecordofworkSelectorComponent>
       </RecordofworkSelectorComponent>
     </Grid>
-    <Grid xs={12} md={10}>
+    <Grid xs={12} md={9}>
       <RecordofworkTimeTableComponents>
       </RecordofworkTimeTableComponents>
       </Grid>

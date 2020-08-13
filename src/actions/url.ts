@@ -74,6 +74,10 @@ export const SAVE_GRADE_TEST = `${DOMAIN}/institutionId/test/save`;
 
 export const SAVE_NOTIFICATIONS_URL = `${DOMAIN}/institutionId/notification`;
 
+export const SAVE_RECORD_OF_WORK_URL = `${DOMAIN}/institutionId/division/grade/addrecordofwork`;
+
+export const GET_RECORD_OF_WORK_URL = `${DOMAIN}/institutionId/division/grade/subject/recordofwork`
+
 const TOKEN: any  = localStorage.getItem("token");
 
 export const HEADERS = {

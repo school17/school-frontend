@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import {
   makeStyles,
   Theme,
@@ -11,12 +11,17 @@ import { formUseStyles } from "../../utils/formStyles";
 import { grades } from "../../constants/grades";
 import {subjects} from '../../constants/subjects';
 import { useFormik } from "formik";
-import { drawerTheme, useDrawerStyles } from '../../utils/drawerStyles';
+import { useInverseDrawerStyles, inverseDrawerTheme } from '../../utils/drawerStyles';
 import Grid from "@material-ui/core/Grid";
 import { divisions } from "../../constants/divisions";
 import { Button } from "@material-ui/core";
+import {getRecordOfWork} from "../../actions/record-of-work-action";
+import { useDispatch, useSelector } from "react-redux";
 interface Props {
-  
+  selector:any,
+  setSelector:any,
+  institution:any,
+  setIsValidSelector:any
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
       paddingTop: "20px",
       fontWeight: "bolder",
-      backgroundColor: "#FFF"
+      backgroundColor: "#F5F6F8"
     },
     buttonContainer: {
       marginBottom: 20,
@@ -37,10 +42,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function RecordofworkSelectorComponent({}: Props): ReactElement {
+
+function RecordOfWorkSelector({selector, setSelector,institution, setIsValidSelector}: Props): ReactElement {
   const classes = useStyles();
-  const drawerClass = useDrawerStyles();
+  const drawerClass = useInverseDrawerStyles();
   const formStyles = formUseStyles();
+  const dispatch = useDispatch();
   const validate = (values:any) => {
     const errors: any = {};
     if (!values.grade) {
@@ -66,8 +73,18 @@ function RecordofworkSelectorComponent({}: Props): ReactElement {
     isInitialValid: false,
     enableReinitialize: true,
     onSubmit: (values: any) => {
+      setSelector(values);
+      dispatch(getRecordOfWork(institution,values.division, values.grade, values.subject))
     }
   });
+
+  useEffect(()=>{
+    if(formik.isValid && formik.values.division && formik.values.grade && formik.values.subject) {
+      setIsValidSelector(true);
+      setSelector(formik.values);
+      dispatch(getRecordOfWork(institution, formik.values.division, formik.values.grade, formik.values.subject))
+    }
+},[formik.values, formik.isValid])
   const gradesDropDown = grades.map((item: string, index: any) => {
     return (
       <MenuItem value={item} key={index}>
@@ -87,7 +104,7 @@ function RecordofworkSelectorComponent({}: Props): ReactElement {
     );
   });
   return (
-    <ThemeProvider theme={drawerTheme}>
+    <ThemeProvider theme={inverseDrawerTheme}>
     <div className={classes.container}>
       <span>Record of work</span>
       <div className={drawerClass.form}>
@@ -183,7 +200,7 @@ function RecordofworkSelectorComponent({}: Props): ReactElement {
         </Grid>
       
       </Grid>
-      <div className={classes.buttonContainer}>
+      {/*<div className={classes.buttonContainer}>
       <Button
                   variant="contained"
                   color="primary"
@@ -193,7 +210,7 @@ function RecordofworkSelectorComponent({}: Props): ReactElement {
                 >
                   Fetch 
                 </Button>
-      </div> 
+                 </div> */}
       </form>
       </div>
     </div>
@@ -201,4 +218,4 @@ function RecordofworkSelectorComponent({}: Props): ReactElement {
   )
 }
 
-export default RecordofworkSelectorComponent
+export default RecordOfWorkSelector

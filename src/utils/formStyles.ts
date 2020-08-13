@@ -116,8 +116,14 @@ createStyles({
     paddingLeft: 12,
     color:"black"
   },
+  textArea: {
+    padding:"10px",
+    borderRadius: 5,
+    backgroundColor: "#F5F6F8",
+    fontWeight: "bold"
+  }
 })
-);  
+);
 export const CustomSwitch = withStyles({
   switchBase: {
     color:'#0F1727',

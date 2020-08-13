@@ -18,6 +18,7 @@ import gradeDashboardReducer from "./grade-dashboard-reducer";
 import testReducer from "./test-reducers";
 import logworkReducer from "./logwork-reducers";
 import homeworkReducer from "./homework-reducers";
+import recordOfWorkReducer from "./record-of-work-reducer"
 
 const reducers = {
   postStore: postsReducer,
@@ -35,7 +36,8 @@ const reducers = {
   gradeDashboardReducer:gradeDashboardReducer,
   testReducer:testReducer,
   logworkReducer:logworkReducer,
-  homeworkReducer:homeworkReducer
+  homeworkReducer:homeworkReducer,
+  recordOfWorkReducer:recordOfWorkReducer
 }
 
 const rootReducer = combineReducers(reducers);

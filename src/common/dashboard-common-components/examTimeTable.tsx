@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "left",
       paddingLeft: 20,
       fontSize: 12,
-      color: "#9C9BA4"
+      color: "#9C9BA4",
     },
     date: {
       flex:3

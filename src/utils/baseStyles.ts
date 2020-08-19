@@ -19,7 +19,6 @@ export const Theme = createMuiTheme({
         backgroundColor: '#FAFAFA'
       }
     },
-
     MuiPaper: {
       elevation4: {
         boxShadow: "0px 7px 4px -1px rgba(0,0,0,0.08)"

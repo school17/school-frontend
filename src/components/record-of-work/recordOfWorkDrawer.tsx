@@ -18,7 +18,8 @@ interface Props {
   setAddRecordOfWorkDrawer:any,
   addRecordOfWork:any,
   work:any,
-  constructAndSaveRecordOfWork:any
+  constructAndSaveRecordOfWork:any,
+  setWork:any
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-function RecordOfWorkDrawer({week, month, setAddRecordOfWorkDrawer, addRecordOfWork, work, constructAndSaveRecordOfWork}: Props): ReactElement {
+function RecordOfWorkDrawer({week, month, setAddRecordOfWorkDrawer, addRecordOfWork, work, constructAndSaveRecordOfWork, setWork}: Props): ReactElement {
   const drawerClass = useDrawerStyles();
   const classes = useStyles();
   const formStyles = formUseStyles();
@@ -67,6 +68,8 @@ function RecordOfWorkDrawer({week, month, setAddRecordOfWorkDrawer, addRecordOfW
       addRecordOfWork(month, week, values);
       setAddRecordOfWorkDrawer(false);
       constructAndSaveRecordOfWork();
+      formik.resetForm();
+      setWork("");
     }
   });
   return (
@@ -112,7 +115,7 @@ function RecordOfWorkDrawer({week, month, setAddRecordOfWorkDrawer, addRecordOfW
                 <Button
                   variant="contained"
                   color="default"
-                  onClick = {()=>{setAddRecordOfWorkDrawer(false)}}
+                  onClick = {()=>{setAddRecordOfWorkDrawer(false); formik.resetForm(); setWork("")}}
                   className ={drawerClass.customButton}
                 >
                   Cancel 

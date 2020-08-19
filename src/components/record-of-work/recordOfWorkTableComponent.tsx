@@ -170,7 +170,7 @@ function RecordOfWorkTableComponent({setMonths, months, saveRecordOfWork, setSav
         anchor= 'right' 
         elevation = {20}
        >
-         <RecordOfWorkDrawer week={drawerWeek} month={drawerMonth} setAddRecordOfWorkDrawer={setAddRecordOfWorkDrawer} addRecordOfWork={addRecordOfWork} work={work} constructAndSaveRecordOfWork={constructAndSaveRecordOfWork}></RecordOfWorkDrawer>
+         <RecordOfWorkDrawer week={drawerWeek} month={drawerMonth} setAddRecordOfWorkDrawer={setAddRecordOfWorkDrawer} addRecordOfWork={addRecordOfWork} work={work} constructAndSaveRecordOfWork={constructAndSaveRecordOfWork} setWork={setWork}></RecordOfWorkDrawer>
        </Drawer>
        </ThemeProvider>
     </div>
